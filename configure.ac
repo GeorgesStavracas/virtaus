@@ -94,6 +94,7 @@ AC_CONFIG_FILES([
     Makefile
     virtaus-core-1.0.pc
     data/Makefile
+    data/icons/Makefile
     data/apps.virtaus.gschema.xml.in
     src/Makefile
     libvirtaus/Makefile

@@ -1,3 +1,4 @@
+SUBDIRS = icons
 NULL =
 
 virtausappdir = $(datadir)/applications
@@ -11,11 +12,6 @@ $(virtausapp_in_files): $(virtausapp_in_files:.desktop.in=.desktop.in.in)
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = virtaus.appdata.xml
-
-icondir = $(datadir)/icons
-icon_DATA = \
-    icons/icon.png \
-    icons/icon.svg
 
 gsettingsschema_in_files = apps.virtaus.gschema.xml.in
 gsettings_SCHEMAS = $(gsettingsschema_in_files:.xml.in=.xml)
