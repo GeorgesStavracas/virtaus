@@ -75,7 +75,7 @@ public class Virtaus.Application : Gtk.Application
 
 		quit_action.activate.connect (()=>
 		{
-		  Gtk.main_quit();
+		  this.window.destroy ();
 	  });
 	}
 	
