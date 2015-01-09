@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/apps/virtaus/">
-    <file>resources/noise.png</file>
-    <file>resources/icon.png</file>
     <file compressed="true">resources/style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/category.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/collections.ui</file>
