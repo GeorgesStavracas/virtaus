@@ -4,9 +4,9 @@
   <menu id="appmenu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_New collection</attribute>
-        <attribute name="action">win.new</attribute>
-        <attribute name="accel">&lt;Primary&gt;n</attribute>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">win.preferences</attribute>
+        <attribute name="accel">&lt;Primary&gt;e</attribute>
       </item>
     </section>
     <section>
