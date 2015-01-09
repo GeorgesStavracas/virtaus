@@ -19,9 +19,4 @@
       <placeholder/>
     </child>
   </template>
-  <object class="GtkFileFilter" id="filefilter1">
-    <mime-types>
-      <mime-type>image/*</mime-type>
-    </mime-types>
-  </object>
 </interface>
