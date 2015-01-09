@@ -30,8 +30,34 @@ public enum WindowMode
 [GtkTemplate (ui = "/apps/virtaus/resources/window.ui")]
 public class Window : Gtk.ApplicationWindow
 {
-  public Window (Virtaus.Application app) {
+  public Window (Virtaus.Application app)
+  {
   	Object(application: app);
+
+  	/* create the actions used by this window */
+  	create_actions ();
+  }
+
+
+  private void create_actions ()
+  {
+    SimpleAction about, preferences;
+
+    about = new SimpleAction ("about", null);
+    preferences = new SimpleAction ("preferences", null);
+
+    this.add_action (about);
+    this.add_action (preferences);
+
+    preferences.activate.connect (()=>
+    {
+      on_preferences_activate ();
+    });
+
+    about.activate.connect (()=>
+    {
+      on_about_activate ();
+    });
   }
 
   /* Show preferences dialog */
