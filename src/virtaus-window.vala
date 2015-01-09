@@ -32,8 +32,13 @@ public class Window : Gtk.ApplicationWindow
 {
   [GtkChild]
   private Gtk.Stack views_stack;
+  [GtkChild]
+  private Gtk.HeaderBar headerbar;
+  [GtkChild]
+  private Gtk.ActionBar actionbar;
 
   private Gee.HashMap<string, Virtaus.View.AbstractView> views;
+  private Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> registered_widgets;
 
   public Window (Virtaus.Application app)
   {
@@ -43,6 +48,8 @@ public class Window : Gtk.ApplicationWindow
     create_actions ();
 
     create_views (app);
+
+    registered_widgets = new Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> ();
   }
 
   private void create_actions ()
@@ -75,9 +82,36 @@ public class Window : Gtk.ApplicationWindow
 
     /* collection view */
     view = new Virtaus.View.CollectionView (app);
+    view.register_widget.connect (register_widget);
 
     views.set ("collections", view);
     views_stack.add_named (view as Gtk.Widget, "collections");
+  }
+
+  private void register_widget (Virtaus.Core.InterfaceLocation location, Gtk.Widget widget,
+                                Gtk.Align halign, Gtk.Align valign)
+  {
+    switch (location)
+    {
+      case Virtaus.Core.InterfaceLocation.HEADERBAR:
+        if (halign == Gtk.Align.START)
+          headerbar.pack_start (widget);
+        else if (halign == Gtk.Align.END)
+          headerbar.pack_end (widget);
+        break;
+
+      case Virtaus.Core.InterfaceLocation.ACTIONBAR:
+        if (halign == Gtk.Align.START)
+          actionbar.pack_start (widget);
+        else if (halign == Gtk.Align.CENTER)
+          actionbar.set_center_widget (widget);
+        else if (halign == Gtk.Align.END)
+          actionbar.pack_end (widget);
+        break;
+    }
+
+    registered_widgets.set (widget, location);
+    widget.show ();
   }
 
   /* Show preferences dialog */
@@ -87,8 +121,7 @@ public class Window : Gtk.ApplicationWindow
 
 		dialog = new Virtaus.PreferencesDialog ();
 
-		dialog.transient_for = this;
-	  dialog.modal = true;
+		dialog.set_transient_for (this);
 	  dialog.destroy_with_parent = true;
 
 		dialog.present ();
