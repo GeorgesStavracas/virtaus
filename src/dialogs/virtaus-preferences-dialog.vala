@@ -25,9 +25,9 @@ public class Virtaus.PreferencesDialog : Gtk.Dialog
 
   public PreferencesDialog ()
   {
-		/* Setup dialog headerbar */
-			this.set_titlebar (headerbar);
+    /* Setup dialog headerbar */
+    this.set_titlebar (headerbar);
 
-		this.show_all ();
+    this.show_all ();
   }
 }
