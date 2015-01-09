@@ -36,12 +36,9 @@ public enum DataType
  */
 public enum InterfaceLocation
 {
-  HEADERBAR_START,
-  HEADERBAR_END,
-  VIEW_TOP,
-  VIEW_START,
-  VIEW_END,
-  VIEW_BOTTOM;
+  ACTIONBAR,
+  HEADERBAR,
+  VIEW;
 }
 
 public enum PluginType
