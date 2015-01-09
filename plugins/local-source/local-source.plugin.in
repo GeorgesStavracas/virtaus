@@ -1,0 +1,9 @@
+[Plugin]
+Version = @VERSION@
+Module = local_source
+Name = Local source
+Loader = C
+License = LGPL
+Description = Store and fetch data from a local database.
+Authors = Georges Basile Stavracas Neto
+Copyright = Copyleft © Virtaus maintainers

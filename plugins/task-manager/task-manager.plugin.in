@@ -1,0 +1,7 @@
+[Plugin]
+Version = @VERSION@
+Module = task-manager
+Name = Task Manager
+License = LGPL
+Description = A task manager for MyStudies
+Copyright = Copyright © MyStudies maintainers

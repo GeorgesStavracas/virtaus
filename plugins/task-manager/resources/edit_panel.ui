@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <!-- interface-requires gtk+ 3.10 -->
+    <template class="MyStudiesPluginsTaskManagerEditPanel" parent="GtkFrame">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        
+        <style>
+            <class name="edit-panel" />
+        </style>
+        
+        <child>
+            <object class="GtkGrid" id="right-box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="width_request">325</property>
+                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
+                <property name="margin">10</property>
+                <property name="margin_top">30</property>
+                <property name="row_spacing">20</property>
+                <property name="column_spacing">10</property>
+                
+                <!-- Name -->
+                <child>
+                    <object class="GtkEntry" id="name_entry">
+                        <property name="placeholder_text" translatable="yes">Type the task's name...</property>
+                        <property name="editable">True</property>
+                        <property name="hexpand">True</property>
+                    </object>
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">3</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                
+                <!-- Discipline -->
+                <child>
+                    <object class="GtkComboBoxText" id="disciplines">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="height_request">35</property>
+                        <property name="hexpand">True</property>
+                    </object>
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">3</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                
+                <!-- Date -->
+                <child>
+                    <object class="GtkSpinButton" id="day_spin">
+                        <property name="visible">True</property>
+                        <property name="numeric">True</property>
+                        <property name="climb_rate">1.0</property>
+                        <property name="digits">0</property>
+                    </object>
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                <child>
+                    <object class="GtkSpinButton" id="month_spin">
+                        <property name="visible">True</property>
+                        <property name="numeric">True</property>
+                        <property name="climb_rate">1.0</property>
+                        <property name="digits">0</property>
+                    </object>
+                    <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                <child>
+                    <object class="GtkSpinButton" id="year_spin">
+                        <property name="visible">True</property>
+                        <property name="numeric">True</property>
+                        <property name="climb_rate">1.0</property>
+                        <property name="digits">0</property>
+                    </object>
+                    <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                
+                <!-- Description -->
+                <child>
+                    <object class="GtkFrame" id="description-frame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        
+                        <style>
+                            <class name="description-frame" />
+                        </style>
+                        
+                        
+                        <child>
+                            <object class="GtkScrolledWindow" id="scroll0">
+                                <property name="visible">True</property>
+                                <property name="hscrollbar_policy">never</property>
+                                <property name="hexpand">True</property>
+                                <property name="height_request">220</property>
+                                
+                                <child>
+                                    <object class="GtkTextView" id="description_text">
+                                        <property name="accepts_tab">True</property>
+                                        <property name="cursor_visible">True</property>
+                                        <property name="editable">True</property>
+                                        <property name="wrap_mode">word-char</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="height_request">220</property>
+                                        
+                                        <style>
+                                            <class name="edit-panel-description" />
+                                        </style>
+                                    </object>
+                                </child>
+                                
+                            </object>
+                        </child>
+                        
+                    </object>
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">3</property>
+                        <property name="width">3</property>
+                        <property name="height">3</property>
+                    </packing>
+                </child>
+                
+                <!-- Tags -->
+                <child>
+                    <object class="GtkScrolledWindow" id="scroll">
+                        <property name="visible">True</property>
+                        <property name="hscrollbar_policy">never</property>
+                        
+                        <child>
+                            <object class="GtkFrame" id="tags-frame">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label_xalign">0</property>
+                                
+                                <child>
+                                    <object class="GtkListBox" id="tags">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="vexpand">True</property>
+                                        <property name="selection_mode">none</property>
+                                    </object>
+                                </child>
+                                
+                            </object>
+                        </child>
+                        
+                    </object>
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">6</property>
+                        <property name="width">3</property>
+                        <property name="height">2</property>
+                    </packing>
+                </child>
+                
+                <child>
+                    <object class="GtkButton" id="delete_task_btn">
+                        <property name="width_request">100</property>
+                        <property name="height_request">40</property>
+                        <property name="label" translatable="yes">Remove</property>
+                        
+                        <style>
+                            <class name="delete-button" />
+                            <class name="" />
+                        </style>
+                        
+                    </object>
+                    
+                    <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">9</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                </child>
+                
+                <child>
+                    <object class="GtkButton" id="finish_task_btn">
+                        <property name="width_request">100</property>
+                        <property name="height_request">40</property>
+                        <property name="label" translatable="yes">Save</property>
+                        
+                        
+                    </object>
+                    <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">9</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                    </packing>
+                    
+                </child>
+                    
+                
+            </object>
+        </child>
+        
+    </template>
+</interface>

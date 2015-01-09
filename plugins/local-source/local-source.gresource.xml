@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/apps/virtaus/local_source">
+    <file>sql/schema.sql</file>
+  </gresource>
+</gresources>
+

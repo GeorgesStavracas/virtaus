@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <!-- interface-requires gtk+ 3.10 -->
+    <template class="MyStudiesPluginsTaskManagerTaskRow" parent="GtkListBoxRow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        
+        <style>
+            <class name="task-row" />
+            <class name="row-separator" />
+        </style>
+        
+        <child>
+            <object class="GtkBox" id="main-box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="margin">7</property>
+                <property name="spacing">10</property>
+                
+                
+                <child>
+                    <object class="GtkCheckButton" id="check">
+                    </object>
+                </child>
+                
+                <child>
+                    <object class="GtkLabel" id="task_label">
+                            <style>
+                            <class name="task-row-label" />
+                        </style>
+                    </object>
+                </child>
+                
+                <child>
+                    <object class="GtkBox" id="filler0">
+                        <property name="visible">False</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="hexpand">True</property>
+                    </object>
+                </child>
+                
+                <child>
+                    <object class="GtkLabel" id="date_label">
+                        <style>
+                            <class name="task-row-date" />
+                        </style>
+                    </object>
+                </child>
+                
+                <child>
+                    <object class="GtkImage" id="calendar_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon-name">x-office-calendar-symbolic</property>
+                        <property name="icon-size">1</property>
+                    </object>
+                </child>
+                
+            </object>
+        </child>
+        
+    </template>
+</interface>

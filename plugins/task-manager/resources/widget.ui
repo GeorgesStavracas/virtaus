@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <!-- interface-requires gtk+ 3.10 -->
+    <template class="MyStudiesPluginsTaskManagerWidget" parent="GtkFrame">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
+        <property name="vexpand">True</property>
+        <property name="hexpand">True</property>
+        
+        <style>
+            <class name="main-view" />
+        </style>
+        
+        <child>
+            <object class="GtkOverlay" id="main-overlay">    
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                
+                
+                
+                <child>
+                    <object class="GtkFrame" id="main-frame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label_xalign">0</property>
+                        <property name="shadow_type">none</property>
+                        
+                        <style>
+                            <class name="lists-frame" />
+                        </style>
+                        
+                        <child>
+                            <object class="GtkBox" id="content_box">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="vexpand">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="orientation">horizontal</property>
+                                <property name="spacing">1</property>
+                                
+                                <style>
+                                    <class name="content-box" />
+                                </style>
+                                
+                                <!-- Lists' listbox -->
+                                <child>
+                                    <object class="GtkScrolledWindow" id="scroll0">
+                                        <property name="visible">True</property>
+                                        <property name="hscrollbar_policy">never</property>
+                                        
+                                        <child>
+                                            <object class="GtkListBox" id="lists">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="hexpand">False</property>
+                                                <property name="selection_mode">browse</property>
+                                                
+                                                <style>
+                                                    <class name="lists-list" />
+                                                </style>
+                                                
+                                            </object> 
+                                        </child>
+                                    </object>
+                                </child>
+                                
+                                <!-- Tasks' listbox -->
+                                <child>
+                                    <object class="GtkScrolledWindow" id="scroll1">
+                                        <property name="visible">True</property>
+                                        <property name="hscrollbar_policy">never</property>
+                                        
+                                        <child>
+                                            <object class="GtkListBox" id="tasks_list">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="selection_mode">browse</property>
+                                                
+                                                <style>
+                                                    <class name="tasks-list" />
+                                                </style>
+                                            </object>
+                                        </child>
+                                        
+                                    </object>
+                                </child>
+                                
+                            </object>
+                        </child>
+                        
+                    </object>
+                </child>
+                
+                <child type="overlay">
+                    <object class="GtkBox" id="overlay-box">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">False</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="halign">end</property>
+                        <property name="spacing">4</property>
+                        
+                        <child>
+                            <object class="GtkBox" id="button-box0">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                
+                                <child>
+                                    <object class="GtkBox" id="filler0">
+                                        <property name="visible">False</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="vexpand">True</property>
+                                    </object>
+                                </child>
+                                
+                                <child>
+                                    <object class="GtkButton" id="reveal_button">
+                                        <property name="visible">False</property>
+                                        <property name="vexpand">False</property>
+                                        <property name="hexpand">False</property>
+                                        
+                                        <style>
+                                            <class name="image-button"/>
+                                            <class name="osd"/>
+                                        </style>
+                                        
+                                        <child>
+                                            <object class="GtkImage" id="reveal_button_img">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="icon-name">go-previous-symbolic</property>
+                                                <property name="icon-size">1</property>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                                
+                                <child>
+                                    <object class="GtkBox" id="filler1">
+                                        <property name="visible">False</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="vexpand">True</property>
+                                    </object>
+                                </child>
+                            </object>
+                        </child>
+                        
+                        <child>
+                            <object class="GtkRevealer" id="revealer">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="transition_type">slide-left</property>
+                                
+                                
+                            </object>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

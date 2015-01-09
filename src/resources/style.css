@@ -1,0 +1,26 @@
+.background {
+    background-image: url("noise.png");
+}
+
+.right_border {
+    border-left: 0px;
+    border-bottom: 0px;
+    border-top: 0px;
+    border-right: 1px;
+}
+
+.stack_child {
+    border: @borders 0px solid;
+}
+
+.collection_icon GtkFrame {
+    border: @borders 1px solid;
+    border-radius: 6px;
+}
+
+.collection_icon > GtkFrame {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+    opacity: 0.8;
+    border-radius: 5px;
+}

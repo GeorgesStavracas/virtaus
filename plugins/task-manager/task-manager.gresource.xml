@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/apps/mystudies/tasks">
+    <file>resources/style.css</file>
+    <file preprocess="xml-stripblanks">resources/widget.ui</file>
+    <file preprocess="xml-stripblanks">resources/edit_panel.ui</file>
+    <file preprocess="xml-stripblanks">resources/list_row.ui</file>
+    <file preprocess="xml-stripblanks">resources/task_row.ui</file>
+    <file preprocess="xml-stripblanks">resources/new_task_dialog.ui</file>
+  </gresource>
+</gresources>

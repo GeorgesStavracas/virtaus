@@ -1,0 +1,13 @@
+[Desktop Entry]
+_Name=Virtaus
+_GenericName=Virtaus
+_X-GNOME-FullName=Virtaus
+_Comment=Creativity manager for GNOME
+_Keywords=creativity;manager;metodology;
+Exec=virtaus
+Icon=virtaus
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;
+StartupNotify=true
+X-GNOME-UsesNotifications=true

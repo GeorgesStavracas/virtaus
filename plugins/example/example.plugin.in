@@ -1,0 +1,9 @@
+[Plugin]
+Version = @VERSION@
+Module = example
+Name = Example Plugin
+Loader = C
+License = LGPL
+Description = Example plugin
+Authors = Georges Basile Stavracas Neto
+Copyright = Copyleft © Virtaus maintainers

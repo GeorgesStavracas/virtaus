@@ -1,0 +1,80 @@
+.main-view {
+    background-color: #BBB;
+}
+
+.edit-panel {
+    background-color: #F9F9F9;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+.row-label {
+    font-size: 11px;
+}
+
+.row-separator {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #d3d7cf;
+}
+
+.row-number {
+    color: #BBB;
+    font-size: 9px;
+}
+
+.task-row {
+    background-color: #F9F9FC;
+}
+.task-row:hover {
+    background-color: #EDEDF3;
+}
+
+.task-row:active {
+    background-color: #EEE;
+}
+
+.task-row:prelight {
+    background-color: #CCC;
+}
+
+.task-row:selected {
+    background-color: #667;
+}
+
+.task-row-date {
+    color: #ADADAD;
+}
+
+.description-frame {
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+.lists-frame {
+    background-color: #BBB;
+    border-right-width: 1px;
+}
+
+.tasks-list {
+    background-color: #E3E3E8;
+}
+
+.delete-button {
+    background-color:#F22;
+    background:#F22;
+    color: white;
+}
+
+.new-task-dialog {
+    background-image: none;
+    background-color: @theme_bg_color;
+}
+
+.new-task-grid {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
