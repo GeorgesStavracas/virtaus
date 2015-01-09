@@ -38,20 +38,28 @@ public class Virtaus.Application : Gtk.Application
 	
 	protected override void startup()
 	{
+	  Gtk.CssProvider provider;
+
 		base.startup();
 
-		var provider = new Gtk.CssProvider ();
+		provider = new Gtk.CssProvider ();
 
 		try
 		{
-			//var file = File.new_for_uri("resource:///apps/virtaus/ui/style.css");
-			var file = File.new_for_path("/mnt/Data/Projetos/Faculdade/IC/Aplicativo/src/resources/style.css");
+		  GLib.File file;
+		  Gtk.Builder builder;
+
+			file = File.new_for_uri("resource:///apps/virtaus/resources/style.css");
 
 	    // apply css to the screen
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default(), 
 																							  provider,
 	                                              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 	    provider.load_from_file(file);
+
+	    /* load appmenu from menu file */
+	    builder = new Gtk.Builder.from_resource ("/apps/virtaus/resources/menu.ui");
+	    this.app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
 		}
 
 		catch (Error e)
@@ -62,20 +70,11 @@ public class Virtaus.Application : Gtk.Application
 		// Load plugins from disk
 		load_plugins();
 
-		var menu = new GLib.Menu ();
-		menu.append (_("About"), "win.about");
-		menu.append (_("Quit"), "app.quit");
-
-		var tmp = new GLib.Menu();
-		tmp.append(_("Preferences"), "win.preferences");
-		tmp.append_section(null, menu);
-
-		this.app_menu = tmp;
-
 		var quit_action = new SimpleAction ("quit", null);
 		this.add_action (quit_action);
 
-		quit_action.activate.connect (()=>{
+		quit_action.activate.connect (()=>
+		{
 		  Gtk.main_quit();
 	  });
 	}
