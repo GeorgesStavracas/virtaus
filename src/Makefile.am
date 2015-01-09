@@ -60,9 +60,9 @@ EXTRA_DIST= \
     virtaus.gresource.xml
 
 MAINTAINERCLEANFILES = \
-	*.stamp	\
-	$(VALA_SOURCES:.vala=.c) \
-	$(BUILT_SOURCES)
+    *.stamp	\
+    $(VALA_SOURCES:.vala=.c) \
+    $(BUILT_SOURCES)
     
 
 # Remove ui directory on uninstall
