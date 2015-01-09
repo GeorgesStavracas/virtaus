@@ -24,13 +24,6 @@ public interface AbstractView : GLib.Object
 {
 	public signal void register_widget (Virtaus.Core.InterfaceLocation location, Gtk.Widget? widget);
 	public signal void register_menu (GLib.Menu? menu);
-
-	public abstract string get_name ();
-  public abstract string get_title ();
-  public abstract string? get_subtitle ();
-
-  public abstract void activated ();
-  public abstract void deactivated ();
 }
 
 }
