@@ -30,14 +30,20 @@ public enum WindowMode
 [GtkTemplate (ui = "/apps/virtaus/resources/window.ui")]
 public class Window : Gtk.ApplicationWindow
 {
+  [GtkChild]
+  private Gtk.Stack views_stack;
+
+  private Gee.HashMap<string, Virtaus.View.AbstractView> views;
+
   public Window (Virtaus.Application app)
   {
-  	Object(application: app);
+    Object(application: app);
 
-  	/* create the actions used by this window */
-  	create_actions ();
+    /* create the actions used by this window */
+    create_actions ();
+
+    create_views (app);
   }
-
 
   private void create_actions ()
   {
@@ -58,6 +64,20 @@ public class Window : Gtk.ApplicationWindow
     {
       on_about_activate ();
     });
+  }
+
+  private void create_views (Virtaus.Application app)
+  {
+    Virtaus.View.AbstractView view;
+
+    /* map of the views */
+    views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
+
+    /* collection view */
+    view = new Virtaus.View.CollectionView (app);
+
+    views.set ("collections", view);
+    views_stack.add_named (view as Gtk.Widget, "collections");
   }
 
   /* Show preferences dialog */
