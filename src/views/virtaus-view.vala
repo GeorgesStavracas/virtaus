@@ -22,8 +22,10 @@ namespace Virtaus.View
 
 public interface AbstractView : GLib.Object
 {
-	public signal void register_widget (Virtaus.Core.InterfaceLocation location, Gtk.Widget? widget);
-	public signal void register_menu (GLib.Menu? menu);
+	public signal void register_widget (Virtaus.Core.InterfaceLocation location,
+	                                    Gtk.Widget                     widget,
+	                                    Gtk.Align                      halign,
+	                                    Gtk.Align                      valign);
 }
 
 }
