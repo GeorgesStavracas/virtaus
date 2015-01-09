@@ -100,22 +100,12 @@ public class Window : Gtk.ApplicationWindow
 
 	  dialog.program_name = _("Virtaus");
 	  dialog.comments = _("Manage your creativity, the modular way.");
-	  dialog.copyright = _("Copyright \xc2\xa9 2012-2014 The Virtaus Project authors\n");
+	  dialog.copyright = _("Copyright \xc2\xa9 2012-2015 The Virtaus Project authors\n");
 	  dialog.version = "0.0.1";
 	  dialog.license_type = Gtk.License.GPL_3_0;
 	  dialog.wrap_license = true;
-	  dialog.website = "https://github.com/GeorgesStavracas/Virtaus";
+	  dialog.website = "https://github.com/GeorgesStavracas/virtaus";
 	  dialog.website_label = _("Virtaus website");
-
-		try
-		{
-			dialog.logo = new Gdk.Pixbuf.from_resource("/apps/virtaus/resources/icon.png");
-		}
-		catch (GLib.Error e)
-		{
-			dialog.logo = null;
-		}
-
 	  dialog.transient_for = this;
 	  dialog.modal = true;
 	  dialog.destroy_with_parent = true;
