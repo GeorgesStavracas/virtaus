@@ -25,9 +25,26 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
+  private Gtk.Button cancel_button;
+  private Gtk.Button back_button;
+  private Gtk.Button continue_button;
+  private Gtk.Box button_box;
+
   public CollectionCreatorView (Virtaus.Application app)
   {
     this.app = app;
+
+    /* buttons */
+    this.cancel_button = new Gtk.Button.with_label (_("Cancel"));
+
+    this.button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+    this.back_button = new Gtk.Button.with_label (_("Back"));
+    this.continue_button = new Gtk.Button.with_label (_("Continue"));
+    this.continue_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+    this.button_box.add (this.back_button);
+    this.button_box.add (this.continue_button);
+    this.button_box.show_all ();
 
     this.show_all ();
   }
@@ -39,6 +56,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   public void activate ()
   {
+    register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.cancel_button, Gtk.Align.START, Gtk.Align.START);
+    register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.button_box, Gtk.Align.END, Gtk.Align.START);
   }
 }
 }
