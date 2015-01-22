@@ -33,10 +33,10 @@ public interface DataSource : GLib.Object
 	public abstract string get_name ();
   public abstract string get_source_name ();
 
-	public abstract void create_collection (Virtaus.Core.Collection collection);
   public abstract Gee.LinkedList<Collection> get_collections ();
-  public abstract void update_collection (Virtaus.Core.Collection collection);
-  public abstract void save_collections (Gee.LinkedList<Collection> collections);
+
+  public abstract bool save (BaseObject object);
+  public abstract bool remove (BaseObject object);
 }
 
 }

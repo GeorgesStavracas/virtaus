@@ -200,8 +200,8 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.
 
 	/* TODO: implement the methods above */
   public Gee.LinkedList<Virtaus.Core.Collection> get_collections () {return null;}
-  public void update_collection (Virtaus.Core.Collection collection) {}
-  public void save_collections (Gee.LinkedList<Virtaus.Core.Collection> collections) {}
+  public bool save (Virtaus.Core.BaseObject object) {return false;}
+  public bool remove (Virtaus.Core.BaseObject object) {return false;}
 }
 
 }
