@@ -89,7 +89,9 @@ public class Window : Gtk.ApplicationWindow
     /* Clear the widget list */
     registered_widgets.clear ();
 
-    registered_widgets = new Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> ();
+    /* Activate the new visible view */
+    if (views_stack.visible_child != null)
+      (views_stack.visible_child as View.AbstractView).activate ();
   }
 
   private void create_actions ()
@@ -162,6 +164,12 @@ public class Window : Gtk.ApplicationWindow
 
     registered_widgets.set (widget, location);
     widget.show ();
+  }
+
+  private void show_stack_child (string view_name)
+  {
+    /* FIXME: improve this code */
+    views_stack.visible_child = views.get (view_name) as Gtk.Widget;
   }
 
   /* Show preferences dialog */
