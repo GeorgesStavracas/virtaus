@@ -33,6 +33,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     /* create collection button */
     this.create_button = new Gtk.Button.with_label ("New collection");
     this.create_button.get_style_context ().add_class ("suggested-action");
+    this.create_button.clicked.connect (create_collection_clicked_cb);
 
     this.show_all ();
   }
@@ -45,6 +46,11 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   public void activate ()
   {
     register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
+  }
+
+  private void create_collection_clicked_cb ()
+  {
+    show_view ("collection-creator");
   }
 }
 }
