@@ -47,6 +47,7 @@ public class Window : Gtk.ApplicationWindow
     /* create the actions used by this window */
     create_actions ();
 
+    /* create each view used by the app */
     create_views (app);
   }
 
