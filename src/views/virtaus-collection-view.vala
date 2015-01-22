@@ -20,8 +20,20 @@
 namespace Virtaus.View
 {
 
-public class CollectionView : Gtk.Frame
+public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 {
+  private Virtaus.Application app;
 
+  public CollectionView (Virtaus.Application app)
+  {
+    this.app = app;
+
+    this.show_all ();
+  }
+
+  public void search (string? query)
+  {
+    /* TODO: implement search */
+  }
 }
 }
