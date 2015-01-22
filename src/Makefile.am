@@ -26,6 +26,7 @@ VALA_SOURCES = \
     \
     views/virtaus-view.vala \
     views/virtaus-category-view.vala \
+    views/virtaus-collection-creator-view.vala \
     views/virtaus-collection-view.vala \
     \
     virtaus-window.vala \
