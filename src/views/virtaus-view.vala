@@ -30,6 +30,8 @@ public interface AbstractView : GLib.Object
   public signal void show             (string                        view_name);
 
   public abstract void search         (string?                       query);
+
+  public abstract void activate       ();
 }
 
 }
