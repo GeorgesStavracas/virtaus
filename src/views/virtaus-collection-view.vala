@@ -24,9 +24,15 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
+  private Gtk.Button create_button;
+
   public CollectionView (Virtaus.Application app)
   {
     this.app = app;
+
+    /* create collection button */
+    this.create_button = new Gtk.Button.with_label ("New collection");
+    this.create_button.get_style_context ().add_class ("suggested-action");
 
     this.show_all ();
   }
@@ -34,6 +40,11 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   public void search (string? query)
   {
     /* TODO: implement search */
+  }
+
+  public void activate ()
+  {
+    register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
   }
 }
 }
