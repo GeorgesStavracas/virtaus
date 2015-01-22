@@ -37,8 +37,8 @@ public class Window : Gtk.ApplicationWindow
   [GtkChild]
   private Gtk.ActionBar actionbar;
 
-  private Gee.HashMap<string, Virtaus.View.AbstractView> views;
-  private Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> registered_widgets;
+  private Gee.HashMap<string, Virtaus.View.AbstractView> views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
+  private Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> registered_widgets = new Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> ();
 
   public Window (Virtaus.Application app)
   {
@@ -48,6 +48,46 @@ public class Window : Gtk.ApplicationWindow
     create_actions ();
 
     create_views (app);
+  }
+
+
+  [GtkCallback]
+  private bool key_pressed (Gdk.EventKey event)
+  {
+    message ("key pressed");
+    return false;
+  }
+
+  [GtkCallback]
+  private bool window_state_changed (Gdk.EventWindowState event)
+  {
+    message ("window state");
+    return false;
+  }
+
+  [GtkCallback]
+  private void visible_child_changed ()
+  {
+    /* Remove every previously registered widget */
+    foreach (Gtk.Widget widget in registered_widgets.keys)
+    {
+      Core.InterfaceLocation location;
+      location =  registered_widgets.get (widget);
+
+      switch (location)
+      {
+        case Virtaus.Core.InterfaceLocation.HEADERBAR:
+          headerbar.remove (widget);
+          break;
+
+        case Virtaus.Core.InterfaceLocation.ACTIONBAR:
+          actionbar.remove (widget);
+          break;
+      }
+    }
+
+    /* Clear the widget list */
+    registered_widgets.clear ();
 
     registered_widgets = new Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> ();
   }
@@ -77,15 +117,22 @@ public class Window : Gtk.ApplicationWindow
   {
     Virtaus.View.AbstractView view;
 
-    /* map of the views */
-    views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
-
     /* collection view */
     view = new Virtaus.View.CollectionView (app);
     view.register_widget.connect (register_widget);
+    view.show_view.connect (show_stack_child);
 
     views.set ("collections", view);
     views_stack.add_named (view as Gtk.Widget, "collections");
+    views_stack.visible_child = view as Gtk.Widget;
+
+    /* collection wizard view */
+    view = new Virtaus.View.CollectionCreatorView (app);
+    view.register_widget.connect (register_widget);
+    view.show_view.connect (show_stack_child);
+
+    views.set ("collection-creator", view);
+    views_stack.add_named (view as Gtk.Widget, "collection-creator");
   }
 
   private void register_widget (Virtaus.Core.InterfaceLocation location, Gtk.Widget widget,
