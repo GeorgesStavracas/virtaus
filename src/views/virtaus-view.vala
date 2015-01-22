@@ -27,11 +27,11 @@ public interface AbstractView : GLib.Object
 	                                    Gtk.Align                      halign,
 	                                    Gtk.Align                      valign);
 
-  public signal void show             (string                        view_name);
+  public signal void show_view       (string                        view_name);
 
-  public abstract void search         (string?                       query);
+  public abstract void search        (string?                       query);
 
-  public abstract void activate       ();
+  public abstract void activate      ();
 }
 
 }
