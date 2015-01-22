@@ -107,6 +107,9 @@ public class Window : Gtk.ApplicationWindow
           actionbar.set_center_widget (widget);
         else if (halign == Gtk.Align.END)
           actionbar.pack_end (widget);
+
+        actionbar.show ();
+
         break;
     }
 
