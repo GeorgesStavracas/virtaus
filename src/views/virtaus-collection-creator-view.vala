@@ -25,6 +25,12 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
+  [GtkChild]
+  private Gtk.Stack stack;
+
+  private string[] pages = {"source_selection", "project_info", "additional_info", "review"};
+  private int active_page = 0;
+
   private Gtk.Button cancel_button;
   private Gtk.Button back_button;
   private Gtk.Button continue_button;
@@ -39,8 +45,13 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     this.cancel_button.clicked.connect (cancel_button_clicked_cb);
 
     this.button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+
     this.back_button = new Gtk.Button.with_label (_("Back"));
+    this.back_button.clicked.connect (page_button_clicked_cb);
+    this.back_button.sensitive = false;
+
     this.continue_button = new Gtk.Button.with_label (_("Continue"));
+    this.continue_button.clicked.connect (page_button_clicked_cb);
     this.continue_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
     this.button_box.add (this.back_button);
@@ -57,6 +68,9 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   public void activate ()
   {
+    active_page = 0;
+    update_page ();
+
     register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.cancel_button, Gtk.Align.START, Gtk.Align.START);
     register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.button_box, Gtk.Align.END, Gtk.Align.START);
   }
@@ -64,6 +78,31 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private void cancel_button_clicked_cb ()
   {
     show_view ("collections");
+  }
+
+  private void page_button_clicked_cb (Gtk.Button button)
+  {
+    if (button == this.back_button)
+      active_page--;
+    else
+      active_page++;
+
+    update_page ();
+  }
+
+  private void update_page ()
+  {
+    if (active_page < pages.length)
+    {
+      stack.visible_child_name = pages[active_page];
+      back_button.sensitive = (active_page != 0);
+      continue_button.label = (active_page == pages.length - 1 ? _("Create") : _("Continue"));
+    }
+    else
+    {
+      message ("create collection");
+      active_page--;
+    }
   }
 }
 }
