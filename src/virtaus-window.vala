@@ -76,10 +76,13 @@ public class Window : Gtk.ApplicationWindow
 
       result = active_view.search_bar.handle_event (event);
 
-      active_view.mode = (result ? Virtaus.View.Mode.SEARCH : Virtaus.View.Mode.DEFAULT);
+      if (result)
+        active_view.mode = Virtaus.View.Mode.SEARCH;
 
       return result;
     }
+
+    active_view.mode = Virtaus.View.Mode.DEFAULT;
 
     return false;
   }
