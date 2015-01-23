@@ -34,14 +34,14 @@ public interface AbstractView : GLib.Object
    *
    * Views that can handle search should set this to {@link true}.
    */
-  public abstract bool has_search {get; set; default = false;}
+  public abstract bool has_search {get; default = false;}
 
   /**
    * Whether the view implements {@link Virtaus.View.Mode.SELECTION} mode.
    *
    * Views that can handle selection should set this to {@link true}.
    */
-  public abstract bool has_selection  {get; set; default = false;}
+  public abstract bool has_selection  {get; default = false;}
 
   /**
    * The current view {@link Virtaus.View.Mode}.
