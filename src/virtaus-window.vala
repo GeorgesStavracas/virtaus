@@ -66,7 +66,17 @@ public class Window : Gtk.ApplicationWindow
   [GtkCallback]
   private bool key_pressed (Gdk.EventKey event)
   {
-    message ("key pressed");
+    if (active_view != null && active_view.has_search)
+    {
+      bool result;
+
+      result = active_view.search_bar.handle_event (event);
+
+      active_view.mode = (result ? Virtaus.View.Mode.SEARCH : Virtaus.View.Mode.DEFAULT);
+
+      return result;
+    }
+
     return false;
   }
 
