@@ -20,11 +20,52 @@
 namespace Virtaus.View
 {
 
+[GtkTemplate (ui = "/apps/virtaus/resources/collections.ui")]
 public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
   private Gtk.Button create_button;
+
+  [GtkChild]
+  private Gtk.SearchBar searchbar;
+
+  /**
+   * Enable the search.
+   */
+  public bool has_search
+  {
+    get {return true;}
+  }
+
+  /**
+   * Enable selection mode.
+   */
+  public bool has_selection
+  {
+    get {return true;}
+  }
+
+  /**
+   * {@link Virtaus.View.Mode} implementation.
+   */
+  private Mode _mode = Mode.DEFAULT;
+  public Mode mode
+  {
+    get {return _mode;}
+    set
+    {
+      _mode = value;
+
+      /* TODO: needs a better implementation */
+      searchbar.visible = (value == Mode.SEARCH);
+    }
+  }
+
+  public Gtk.SearchBar? search_bar
+  {
+    get {return this.searchbar;}
+  }
 
   public CollectionView (Virtaus.Application app)
   {
@@ -43,9 +84,14 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     /* TODO: implement search */
   }
 
-  public void activate ()
+  public new void activate ()
   {
     register_widget (Virtaus.WindowLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
+  }
+
+  public void deactivate ()
+  {
+    /* TODO: something to implement here? */
   }
 
   private void create_collection_clicked_cb ()

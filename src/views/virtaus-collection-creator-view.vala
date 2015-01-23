@@ -28,6 +28,36 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkChild]
   private Gtk.Stack stack;
 
+  /**
+   * Disable the search.
+   */
+  public bool has_search
+  {
+    get {return false;}
+  }
+
+  /**
+   * Disable selection mode.
+   */
+  public bool has_selection
+  {
+    get {return false;}
+  }
+
+  public Gtk.SearchBar? search_bar
+  {
+    get {return null;}
+  }
+
+  /**
+   * {@link Virtaus.View.Mode} implementation.
+   */
+  public Mode mode
+  {
+    get {return Mode.DEFAULT;}
+    set {}
+  }
+
   private string[] pages = {"source_selection", "project_info", "additional_info", "review"};
   private int active_page = 0;
 
@@ -66,13 +96,18 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* TODO: implement search */
   }
 
-  public void activate ()
+  public new void activate ()
   {
     active_page = 0;
     update_page ();
 
     register_widget (Virtaus.WindowLocation.HEADERBAR, this.cancel_button, Gtk.Align.START, Gtk.Align.START);
     register_widget (Virtaus.WindowLocation.HEADERBAR, this.button_box, Gtk.Align.END, Gtk.Align.START);
+  }
+
+  public void deactivate ()
+  {
+    /* TODO: something to implement here? */
   }
 
   private void cancel_button_clicked_cb ()
