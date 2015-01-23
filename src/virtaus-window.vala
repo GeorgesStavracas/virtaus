@@ -27,6 +27,16 @@ public enum WindowMode
 	SELECTION;
 }
 
+/**
+ * The window location.
+ */
+public enum WindowLocation
+{
+  ACTIONBAR,
+  HEADERBAR,
+  VIEW;
+}
+
 [GtkTemplate (ui = "/apps/virtaus/resources/window.ui")]
 public class Window : Gtk.ApplicationWindow
 {
@@ -38,7 +48,7 @@ public class Window : Gtk.ApplicationWindow
   private Gtk.ActionBar actionbar;
 
   private Gee.HashMap<string, Virtaus.View.AbstractView> views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
-  private Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> registered_widgets = new Gee.HashMap<Gtk.Widget, Virtaus.Core.InterfaceLocation> ();
+  private Gee.HashMap<Gtk.Widget, WindowLocation> registered_widgets = new Gee.HashMap<Gtk.Widget, WindowLocation> ();
 
   public Window (Virtaus.Application app)
   {
@@ -72,16 +82,16 @@ public class Window : Gtk.ApplicationWindow
     /* Remove every previously registered widget */
     foreach (Gtk.Widget widget in registered_widgets.keys)
     {
-      Core.InterfaceLocation location;
+      WindowLocation location;
       location =  registered_widgets.get (widget);
 
       switch (location)
       {
-        case Virtaus.Core.InterfaceLocation.HEADERBAR:
+        case WindowLocation.HEADERBAR:
           headerbar.remove (widget);
           break;
 
-        case Virtaus.Core.InterfaceLocation.ACTIONBAR:
+        case WindowLocation.ACTIONBAR:
           actionbar.remove (widget);
           break;
       }
@@ -138,19 +148,18 @@ public class Window : Gtk.ApplicationWindow
     views_stack.add_named (view as Gtk.Widget, "collection-creator");
   }
 
-  private void register_widget (Virtaus.Core.InterfaceLocation location, Gtk.Widget widget,
-                                Gtk.Align halign, Gtk.Align valign)
+  private void register_widget (WindowLocation location, Gtk.Widget widget, Gtk.Align halign, Gtk.Align valign)
   {
     switch (location)
     {
-      case Virtaus.Core.InterfaceLocation.HEADERBAR:
+      case WindowLocation.HEADERBAR:
         if (halign == Gtk.Align.START)
           headerbar.pack_start (widget);
         else if (halign == Gtk.Align.END)
           headerbar.pack_end (widget);
         break;
 
-      case Virtaus.Core.InterfaceLocation.ACTIONBAR:
+      case WindowLocation.ACTIONBAR:
         if (halign == Gtk.Align.START)
           actionbar.pack_start (widget);
         else if (halign == Gtk.Align.CENTER)

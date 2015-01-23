@@ -20,8 +20,5 @@
 
 public interface Virtaus.Core.Plugin : GLib.Object
 {
-  public signal void register_widget (Virtaus.Core.InterfaceLocation location,
-                                      Gtk.Widget										 widget);
-
   public abstract void run ();
 }

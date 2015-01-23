@@ -71,8 +71,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     active_page = 0;
     update_page ();
 
-    register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.cancel_button, Gtk.Align.START, Gtk.Align.START);
-    register_widget (Virtaus.Core.InterfaceLocation.HEADERBAR, this.button_box, Gtk.Align.END, Gtk.Align.START);
+    register_widget (Virtaus.WindowLocation.HEADERBAR, this.cancel_button, Gtk.Align.START, Gtk.Align.START);
+    register_widget (Virtaus.WindowLocation.HEADERBAR, this.button_box, Gtk.Align.END, Gtk.Align.START);
   }
 
   private void cancel_button_clicked_cb ()

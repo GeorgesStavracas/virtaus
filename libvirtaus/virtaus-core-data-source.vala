@@ -25,8 +25,6 @@ namespace Virtaus.Core
  */
 public interface DataSource : GLib.Object
 {
-  public signal void register_widget (Virtaus.Core.InterfaceLocation location,
-                                      Gtk.Widget										 widget);
 	public signal void register_source (GLib.Type source);
 	public signal void sync (Virtaus.Core.SyncStatus status);
 

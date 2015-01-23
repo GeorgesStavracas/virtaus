@@ -55,10 +55,10 @@ public interface AbstractView : GLib.Object
   /**
    * Fired when the view wants the window to register a widget.
    */
-	public signal void register_widget (Virtaus.Core.InterfaceLocation location,
-	                                    Gtk.Widget                     widget,
-	                                    Gtk.Align                      halign,
-	                                    Gtk.Align                      valign);
+	public signal void register_widget (Virtaus.WindowLocation location,
+	                                    Gtk.Widget             widget,
+	                                    Gtk.Align              halign,
+	                                    Gtk.Align              valign);
 
   /**
    * Fired when the view wants to change the current view.

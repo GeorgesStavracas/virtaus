@@ -31,16 +31,6 @@ public enum DataType
 	SET;
 }
 
-/**
- * The interface location. This is 
- */
-public enum InterfaceLocation
-{
-  ACTIONBAR,
-  HEADERBAR,
-  VIEW;
-}
-
 public enum PluginType
 {
 	EXPORTER,
