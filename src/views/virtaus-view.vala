@@ -69,7 +69,7 @@ public interface AbstractView : GLib.Object
    * When the window receives keyboard input, is must ask
    * the search bar whether it'll handle that or not.
    */
-  public abstract Gtk.SearchBar get_search_bar ();
+  public abstract Gtk.SearchBar? search_bar {get; default = null;}
 
   /**
    * Called when the view is set as the current active view.
