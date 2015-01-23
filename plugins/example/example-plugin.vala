@@ -23,29 +23,31 @@ internal class Example : Peas.ExtensionBase, Virtaus.Core.Plugin, Peas.Activatab
 {
 	public GLib.Object object { owned get; construct; }
 
+	public Core.PluginManager manager
+	{
+	  set
+	  {
+	    Virtaus.Core.ExtensionInfo info;
+
+		  /* Information about the plugin */
+		  info = new Virtaus.Core.ExtensionInfo ();
+		  info.name = "Example plugin";
+		  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
+		  info.description = "An example plugin";
+		  info.instance = this;
+
+		  value.register_plugin ("example.example@georges", info);
+	  }
+	}
+
 	public Example () { }
 
 	public void activate ()
 	{
-		Virtaus.Core.ExtensionInfo info;
-		Virtaus.Core.PluginManager manager;
-		manager = Virtaus.Core.PluginManager.instance;
-
-		/* Information about the plugin */
-		info = new Virtaus.Core.ExtensionInfo ();
-		info.name = "Example plugin";
-		info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
-		info.description = "An example plugin";
-		info.instance = new Virtaus.Plugin.Example ();
-
-		manager.register_plugin ("example.example@georges", info);
 	}
 
   public void deactivate ()
   {
-		Virtaus.Core.PluginManager manager;
-		manager = Virtaus.Core.PluginManager.instance;
-		manager.unregister_plugin ("example.example@georges");
   }
 
 	public void update_state ()

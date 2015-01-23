@@ -39,6 +39,23 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.
 	 */
 	private Sqlite.Database database;
 
+	public Core.PluginManager manager
+	{
+	  set
+	  {
+	    Virtaus.Core.ExtensionInfo info;
+
+		  /* Information about the plugin */
+		  info = new Virtaus.Core.ExtensionInfo ();
+		  info.name = "Local source";
+		  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
+		  info.description = "Local data source using a SQLite database";
+		  info.instance = new Virtaus.Plugin.SqliteSource ();
+
+		  value.register_data_source ("SqliteSource.local_source@georges", info);
+	  }
+	}
+
 	public SqliteSource ()
 	{
 		GLib.File dir;
@@ -74,27 +91,10 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.
 
 	public void activate ()
 	{
-		Virtaus.Core.ExtensionInfo info;
-		Virtaus.Core.PluginManager manager;
-
-		manager = Virtaus.Core.PluginManager.instance;
-
-		/* Information about the plugin */
-		info = new Virtaus.Core.ExtensionInfo ();
-		info.name = "Local source";
-		info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
-		info.description = "Local data source using a SQLite database";
-		info.instance = new Virtaus.Plugin.SqliteSource ();
-
-		manager.register_data_source ("SqliteSource.local_source@georges", info);
 	}
 
   public void deactivate ()
   {
-		Virtaus.Core.PluginManager manager;
-		manager = Virtaus.Core.PluginManager.instance;
-
-		manager.unregister_data_source ("SqliteSource.local_source@georges");
   }
 
 	public void update_state ()
