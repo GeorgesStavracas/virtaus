@@ -20,18 +20,66 @@
 namespace Virtaus.View
 {
 
+public enum Mode
+{
+  DEFAULT,
+  SEARCH,
+  SELECTION
+}
+
 public interface AbstractView : GLib.Object
 {
+  /**
+   * Whether the view implements {@link Virtaus.View.Mode.SEARCH} mode.
+   *
+   * Views that can handle search should set this to {@link true}.
+   */
+  public abstract bool has_search {get; set; default = false;}
+
+  /**
+   * Whether the view implements {@link Virtaus.View.Mode.SELECTION} mode.
+   *
+   * Views that can handle selection should set this to {@link true}.
+   */
+  public abstract bool has_selection  {get; set; default = false;}
+
+  /**
+   * The current view {@link Virtaus.View.Mode}.
+   *
+   * Views that can handle search should set this to {@link true}.
+   *
+   * @see Virtaus.View.Mode
+   */
+  public abstract Mode mode  {get; set; default = Mode.DEFAULT;}
+
+  /**
+   * Fired when the view wants the window to register a widget.
+   */
 	public signal void register_widget (Virtaus.Core.InterfaceLocation location,
 	                                    Gtk.Widget                     widget,
 	                                    Gtk.Align                      halign,
 	                                    Gtk.Align                      valign);
 
+  /**
+   * Fired when the view wants to change the current view.
+   */
   public signal void show_view       (string                        view_name);
 
-  public abstract void search        (string?                       query);
+  /**
+   * When the window receives keyboard input, is must ask
+   * the search bar whether it'll handle that or not.
+   */
+  public abstract Gtk.SearchBar get_search_bar ();
 
-  public abstract void activate      ();
+  /**
+   * Called when the view is set as the current active view.
+   */
+  public abstract new void activate   ();
+
+  /**
+   * Called when the view is not the active view anymore.
+   */
+  public abstract new void deactivate ();
 }
 
 }
