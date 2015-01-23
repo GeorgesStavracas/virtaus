@@ -49,6 +49,7 @@ public class Window : Gtk.ApplicationWindow
 
   private Gee.HashMap<string, Virtaus.View.AbstractView> views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
   private Gee.HashMap<Gtk.Widget, WindowLocation> registered_widgets = new Gee.HashMap<Gtk.Widget, WindowLocation> ();
+  private View.AbstractView active_view;
 
   public Window (Virtaus.Application app)
   {
@@ -102,7 +103,10 @@ public class Window : Gtk.ApplicationWindow
 
     /* Activate the new visible view */
     if (views_stack.visible_child != null)
-      (views_stack.visible_child as View.AbstractView).activate ();
+    {
+      active_view = views_stack.visible_child as View.AbstractView;
+      active_view.activate ();
+    }
   }
 
   private void create_actions ()
@@ -138,6 +142,9 @@ public class Window : Gtk.ApplicationWindow
     views.set ("collections", view);
     views_stack.add_named (view as Gtk.Widget, "collections");
     views_stack.visible_child = view as Gtk.Widget;
+
+    // Collection view is always the first active view
+    active_view = view;
 
     /* collection wizard view */
     view = new Virtaus.View.CollectionCreatorView (app);
