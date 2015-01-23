@@ -8,6 +8,8 @@
     <property name="can_focus">False</property>
     <property name="icon_name">virtaus</property>
     <property name="show_menubar">False</property>
+    <signal name="key-press-event" handler="key_pressed" object="VirtausWindow" swapped="no"/>
+    <signal name="window-state-event" handler="window_state_changed" object="VirtausWindow" swapped="no"/>
     <child>
       <object class="GtkOverlay" id="overlay">
         <property name="visible">True</property>
@@ -35,6 +37,8 @@
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
+                <property name="transition_type">crossfade</property>
+                <signal name="notify::visible-child" handler="visible_child_changed" object="VirtausWindow" swapped="no"/>
                 <child>
                   <placeholder/>
                 </child>
@@ -70,6 +74,42 @@
           </object>
           <packing>
             <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="search_button">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <child>
+              <object class="GtkImage" id="search_image">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="select_button">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <child>
+              <object class="GtkImage" id="select_image">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">object-select-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

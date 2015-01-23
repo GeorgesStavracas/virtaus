@@ -46,6 +46,10 @@ public class Window : Gtk.ApplicationWindow
   private Gtk.HeaderBar headerbar;
   [GtkChild]
   private Gtk.ActionBar actionbar;
+  [GtkChild]
+  private Gtk.ToggleButton search_button;
+  [GtkChild]
+  private Gtk.ToggleButton select_button;
 
   private Gee.HashMap<string, Virtaus.View.AbstractView> views = new Gee.HashMap<string, Virtaus.View.AbstractView> ();
   private Gee.HashMap<Gtk.Widget, WindowLocation> registered_widgets = new Gee.HashMap<Gtk.Widget, WindowLocation> ();
@@ -115,6 +119,10 @@ public class Window : Gtk.ApplicationWindow
     if (views_stack.visible_child != null)
     {
       active_view = views_stack.visible_child as View.AbstractView;
+
+      search_button.visible = active_view.has_search;
+      select_button.visible = active_view.has_selection;
+
       active_view.activate ();
     }
   }
