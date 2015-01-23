@@ -41,25 +41,12 @@ public class Virtaus.Core.PluginManager : GLib.Object
 	/* Settings */
 	private GLib.Settings settings {public get; private set;}
 
-	/* Singleton section */
-  private static PluginManager instance_ = null;
-	public static PluginManager instance
-	{
-		public get
-		{
-			if (instance_ == null)
-				instance_ = new PluginManager ();
-			return instance_;
-		}
-	}
-
-	private PluginManager ()
+	public PluginManager ()
 	{
 		/* Setup plugin engine */
 		engine = Peas.Engine.get_default ();
 		engine.enable_loader ("python3");
 
-		engine.add_search_path ("/mnt/Data/Projetos/Faculdade/IC/build/plugins", null);
 		engine.add_search_path ("./plugins", null);
 
 		engine.load_plugin.connect_after (on_plugin_loaded);
@@ -96,6 +83,7 @@ public class Virtaus.Core.PluginManager : GLib.Object
 	/* Activate loaded plugins */
 	void on_plugin_loaded (Peas.PluginInfo info)
 	{
+	  Virtaus.Core.ExtensionInfo vinfo;
 		Peas.Extension extension;
 		Peas.Activatable plug;
 
