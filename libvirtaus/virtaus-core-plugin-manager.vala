@@ -49,8 +49,6 @@ public class Virtaus.Core.PluginManager : GLib.Object
 
 		engine.add_search_path ("./plugins", null);
 
-		engine.load_plugin.connect_after (on_plugin_loaded);
-
 		/* Load settings */
 		settings = new GLib.Settings ("apps.virtaus.plugins");
 
@@ -65,8 +63,21 @@ public class Virtaus.Core.PluginManager : GLib.Object
 		/* Setup extension set */
 		extension_set = new Peas.ExtensionSet (engine, typeof (Peas.Activatable), null);
 
-		/* Chain deactivation signal */
+    /* Chain (de)activation signal */
+    extension_set.extension_added.connect (on_extension_added);
 		extension_set.extension_removed.connect (on_extension_removed);
+
+    /**
+     * When the signals are connected, we may already
+     * have some extensions loaded and active. For these
+     * extensions, {@link Peas.ExtensionSet::extension-added}
+     * won't be called. Because of it, we must manually
+     * call on_extension_added on them.
+     */
+    extension_set.foreach ((unused_set, info, extension)=>
+    {
+      on_extension_added (info, extension);
+    });
 	}
 
 	public void reload_plugins ()
@@ -81,23 +92,17 @@ public class Virtaus.Core.PluginManager : GLib.Object
 	}
 
 	/* Activate loaded plugins */
-	void on_plugin_loaded (Peas.PluginInfo info)
+  void on_extension_added (Peas.PluginInfo info, GLib.Object extension)
 	{
-	  Virtaus.Core.ExtensionInfo vinfo;
-		Peas.Extension extension;
-		Peas.Activatable plug;
-
-		extension = engine.create_extension (info, typeof (Peas.Activatable));
-
-		plug = extension as Peas.Activatable;
-		plug.activate ();
+    (extension as Peas.Activatable).activate ();
+    (extension as Virtaus.Core.Plugin).hook (this);
 	}
 
 	/* Deactivate plugin on signal */
 	void on_extension_removed (Peas.PluginInfo info, GLib.Object extension)
 	{
-		var plug = extension as Peas.Activatable;
-		plug.deactivate ();
+    (extension as Peas.Activatable).deactivate ();
+    (extension as Virtaus.Core.Plugin).unhook (this);
 	}
 
 	/* Register & unregister DataSources */
