@@ -19,7 +19,7 @@
 namespace Virtaus.Plugin
 {
 
-internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.Activatable
+internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.Core.DataSource, Peas.Activatable
 {
 	public GLib.Object object { owned get; construct; }
 	/**
@@ -39,26 +39,9 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.
 	 */
 	private Sqlite.Database database;
 
-	public Core.PluginManager manager
-	{
-	  set
-	  {
-	    Virtaus.Core.ExtensionInfo info;
-
-		  /* Information about the plugin */
-		  info = new Virtaus.Core.ExtensionInfo ();
-		  info.name = "Local source";
-		  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
-		  info.description = "Local data source using a SQLite database";
-		  info.instance = new Virtaus.Plugin.SqliteSource ();
-
-		  value.register_data_source ("SqliteSource.local_source@georges", info);
-	  }
-	}
-
-	public SqliteSource ()
-	{
-		GLib.File dir;
+  construct
+  {
+    GLib.File dir;
 		GLib.File file;
 
 		dir = GLib.File.new_for_path (database_path);
@@ -87,19 +70,40 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.DataSource, Peas.
 	  }
 
 		database = null;
+  }
+
+	public void hook (Virtaus.Core.PluginManager manager)
+	{
+    Virtaus.Core.ExtensionInfo info;
+
+	  /* Information about the plugin */
+	  info = new Virtaus.Core.ExtensionInfo ();
+	  info.name = "Local source";
+	  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
+	  info.description = "Local data source using a SQLite database";
+	  info.instance = this;
+
+	  manager.register_data_source ("SqliteSource.local_source@georges", info);
 	}
+
+  public void unhook (Virtaus.Core.PluginManager manager)
+  {
+    manager.unregister_data_source ("SqliteSource.local_source@georges");
+  }
 
 	public void activate ()
 	{
+	  /* FIXME: need something here? */
 	}
 
   public void deactivate ()
   {
+    /* FIXME: need something here? */
   }
 
 	public void update_state ()
 	{
-		message("update state");
+		/* FIXME: need something here? */
 	}
 
 	/**

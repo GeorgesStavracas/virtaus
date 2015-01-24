@@ -23,22 +23,22 @@ internal class Example : Peas.ExtensionBase, Virtaus.Core.Plugin, Peas.Activatab
 {
 	public GLib.Object object { owned get; construct; }
 
-	public Core.PluginManager manager
+
+	public void hook (Virtaus.Core.PluginManager manager)
 	{
-	  set
-	  {
-	    Virtaus.Core.ExtensionInfo info;
+    Virtaus.Core.ExtensionInfo info;
 
-		  /* Information about the plugin */
-		  info = new Virtaus.Core.ExtensionInfo ();
-		  info.name = "Example plugin";
-		  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
-		  info.description = "An example plugin";
-		  info.instance = this;
-
-		  value.register_plugin ("example.example@georges", info);
-	  }
+	  /* Information about the plugin */
+	  info = new Virtaus.Core.ExtensionInfo ();
+	  info.name = "Example plugin";
+	  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
+	  info.description = "An example plugin";
+	  info.instance = this;
 	}
+
+  public void unhook (Virtaus.Core.PluginManager manager)
+  {
+  }
 
 	public Example () { }
 
@@ -54,11 +54,6 @@ internal class Example : Peas.ExtensionBase, Virtaus.Core.Plugin, Peas.Activatab
 	{
 		message("update state");
 	}
-
-  public void run ()
-  {
-		message("running");
-  }
 }
 
 }

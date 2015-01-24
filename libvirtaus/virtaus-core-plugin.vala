@@ -20,5 +20,7 @@
 
 public interface Virtaus.Core.Plugin : GLib.Object
 {
-  public abstract void run ();
+  public abstract void hook (PluginManager manager);
+  public abstract void unhook (PluginManager manager);
+
 }
