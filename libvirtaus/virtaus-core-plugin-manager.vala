@@ -34,9 +34,9 @@ public class Virtaus.Core.PluginManager : GLib.Object
   public Peas.ExtensionSet extension_set {private set; public get;}
 
 	/* Registered extensions */
-  private Gee.HashMap <string, Virtaus.Core.ExtensionInfo> data_sources {public get; private set;}
-  private Gee.HashMap <string, Virtaus.Core.ExtensionInfo> filters {public get; private set;}
-  private Gee.HashMap <string, Virtaus.Core.ExtensionInfo> plugins {public get; private set;}
+  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> data_sources {public get; private set;}
+  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> filters {public get; private set;}
+  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> plugins {public get; private set;}
 
 	/* Settings */
 	private GLib.Settings settings {public get; private set;}
