@@ -97,14 +97,19 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 			}
 		}
 
-		/* Test database file */
+		/**
+		 * Create the database when it doesn't exist,
+		 * open it otherwise.
+		 */
 		if (! file.query_exists () ||
 			  ! (file.query_file_type (0) == GLib.FileType.REGULAR))
 	  {
 			create_database ();
 	  }
-
-		database = null;
+	  else
+	  {
+	    open_database ();
+	  }
   }
 
 	public void hook (Virtaus.Core.PluginManager manager)
@@ -208,7 +213,7 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	{
 		int error_code;
 
-		error_code = Sqlite.Database.open (database_path, out database);
+		error_code = Sqlite.Database.open (database_path + database_file, out database);
 
 		if (error_code != Sqlite.OK)
 		{
@@ -218,21 +223,29 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 		}
 	}
 
-  public void create_collection (Virtaus.Core.Collection collection)
-  {
-		string query;
-
-		query = "INSERT INTO Collection (name, directory) VALUES (%s, %s)";
-		query.printf (collection.name, collection.info["directory"]);
-		stdout.printf (query + "\n");
-  }
-
 	/* TODO: implement the methods above */
   public Gee.LinkedList<Virtaus.Core.Collection>? collections
   {
     get {return null;}
   }
-  public bool save (Virtaus.Core.BaseObject object) {return false;}
+
+  /**
+   * Delegates the operation to the Operation class.
+   */
+  public bool save (Virtaus.Core.BaseObject object)
+  {
+    /* Collection */
+    if (object is Virtaus.Core.Collection)
+    {
+      if (object.id == -1)
+        CollectionOperation.create (database, object as Virtaus.Core.Collection);
+      else
+        CollectionOperation.update (database, object as Virtaus.Core.Collection);
+    }
+
+    return false;
+  }
+
   public bool remove (Virtaus.Core.BaseObject object) {return false;}
 }
 
