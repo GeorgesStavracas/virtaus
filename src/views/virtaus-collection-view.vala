@@ -56,9 +56,6 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     set
     {
       _mode = value;
-
-      /* TODO: needs a better implementation */
-      searchbar.visible = (value == Mode.SEARCH);
     }
   }
 
