@@ -242,6 +242,11 @@ private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.Lo
   {
     owned get {return this.get_current_folder ();}
   }
+
+  public DirectoryLocationSelector ()
+  {
+    Object (title: _("Select a folder"), action: Gtk.FileChooserAction.SELECT_FOLDER);
+  }
 }
 
 }
