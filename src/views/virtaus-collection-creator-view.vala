@@ -31,6 +31,10 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Gtk.Stack stack;
   [GtkChild]
   private Gtk.ListBox sources_listbox;
+  [GtkChild]
+  private Gtk.Entry collection_name_entry;
+  [GtkChild]
+  private Gtk.FileChooserButton collection_location_button;
 
   /**
    * Disable the search.
@@ -187,6 +191,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     else
       active_page++;
 
+    /* TODO: validate and sensitivilize create button */
+
     update_page ();
   }
 
@@ -200,9 +206,25 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     }
     else
     {
-      message ("create collection");
+      create_collection ();
       active_page--;
     }
+  }
+
+  private void create_collection ()
+  {
+    Core.Collection collection;
+    Core.DataSource source;
+
+    /* Selected source */
+    source = row_to_source[sources_listbox.get_selected_row ()];
+
+    /* Build up collection */
+    collection = new Core.Collection (source);
+    collection.name = collection_name_entry.text;
+
+    /* Save the collection */
+    source.save (collection as Core.BaseObject);
   }
 }
 }
