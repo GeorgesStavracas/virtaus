@@ -39,6 +39,41 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	 */
 	private Sqlite.Database database;
 
+	/**
+	 * The user-visible name of this source.
+	 */
+	public string name
+  {
+    get {return _("Local");}
+  }
+
+  /**
+	 * The technical name of this source.
+	 */
+  public string source_name
+  {
+    get {return _("Local source");}
+  }
+
+  /**
+	 * Unique identifier.
+	 */
+  public string uid
+  {
+    get {return "SqliteSource.local_source@georges";}
+  }
+
+  /**
+	 * The location selector here is a minimal
+	 * file chooser button that implements the
+	 * LocationSelector interface.
+	 */
+	private Virtaus.Core.LocationSelector location_selector_ = new DirectoryLocationSelector ();
+  public Virtaus.Core.LocationSelector location_selector
+  {
+    get {return location_selector_;}
+  }
+
   construct
   {
     GLib.File dir;
@@ -83,12 +118,12 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	  info.description = "Local data source using a SQLite database";
 	  info.instance = this;
 
-	  manager.register_data_source ("SqliteSource.local_source@georges", info);
+	  manager.register_data_source (uid, info);
 	}
 
   public void unhook (Virtaus.Core.PluginManager manager)
   {
-    manager.unregister_data_source ("SqliteSource.local_source@georges");
+    manager.unregister_data_source (uid);
   }
 
 	public void activate ()
@@ -166,16 +201,6 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 		yield;
 	}
 
-	public string get_name ()
-  {
-		return _("Local data");
-  }
-
-  public string get_source_name ()
-  {
-		return _("Local");
-  }
-
 	/**
 	 * Open the database when it is closed.
 	 */
@@ -203,9 +228,20 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
   }
 
 	/* TODO: implement the methods above */
-  public Gee.LinkedList<Virtaus.Core.Collection> get_collections () {return null;}
+  public Gee.LinkedList<Virtaus.Core.Collection>? collections
+  {
+    get {return null;}
+  }
   public bool save (Virtaus.Core.BaseObject object) {return false;}
   public bool remove (Virtaus.Core.BaseObject object) {return false;}
+}
+
+private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.LocationSelector
+{
+  public string? location
+  {
+    owned get {return this.get_current_folder ();}
+  }
 }
 
 }
