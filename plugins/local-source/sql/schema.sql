@@ -7,9 +7,10 @@ CREATE TABLE 'Collection'
 
 CREATE TABLE 'CollectionInfo'
 (
-  collection INTEGER PRIMARY KEY,
+  collection INTEGER NOT NULL,
   field      TEXT NOT NULL,
-  value      TEXT NOT NULL
+  value      TEXT NOT NULL,
+  PRIMARY KEY (collection, field)
 );
 
 CREATE TABLE 'Set'
