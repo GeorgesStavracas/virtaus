@@ -28,6 +28,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Virtaus.Application app;
 
   [GtkChild]
+  private Gtk.Entry author_entry;
+  [GtkChild]
   private Gtk.Entry collection_name_entry;
   [GtkChild]
   private Gtk.Box location_box;
@@ -179,6 +181,10 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     uid_to_source.unset (uid);
   }
 
+  /**
+   * Revalidate the first page when
+   * the selected source changes.
+   */
   [GtkCallback]
   private void row_selected_cb (Gtk.ListBoxRow? row)
   {
@@ -204,6 +210,16 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     source.location_selector.show ();
 
     /* Revalidate the page */
+    validate_page (active_page);
+  }
+
+  /**
+   * Revalidate the page every time
+   * the name or author changes.
+   */
+  [GtkCallback]
+  private void entry_changed_cb ()
+  {
     validate_page (active_page);
   }
 
@@ -247,12 +263,30 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
    */
   private void validate_page (int page)
   {
+    bool valid;
+
     switch (page)
     {
       case 0:
-        continue_button.sensitive = (sources_listbox.get_selected_row () != null);
+        valid = (sources_listbox.get_selected_row () != null);
+        break;
+
+      case 1:
+        valid = (collection_name_entry.text != "" && author_entry.text != "");
+        break;
+
+      /* The last two pages has no required fields */
+      case 2:
+      case 3:
+        valid = true;
+        break;
+
+      default:
+        valid = true;
         break;
     }
+
+    continue_button.sensitive = valid;
   }
 
   private void create_collection ()
