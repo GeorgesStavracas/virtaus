@@ -27,6 +27,8 @@ public interface DataSource : GLib.Object
 {
 	public signal void register_source (GLib.Type source);
 	public signal void sync (Virtaus.Core.SyncStatus status);
+	public signal void saved (Virtaus.Core.BaseObject object);
+	public signal void removed (Virtaus.Core.BaseObject object);
 
   /**
    * Every data source must provide a way
