@@ -19,11 +19,24 @@
 namespace Virtaus.Plugin
 {
 
-internal class CollectionOps
+internal class CollectionOperation
 {
-  public static bool create (Collection collection)
+  public static bool create (Sqlite.Database db, Virtaus.Core.Collection collection)
   {
+    message ("create collection");
+    return false;
+  }
 
+  public static bool update (Sqlite.Database db, Virtaus.Core.Collection collection)
+  {
+    message ("update collection");
+    return false;
+  }
+
+  public static bool remove (Sqlite.Database db, Virtaus.Core.Collection collection)
+  {
+    message ("remove collection");
+    return false;
   }
 }
 

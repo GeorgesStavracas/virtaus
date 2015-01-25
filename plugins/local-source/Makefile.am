@@ -8,6 +8,7 @@ BUILT_SOURCES = \
 
 liblocal_source_la_SOURCES = \
     local-source.vala \
+    operations.vala \
     $(BUILT_SOURCES)
 
 liblocal_source_la_VALAFLAGS = \
