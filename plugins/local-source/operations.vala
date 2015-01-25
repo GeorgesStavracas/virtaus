@@ -25,8 +25,28 @@ internal class CollectionOperation
 {
   public static bool create (Sqlite.Database db, Virtaus.Core.Collection collection)
   {
-    message ("create collection");
-    return false;
+    string query, error;
+    int rc;
+
+    /* Collection query */
+    query = "INSERT INTO 'Collection' (name, directory) VALUES ('%s', '%s')";
+    query = query.printf (collection.name, collection.info["path"] ?? "");
+
+    /* Insert */
+    rc = 0;
+    rc = db.exec (query, null, out error);
+
+    // TODO: save collection info
+
+    if (rc != Sqlite.OK)
+    {
+      critical ("Error: %s", error);
+      return false;
+    }
+
+    collection.id = (int) db.last_insert_rowid ();
+
+    return true;
   }
 
   public static bool update (Sqlite.Database db, Virtaus.Core.Collection collection)

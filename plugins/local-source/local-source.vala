@@ -247,14 +247,23 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
    */
   public bool save (Virtaus.Core.BaseObject object)
   {
-    bool result;
+    bool result = false;
 
     /* Collection */
     if (object is Virtaus.Core.Collection)
     {
-      if (object.id == -1)
+      if (object.id == -1) // Create the collection
+      {
         result = CollectionOperation.create (database, object as Virtaus.Core.Collection);
-      else
+
+        /**
+         * If the collection was successfully created,
+         * add it to the collections list.
+         */
+        if (result)
+          collections.add (object as Virtaus.Core.Collection);
+      }
+      else // Update the collection
         result = CollectionOperation.update (database, object as Virtaus.Core.Collection);
     }
 
