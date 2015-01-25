@@ -234,16 +234,25 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
    */
   public bool save (Virtaus.Core.BaseObject object)
   {
+    bool result;
+
     /* Collection */
     if (object is Virtaus.Core.Collection)
     {
       if (object.id == -1)
-        CollectionOperation.create (database, object as Virtaus.Core.Collection);
+        result = CollectionOperation.create (database, object as Virtaus.Core.Collection);
       else
-        CollectionOperation.update (database, object as Virtaus.Core.Collection);
+        result = CollectionOperation.update (database, object as Virtaus.Core.Collection);
     }
 
-    return false;
+    /**
+     * Send the DataSource::saved signal when
+     * the operation was completed successfully.
+     */
+    if (result)
+      saved (object);
+
+    return result;
   }
 
   public bool remove (Virtaus.Core.BaseObject object) {return false;}
