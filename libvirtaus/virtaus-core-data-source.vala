@@ -28,13 +28,52 @@ public interface DataSource : GLib.Object
 	public signal void register_source (GLib.Type source);
 	public signal void sync (Virtaus.Core.SyncStatus status);
 
-	public abstract string get_name ();
-  public abstract string get_source_name ();
+  /**
+   * Every data source must provide a way
+   * to select the location in which the
+   * collection will be created.
+   */
+  public abstract LocationSelector location_selector {get;}
 
-  public abstract Gee.LinkedList<Collection> get_collections ();
+  /**
+   * The user-visible name of the source.
+   */
+	public abstract string name {get;}
+
+	/**
+   * The technical name of the source.
+   */
+  public abstract string source_name {get;}
+
+  /**
+   * The unique identifier of the source.
+   *
+   * Usually 'name.source_name@author'.
+   */
+  public abstract string uid {get;}
+
+  /**
+   * The read-only list of collections.
+   *
+   * It is completely up to the implementor class
+   * to define how this will be retrieved.
+   */
+  public abstract Gee.LinkedList<Collection>? collections {get;}
 
   public abstract bool save (BaseObject object);
   public abstract bool remove (BaseObject object);
+}
+
+public interface LocationSelector : Gtk.Widget
+{
+  /**
+   * Retrieve the location of the data source.
+   *
+   * It doesn't have to be a valid directory path,
+   * as it can be anything if the implementing
+   * source can understand.
+   */
+  public abstract string? location {owned get; default = null;}
 }
 
 }
