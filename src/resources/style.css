@@ -3,10 +3,3 @@
   border-top: none;
   border-bottom: none;
 }
-
-/**
- * CollectionCreator view source listbox.
- */
-.large-radius {
-  border-radius: 20px;
-}
