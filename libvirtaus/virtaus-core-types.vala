@@ -22,7 +22,7 @@ namespace Virtaus.Core
 
 public class BaseObject : GLib.Object
 {
-	protected int id {get; set; default = -1;}
+	public int id {get; set; default = -1;}
 	public string name {public get; public set; default = "";}
 	public DataSource source {public get; construct set;}
 }
