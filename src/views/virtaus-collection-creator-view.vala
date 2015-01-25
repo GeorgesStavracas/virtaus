@@ -17,6 +17,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ using Gee;
+
 namespace Virtaus.View
 {
 
@@ -27,6 +29,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   [GtkChild]
   private Gtk.Stack stack;
+  [GtkChild]
+  private Gtk.ListBox sources_listbox;
 
   /**
    * Disable the search.
@@ -48,6 +52,14 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   {
     get {return null;}
   }
+
+  /**
+   * A map of row -> data source and uid -> data source
+   */
+  private HashMap<Gtk.ListBoxRow, Virtaus.Core.DataSource> row_to_source =
+                                                               new HashMap<Gtk.ListBoxRow, Virtaus.Core.DataSource> ();
+
+  private HashMap<string, Virtaus.Core.DataSource> uid_to_source = new HashMap<string, Virtaus.Core.DataSource> ();
 
   /**
    * {@link Virtaus.View.Mode} implementation.
@@ -88,6 +100,13 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     this.button_box.add (this.continue_button);
     this.button_box.show_all ();
 
+    /* load data sources */
+    app.manager.data_source_registered.connect (add_source);
+    app.manager.data_source_unregistered.connect (remove_source);
+
+    foreach (string key in app.manager.data_sources.keys)
+      add_source (app.manager.data_sources.get (key), key);
+
     this.show_all ();
   }
 
@@ -108,6 +127,52 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   public void deactivate ()
   {
     /* TODO: something to implement here? */
+  }
+
+  private void add_source (Virtaus.Core.ExtensionInfo source, string uid)
+  {
+    Virtaus.Core.DataSource data_source;
+    Gtk.ListBoxRow row;
+
+    /* FIXME: it should support source images */
+    data_source = app.manager.data_sources[uid].instance as Virtaus.Core.DataSource;
+    row = new Gtk.ListBoxRow ();
+    row.height_request = 40;
+
+    row.add (new Gtk.Label (data_source.get_source_name ()));
+
+    uid_to_source[uid] = data_source;
+    row_to_source[row] = data_source;
+
+    row.show_all ();
+    sources_listbox.add (row);
+  }
+
+  private void remove_source (string uid)
+  {
+    Virtaus.Core.DataSource data_source;
+    Gtk.ListBoxRow? row;
+    data_source = uid_to_source[uid] as Virtaus.Core.DataSource;
+
+    /* Search for the correct row */
+    row = null;
+
+    foreach (var tmp in row_to_source.keys)
+    {
+      if (row_to_source[tmp] == data_source)
+      {
+        row = tmp;
+        break;
+      }
+    }
+
+    if (row == null)
+      return;
+
+    /* Remove things */
+    row.destroy ();
+    row_to_source.unset (row);
+    uid_to_source.unset (uid);
   }
 
   private void cancel_button_clicked_cb ()
