@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Gee;
+
 namespace Virtaus.Plugin
 {
 
@@ -37,6 +39,41 @@ internal class CollectionOperation
   {
     message ("remove collection");
     return false;
+  }
+
+  public static LinkedList<Virtaus.Core.Collection> load_all (SqliteSource instance, Sqlite.Database db)
+  {
+    LinkedList<Virtaus.Core.Collection> list;
+    Sqlite.Statement stmt;
+    string query;
+    int rc;
+
+    list = new LinkedList<Virtaus.Core.Collection> ();
+    query = "SELECT * FROM 'Collection'";
+
+    /* Perform the selection */
+    rc = db.prepare_v2 (query, -1, out stmt);
+
+    if (rc != Sqlite.OK)
+    {
+      critical (_("Cannot connect to database."));
+      return list;
+    }
+
+    /* Load each collection from the statement */
+    while (stmt.step () == Sqlite.ROW)
+    {
+      Virtaus.Core.Collection collection;
+
+      collection = new Virtaus.Core.Collection (instance);
+      collection.id = stmt.column_int (0);
+      collection.name = stmt.column_text (1);
+      collection.info["path"] = stmt.column_text (2);
+
+      list.add (collection);
+    }
+
+    return list;
   }
 }
 

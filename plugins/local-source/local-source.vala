@@ -16,6 +16,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+using Gee;
+
 namespace Virtaus.Plugin
 {
 
@@ -224,9 +227,19 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	}
 
 	/* TODO: implement the methods above */
+  private LinkedList<Virtaus.Core.Collection>? collections_ = null;
   public Gee.LinkedList<Virtaus.Core.Collection>? collections
   {
-    get {return null;}
+    get
+    {
+      /* Load collections */
+      if (collections_ == null)
+      {
+        collections_ = CollectionOperation.load_all (this, database);
+      }
+
+      return collections_;
+    }
   }
 
   /**
