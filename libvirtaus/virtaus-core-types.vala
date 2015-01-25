@@ -24,6 +24,7 @@ public class BaseObject : GLib.Object
 {
 	protected int id {get; set; default = -1;}
 	public string name {public get; public set; default = "";}
+	public DataSource source {public get; construct set;}
 }
 
 public class Attribute : BaseObject
@@ -61,11 +62,12 @@ public class Collection : BaseObject
 	public Gee.HashMap <string, Category> categories {public get; construct set;}
 	public Gee.HashMap <string, Set> sets {public get; construct set;}
 
-	public Collection ()
+	public Collection (DataSource source)
   {
 		this.sets = new Gee.HashMap <string, Set> ();
 		this.info = new Gee.HashMap <string, string> ();
 		this.categories = new Gee.HashMap <string, Category> ();
+		this.source = source;
   }
 }
 
