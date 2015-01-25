@@ -28,11 +28,13 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Virtaus.Application app;
 
   [GtkChild]
+  private Gtk.Entry collection_name_entry;
+  [GtkChild]
+  private Gtk.Box location_box;
+  [GtkChild]
   private Gtk.Stack stack;
   [GtkChild]
   private Gtk.ListBox sources_listbox;
-  [GtkChild]
-  private Gtk.Entry collection_name_entry;
 
   /**
    * Disable the search.
@@ -177,6 +179,34 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     uid_to_source.unset (uid);
   }
 
+  [GtkCallback]
+  private void row_selected_cb (Gtk.ListBoxRow? row)
+  {
+    Virtaus.Core.DataSource source;
+    GLib.List<weak Gtk.Widget> children;
+    Gtk.Widget old_selector;
+
+    children = location_box.get_children ();
+    old_selector = (children != null ? children.data : null);
+
+    /* Remove old selectors */
+    if (old_selector != null)
+      location_box.remove (old_selector);
+
+    if (row == null)
+      return;
+
+    /* Retrieve the data source */
+    source = row_to_source[row];
+
+    /* Add the selector */
+    location_box.add (source.location_selector);
+    source.location_selector.show ();
+
+    /* Revalidate the page */
+    validate_page (active_page);
+  }
+
   private void cancel_button_clicked_cb ()
   {
     show_view ("collections");
@@ -206,6 +236,22 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     {
       create_collection ();
       active_page--;
+    }
+
+    validate_page (active_page);
+  }
+
+  /**
+   * Mainly set the continue_button sensitivity.
+   * Also, it updates the location_box child.
+   */
+  private void validate_page (int page)
+  {
+    switch (page)
+    {
+      case 0:
+        continue_button.sensitive = (sources_listbox.get_selected_row () != null);
+        break;
     }
   }
 
