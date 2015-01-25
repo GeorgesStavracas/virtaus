@@ -33,8 +33,6 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Gtk.ListBox sources_listbox;
   [GtkChild]
   private Gtk.Entry collection_name_entry;
-  [GtkChild]
-  private Gtk.FileChooserButton collection_location_button;
 
   /**
    * Disable the search.
@@ -143,7 +141,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     row = new Gtk.ListBoxRow ();
     row.height_request = 40;
 
-    row.add (new Gtk.Label (data_source.get_source_name ()));
+    row.add (new Gtk.Label (data_source.name));
 
     uid_to_source[uid] = data_source;
     row_to_source[row] = data_source;
