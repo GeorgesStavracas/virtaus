@@ -17,6 +17,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Gee;
+
 namespace Virtaus.View
 {
 
@@ -26,7 +28,11 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   private Virtaus.Application app;
 
   private Gtk.Button create_button;
+  private HashMap<Gtk.FlowBoxChild, Virtaus.Core.Collection> child_to_collection =
+                                                             new HashMap<Gtk.FlowBoxChild, Virtaus.Core.Collection> ();
 
+  [GtkChild]
+  private Gtk.FlowBox flowbox;
   [GtkChild]
   private Gtk.SearchBar searchbar;
 
@@ -83,6 +89,30 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 
   public new void activate ()
   {
+    /* Clear all items */
+    child_to_collection.clear ();
+
+    foreach (Gtk.Widget child in flowbox.get_children ())
+      child.destroy ();
+
+    /* Repopulate the grid */
+    foreach (Core.ExtensionInfo info in app.manager.data_sources.values)
+    {
+      Core.DataSource source = info.instance as Core.DataSource;
+
+      foreach (Core.Collection collection in source.collections)
+      {
+        CollectionItem item;
+
+        item = new CollectionItem ();
+        item.collection = collection;
+        item.show_all ();
+
+        flowbox.add (item);
+      }
+    }
+
+
     register_widget (Virtaus.WindowLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
   }
 
