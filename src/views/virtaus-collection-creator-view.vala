@@ -300,9 +300,14 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* Build up collection */
     collection = new Core.Collection (source);
     collection.name = collection_name_entry.text;
+    collection.info["path"] = source.location_selector.location;
+    collection.info["author"] = author_entry.text;
 
     /* Save the collection */
     source.save (collection as Core.BaseObject);
+
+    /* Return to the Collection view */
+    show_view ("collections");
   }
 }
 }
