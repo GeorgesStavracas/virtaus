@@ -104,8 +104,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
       {
         CollectionItem item;
 
-        item = new CollectionItem ();
-        item.collection = collection;
+        item = new CollectionItem (collection);
         item.show_all ();
 
         flowbox.add (item);

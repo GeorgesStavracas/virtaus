@@ -20,7 +20,7 @@ namespace Virtaus
 {
 
 [GtkTemplate (ui = "/apps/virtaus/resources/collection_child.ui")]
-public class CollectionItem : Gtk.Frame
+public class CollectionItem : Gtk.FlowBoxChild
 {
   [GtkChild]
   private Gtk.Label name_label;
@@ -33,11 +33,22 @@ public class CollectionItem : Gtk.Frame
   public Core.Collection collection
   {
     get {return collection_;}
-    set
+    construct set
     {
       collection_ = value;
       name_label.label = value.name;
     }
+  }
+
+  /**
+   * Simple return of the labels' text.
+   */
+  public string? name
+  {get {return name_label.label;}}
+
+  public CollectionItem (Core.Collection collection)
+  {
+    this.collection = collection;
   }
 }
 
