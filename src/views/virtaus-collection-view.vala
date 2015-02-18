@@ -34,7 +34,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkChild]
   private Gtk.Viewport viewport;
 
-  private Virtaus.SelectableIconView iconview = new Virtaus.SelectableIconView ();
+  private Virtaus.SelectableIconView iconview;
 
   /**
    * Enable the search.
@@ -61,7 +61,14 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     get {return _mode;}
     set
     {
-      _mode = value;
+      if (_mode != value)
+      {
+        _mode = value;
+
+        create_button.visible = (_mode == Mode.DEFAULT);
+
+        this.notify_property ("mode");
+      }
     }
   }
 
@@ -85,6 +92,10 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     this.create_button = new Gtk.Button.with_label ("New collection");
     this.create_button.get_style_context ().add_class ("suggested-action");
     this.create_button.clicked.connect (create_collection_clicked_cb);
+
+    // Iconview
+    iconview = new Virtaus.SelectableIconView ();
+    iconview.bind_property ("mode", this, "mode", BindingFlags.BIDIRECTIONAL);
 
     viewport.add (iconview);
 

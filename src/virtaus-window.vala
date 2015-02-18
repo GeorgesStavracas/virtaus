@@ -88,6 +88,25 @@ public class Window : Gtk.ApplicationWindow
   }
 
   [GtkCallback]
+  private void select_button_toggled ()
+  {
+    if (active_view != null)
+    {
+      // Toggle the selection mode
+      if (select_button.active)
+      {
+        active_view.mode = View.Mode.SELECTION;
+        headerbar.get_style_context ().add_class ("selection-mode");
+      }
+      else
+      {
+        active_view.mode = View.Mode.DEFAULT;
+        headerbar.get_style_context ().remove_class ("selection-mode");
+      }
+    }
+  }
+
+  [GtkCallback]
   private bool window_state_changed (Gdk.EventWindowState event)
   {
     message ("window state");
@@ -137,8 +156,15 @@ public class Window : Gtk.ApplicationWindow
       search_button.visible = active_view.has_search;
       select_button.visible = active_view.has_selection;
 
+      active_view.notify["mode"].connect (active_view_mode_changed);
+
       active_view.activate ();
     }
+  }
+
+  private void active_view_mode_changed ()
+  {
+    select_button.active = (active_view.mode == View.Mode.SELECTION);
   }
 
   private void create_actions ()
@@ -218,6 +244,8 @@ public class Window : Gtk.ApplicationWindow
   private void show_stack_child (string view_name)
   {
     /* FIXME: improve this code */
+    SignalHandler.disconnect_by_func (active_view, (void*) active_view_mode_changed, this);
+
     views_stack.visible_child = views.get (view_name) as Gtk.Widget;
   }
 

@@ -97,6 +97,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="toggled" handler="select_button_toggled" object="VirtausWindow" swapped="no"/>
             <child>
               <object class="GtkImage" id="select_image">
                 <property name="visible">True</property>
