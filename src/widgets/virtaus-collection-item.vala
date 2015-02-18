@@ -43,8 +43,7 @@ public class CollectionItem : Gtk.FlowBoxChild
   /**
    * Simple return of the labels' text.
    */
-  public string? name
-  {get {return name_label.label;}}
+  public string? item_name {get {return name_label.label;}}
 
   public CollectionItem (Core.Collection collection)
   {
