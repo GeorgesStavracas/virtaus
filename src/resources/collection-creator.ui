@@ -1419,6 +1419,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">&lt;span size="xx-large"&gt;Additional information&lt;/span&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="margin_top">6</property>
                                 <property name="xalign">0</property>
                               </object>
                               <packing>
@@ -1446,6 +1447,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Materials</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1461,6 +1463,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Requirements</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1476,6 +1479,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Finishing</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1491,6 +1495,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Craft Proccess</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1506,6 +1511,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Providers</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1521,6 +1527,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Style Elements</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1536,6 +1543,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Functional Configuration</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1551,6 +1559,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Use Cases</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1566,6 +1575,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Viability Analisys</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1582,6 +1592,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Audience&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">0</property>
                               </object>
                               <packing>
@@ -1609,6 +1620,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Features</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1750,6 +1762,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Genre</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1779,6 +1792,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Physical Features</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1808,6 +1822,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Lifestyle</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1823,6 +1838,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Requirements</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1838,6 +1854,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Consumption Power</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1853,6 +1870,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Needs &amp; Desires</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1868,6 +1886,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Age</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1883,6 +1902,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Virtues</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1898,6 +1918,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Daily Activities</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1913,6 +1934,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Frequented Places</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -2054,6 +2076,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Structure</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -2069,6 +2092,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Products</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -2084,6 +2108,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Qualities</property>
+                                <property name="valign">start</property>
                                 <property name="xalign">1</property>
                                 <style>
                                   <class name="dim-label"/>
