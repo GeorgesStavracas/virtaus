@@ -3,3 +3,10 @@
   border-top: none;
   border-bottom: none;
 }
+
+.selectable-item-renderer,
+.selectable-item-renderer:prelight
+{
+  padding: 4px;
+}
+

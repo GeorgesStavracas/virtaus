@@ -30,6 +30,7 @@ VALA_SOURCES = \
     views/virtaus-collection-view.vala \
     \
     widgets/virtaus-collection-item.vala \
+    widgets/virtaus-selectable-icon-view.vala \
     \
     virtaus-window.vala \
     main.vala

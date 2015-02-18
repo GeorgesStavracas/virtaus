@@ -316,5 +316,11 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* Return to the Collection view */
     show_view ("collections");
   }
+
+  private void clear_pages ()
+  {
+    collection_name_entry.text = "";
+    author_entry.text = "";
+  }
 }
 }

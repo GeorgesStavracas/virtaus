@@ -28,13 +28,13 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   private Virtaus.Application app;
 
   private Gtk.Button create_button;
-  private HashMap<Gtk.FlowBoxChild, Virtaus.Core.Collection> child_to_collection =
-                                                             new HashMap<Gtk.FlowBoxChild, Virtaus.Core.Collection> ();
 
   [GtkChild]
-  private Gtk.FlowBox flowbox;
-  [GtkChild]
   private Gtk.SearchBar searchbar;
+  [GtkChild]
+  private Gtk.Viewport viewport;
+
+  private Virtaus.SelectableIconView iconview = new Virtaus.SelectableIconView ();
 
   /**
    * Enable the search.
@@ -86,6 +86,8 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     this.create_button.get_style_context ().add_class ("suggested-action");
     this.create_button.clicked.connect (create_collection_clicked_cb);
 
+    viewport.add (iconview);
+
     this.show_all ();
   }
 
@@ -97,10 +99,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   public new void activate ()
   {
     /* Clear all items */
-    child_to_collection.clear ();
-
-    foreach (Gtk.Widget child in flowbox.get_children ())
-      child.destroy ();
+    (iconview.model as Gtk.ListStore).clear ();
 
     /* Repopulate the grid */
     foreach (Core.ExtensionInfo info in app.manager.data_sources.values)
@@ -109,12 +108,9 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 
       foreach (Core.Collection collection in source.collections)
       {
-        CollectionItem item;
+        Virtaus.CollectionIconItem item = new Virtaus.CollectionIconItem (collection);
 
-        item = new CollectionItem (collection);
-        item.show_all ();
-
-        flowbox.add (item);
+        iconview.add_item (item);
       }
     }
 
