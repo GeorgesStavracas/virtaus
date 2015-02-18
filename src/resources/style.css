@@ -10,3 +10,7 @@
   padding: 4px;
 }
 
+VirtausSelectableIconView
+{
+  background-color: lighter(@theme_bg_color);
+}
