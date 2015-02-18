@@ -60,6 +60,13 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   }
 
   /**
+   * Title and subtitle.
+   */
+  public string? title {get {return _("New Collection");}}
+  public string? subtitle {get {return null;}}
+  public Gtk.Widget? titlebar_widget {get {return null;}}
+
+  /**
    * A map of row -> data source and uid -> data source
    */
   private HashMap<Gtk.ListBoxRow, Virtaus.Core.DataSource> row_to_source =

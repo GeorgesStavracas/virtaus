@@ -53,6 +53,27 @@ public interface AbstractView : GLib.Object
   public abstract Mode mode  {get; set; default = Mode.DEFAULT;}
 
   /**
+   * Title for the headerbar.
+   *
+   * If a title widget is set, this will be ignored.
+   */
+  public abstract string? title {get;}
+
+  /**
+   * Subtitle for the headerbar.
+   *
+   * If a title widget is set, this will be ignored.
+   */
+  public abstract string? subtitle {get;}
+
+  /**
+   * Titlebar for the headerbar.
+   *
+   * This is preferred over title.
+   */
+  public abstract Gtk.Widget? titlebar_widget {get;}
+
+  /**
    * Fired when the view wants the window to register a widget.
    */
 	public signal void register_widget (Virtaus.WindowLocation location,

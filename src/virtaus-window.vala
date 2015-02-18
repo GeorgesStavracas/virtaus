@@ -123,6 +123,17 @@ public class Window : Gtk.ApplicationWindow
     {
       active_view = views_stack.visible_child as View.AbstractView;
 
+      if (active_view.titlebar_widget != null)
+      {
+        headerbar.set_custom_title (active_view.titlebar_widget);
+      }
+      else
+      {
+        headerbar.set_custom_title (null);
+        headerbar.title = active_view.title ?? "";
+        headerbar.subtitle = active_view.subtitle ?? "";
+      }
+
       search_button.visible = active_view.has_search;
       select_button.visible = active_view.has_selection;
 

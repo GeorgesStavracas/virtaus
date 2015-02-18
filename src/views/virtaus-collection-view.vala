@@ -70,6 +70,13 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     get {return this.searchbar;}
   }
 
+  /**
+   * Title and subtitle.
+   */
+  public string? title {get {return _("Welcome to Virtaus");}}
+  public string? subtitle {get {return _("Select a project or create a new one");}}
+  public Gtk.Widget? titlebar_widget {get {return null;}}
+
   public CollectionView (Virtaus.Application app)
   {
     this.app = app;
