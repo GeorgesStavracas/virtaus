@@ -3,6 +3,27 @@
 <interface>
   <requires lib="gtk+" version="3.15"/>
   <!-- interface-css-provider-path style.css -->
+  <object class="GtkTextBuffer" id="audience_requirements_buffer"/>
+  <object class="GtkTextBuffer" id="consumption_power_buffer"/>
+  <object class="GtkTextBuffer" id="craft_procces_buffer"/>
+  <object class="GtkTextBuffer" id="daily_activities_buffer"/>
+  <object class="GtkTextBuffer" id="features_buffer"/>
+  <object class="GtkTextBuffer" id="finishing_buffer"/>
+  <object class="GtkTextBuffer" id="frequented_places_buffer"/>
+  <object class="GtkTextBuffer" id="functional_configuration_buffer"/>
+  <object class="GtkTextBuffer" id="lifestyle_buffer"/>
+  <object class="GtkTextBuffer" id="materials_buffer"/>
+  <object class="GtkTextBuffer" id="needs_desires_buffer"/>
+  <object class="GtkTextBuffer" id="physical_features_buffer"/>
+  <object class="GtkTextBuffer" id="products_buffer"/>
+  <object class="GtkTextBuffer" id="providers_buffer"/>
+  <object class="GtkTextBuffer" id="qualities_buffer"/>
+  <object class="GtkTextBuffer" id="requirements_buffer"/>
+  <object class="GtkTextBuffer" id="structure_buffer"/>
+  <object class="GtkTextBuffer" id="style_elements_buffer"/>
+  <object class="GtkTextBuffer" id="use_cases_buffer"/>
+  <object class="GtkTextBuffer" id="viability_analisys_buffer"/>
+  <object class="GtkTextBuffer" id="virtues_buffer"/>
   <template class="VirtausViewCollectionCreatorView" parent="GtkFrame">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -439,6 +460,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">features_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -463,6 +485,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">requirements_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -487,6 +510,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">materials_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -511,6 +535,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">finishing_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -535,6 +560,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">craft_procces_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -559,6 +585,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">providers_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -583,6 +610,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">style_elements_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -607,6 +635,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">functional_configuration_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -631,6 +660,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">use_cases_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -655,6 +685,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">viability_analisys_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -854,6 +885,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">physical_features_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -878,6 +910,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">lifestyle_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -902,6 +935,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">audience_requirements_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -926,6 +960,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">consumption_power_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -950,6 +985,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">needs_desires_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -974,6 +1010,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">virtues_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -998,6 +1035,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">daily_activities_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1022,6 +1060,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">frequented_places_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1136,6 +1175,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">structure_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1160,6 +1200,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">qualities_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1184,6 +1225,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
+                                        <property name="buffer">products_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1308,6 +1350,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="collection_name_entry" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1321,6 +1364,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="author_entry" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1334,6 +1378,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="email_entry" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1552,6 +1597,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="features_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1580,6 +1626,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="requirements_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1593,6 +1640,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="materials_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1606,6 +1654,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="finishing_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1619,6 +1668,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="craft_procces_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1632,6 +1682,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="providers_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1645,6 +1696,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="style_elements_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1658,6 +1710,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="functional_configuration_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1671,6 +1724,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="use_cases_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1684,6 +1738,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="viability_analisys_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1712,6 +1767,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="genre_entry" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1740,6 +1796,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="physical_features_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1873,6 +1930,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="lifestyle_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1886,6 +1944,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="audience_requirements_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1899,6 +1958,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="consumption_power_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1912,6 +1972,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="needs_desires_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1925,6 +1986,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="age_entry" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1938,6 +2000,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="virtues_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1951,6 +2014,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="daily_activities_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1964,6 +2028,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="frequented_places_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -2036,6 +2101,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="structure_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -2049,6 +2115,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="products_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -2062,6 +2129,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
+                                <property name="label" bind-source="qualities_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
