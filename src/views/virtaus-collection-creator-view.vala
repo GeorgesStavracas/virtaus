@@ -27,6 +27,56 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
+  /**
+   * Text buffers and entries.
+   */
+  [GtkChild]
+  private Gtk.Entry age_entry;
+  [GtkChild]
+  private Gtk.Entry genre_entry;
+  [GtkChild]
+  private Gtk.TextBuffer audience_requirements_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer consumption_power_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer craft_proccess_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer daily_activities_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer features_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer finishing_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer frequented_places_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer functional_configuration_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer lifestyle_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer materials_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer needs_desires_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer physical_features_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer products_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer providers_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer qualities_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer requirements_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer structure_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer style_elements_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer use_cases_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer viability_analisys_buffer;
+  [GtkChild]
+  private Gtk.TextBuffer virtues_buffer;
+
   [GtkChild]
   private Gtk.Entry author_entry;
   [GtkChild]
@@ -309,6 +359,32 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     collection.name = collection_name_entry.text;
     collection.info["path"] = source.location_selector.location;
     collection.info["author"] = author_entry.text;
+
+    collection.info["audience-age"] = age_entry.text;
+    collection.info["audience-consumption-power"] = consumption_power_buffer.text;
+    collection.info["audience-daily-activities"] = daily_activities_buffer.text;
+    collection.info["audience-frequented-places"] = frequented_places_buffer.text;
+    collection.info["audience-genre"] = genre_entry.text;
+    collection.info["audience-lifestyle"] = lifestyle_buffer.text;
+    collection.info["audience-needs-desires"] = needs_desires_buffer.text;
+    collection.info["audience-physical-features"] = physical_features_buffer.text;
+    collection.info["audience-requirements"] = audience_requirements_buffer.text;
+    collection.info["audience-virtues"] = virtues_buffer.text;
+
+    collection.info["competitors-products"] = products_buffer.text;
+    collection.info["competitors-qualities"] = qualities_buffer.text;
+    collection.info["competitors-structure"] = structure_buffer.text;
+
+    collection.info["product-craft-proccess"] = craft_proccess_buffer.text;
+    collection.info["product-features"] = features_buffer.text;
+    collection.info["product-finishing"] = finishing_buffer.text;
+    collection.info["product-functional-configuration"] = functional_configuration_buffer.text;
+    collection.info["product-materials"] = materials_buffer.text;
+    collection.info["product-providers"] = providers_buffer.text;
+    collection.info["product-requirements"] = requirements_buffer.text;
+    collection.info["product-style-elements"] = style_elements_buffer.text;
+    collection.info["product-use-cases"] = use_cases_buffer.text;
+    collection.info["product-viability-analisys"] = viability_analisys_buffer.text;
 
     /* Save the collection */
     source.save (collection as Core.BaseObject);
