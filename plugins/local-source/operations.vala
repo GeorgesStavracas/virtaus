@@ -80,15 +80,42 @@ internal class CollectionOperation
   }
 
   public static bool update (Sqlite.Database db, Virtaus.Core.Collection collection)
+    requires (collection.id != -1)
   {
     message ("update collection");
     return false;
   }
 
   public static bool remove (Sqlite.Database db, Virtaus.Core.Collection collection)
+    requires (collection.id != -1)
   {
-    message ("remove collection");
-    return false;
+    string query, error;
+    int rc;
+
+    /* Remove from Collection */
+    query = "DELETE FROM 'Collection' WHERE id=%d".printf (collection.id);
+
+    rc = 0;
+    rc = db.exec (query, null, out error);
+
+    if (rc != Sqlite.OK)
+    {
+      critical ("Error: %s", error);
+      return false;
+    }
+
+    /* Remove from CollectionInfo */
+    query = "DELETE FROM 'CollectionInfo' WHERE collection=%d".printf (collection.id);
+
+    rc = db.exec (query, null, out error);
+
+    if (rc != Sqlite.OK)
+    {
+      critical ("Error: %s", error);
+      return false;
+    }
+
+    return true;
   }
 
   public static LinkedList<Virtaus.Core.Collection> load_all (SqliteSource instance, Sqlite.Database db)

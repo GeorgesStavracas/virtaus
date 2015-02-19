@@ -277,7 +277,25 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
     return result;
   }
 
-  public bool remove (Virtaus.Core.BaseObject object) {return false;}
+  public bool remove (Virtaus.Core.BaseObject object)
+  {
+    bool result = false;
+
+    /* Collection */
+    if (object is Virtaus.Core.Collection)
+    {
+      result = CollectionOperation.remove (database, object as Virtaus.Core.Collection);
+    }
+
+    /**
+     * Send the DataSource::removed signal when
+     * the removal was successful.
+     */
+    if (result)
+      removed (object);
+
+    return result;
+  }
 }
 
 private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.LocationSelector
