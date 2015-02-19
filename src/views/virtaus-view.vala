@@ -86,14 +86,6 @@ public interface AbstractView : GLib.Object
    */
 	public signal void remove_widget   (Gtk.Widget             widget);
 
-	/**
-   * Fired when the view wants the window to remove a widget,
-   * but has no reference to the widget.
-   */
-	public signal void remove_widget_by_location (Virtaus.WindowLocation location,
-	                                              Gtk.Align              halign,
-	                                              Gtk.Align              valign);
-
   /**
    * Fired when the view wants to change the current view.
    */

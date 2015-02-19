@@ -195,6 +195,7 @@ public class Window : Gtk.ApplicationWindow
     /* collection view */
     view = new Virtaus.View.CollectionView (app);
     view.register_widget.connect (register_widget);
+    view.remove_widget.connect (remove_widget);
     view.show_view.connect (show_stack_child);
 
     views.set ("collections", view);
@@ -207,6 +208,7 @@ public class Window : Gtk.ApplicationWindow
     /* collection wizard view */
     view = new Virtaus.View.CollectionCreatorView (app);
     view.register_widget.connect (register_widget);
+    view.remove_widget.connect (remove_widget);
     view.show_view.connect (show_stack_child);
 
     views.set ("collection-creator", view);
@@ -239,6 +241,28 @@ public class Window : Gtk.ApplicationWindow
 
     registered_widgets.set (widget, location);
     widget.show ();
+  }
+
+  private void remove_widget (Gtk.Widget widget)
+  {
+    WindowLocation location;
+
+    location = registered_widgets[widget];
+
+    switch (location)
+    {
+      case WindowLocation.HEADERBAR:
+        headerbar.remove (widget);
+        break;
+
+      case WindowLocation.ACTIONBAR:
+        actionbar.remove (widget);
+
+        if (actionbar.get_children ().length () == 0)
+          actionbar.hide ();
+
+        break;
+    }
   }
 
   private void show_stack_child (string view_name)
