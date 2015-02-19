@@ -88,7 +88,12 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkChild]
   private Gtk.Stack stack;
   [GtkChild]
+  private Gtk.Label review_location_label;
+  [GtkChild]
   private Gtk.ListBox sources_listbox;
+
+  /* Binding between location selector & location label */
+  GLib.Binding location_bind = null;
 
   /**
    * Disable the search.
@@ -260,7 +265,16 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
     /* Remove old selectors */
     if (old_selector != null)
+    {
       location_box.remove (old_selector);
+
+      // Clear the old binding
+      if (location_bind != null)
+      {
+        location_bind.unbind ();
+        location_bind = null;
+      }
+    }
 
     if (row == null)
       return;
@@ -270,6 +284,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
     /* Add the selector */
     location_box.add (source.location_selector);
+    location_bind = source.location_selector.bind_property ("location", review_location_label, "label");
+
     source.location_selector.show ();
 
     /* Revalidate the page */

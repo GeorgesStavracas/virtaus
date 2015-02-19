@@ -260,8 +260,8 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
          * If the collection was successfully created,
          * add it to the collections list.
          */
-        if (result)
-          collections.add (object as Virtaus.Core.Collection);
+        if (result && collections_ != null)
+          collections_.add (object as Virtaus.Core.Collection);
       }
       else // Update the collection
         result = CollectionOperation.update (database, object as Virtaus.Core.Collection);
@@ -293,9 +293,19 @@ private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.Lo
     }
   }
 
+  /**
+   * Notify the change of the current file.
+   */
+  void file_set_cb ()
+  {
+    notify_property ("location");
+  }
+
   public DirectoryLocationSelector ()
   {
     Object (title: _("Select a folder"), action: Gtk.FileChooserAction.SELECT_FOLDER);
+
+    this.file_set.connect (file_set_cb);
   }
 }
 
