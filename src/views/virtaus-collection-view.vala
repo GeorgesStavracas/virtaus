@@ -28,6 +28,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   private Virtaus.Application app;
 
   private Gtk.Button create_button;
+  private Gtk.Button remove_collection_button;
 
   [GtkChild]
   private Gtk.SearchBar searchbar;
@@ -67,6 +68,15 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 
         create_button.visible = (_mode == Mode.DEFAULT);
 
+        if (_mode == Mode.DEFAULT)
+        {
+          remove_widget (remove_collection_button);
+        }
+        else
+        {
+          register_widget (Virtaus.WindowLocation.ACTIONBAR, remove_collection_button, Gtk.Align.END, Gtk.Align.CENTER);
+        }
+
         this.notify_property ("mode");
       }
     }
@@ -92,6 +102,11 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     this.create_button = new Gtk.Button.with_label ("New collection");
     this.create_button.get_style_context ().add_class ("suggested-action");
     this.create_button.clicked.connect (create_collection_clicked_cb);
+
+    /* remove collection button */
+    this.remove_collection_button = new Gtk.Button.with_label (_("Delete"));
+    this.remove_collection_button.get_style_context ().add_class ("destructive-action");
+    this.remove_collection_button.clicked.connect (remove_collection_clicked_cb);
 
     // Iconview
     iconview = new Virtaus.SelectableIconView ();
@@ -140,16 +155,18 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
     show_view ("collection-creator");
   }
 
+  private void remove_collection_clicked_cb ()
+  {
+    message ("Removing collections");
+  }
+
   private void item_activated_cb (Gtk.TreePath? path)
   {
-    Core.Collection collection;
     Virtaus.CollectionIconItem item;
     Gtk.TreeIter? iter;
 
     iconview.model.get_iter (out iter, path);
     iconview.model.get (iter, 1, out item);
-
-    collection = item.collection;
 
     //show_view ("category");
   }
