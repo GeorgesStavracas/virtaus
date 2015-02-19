@@ -304,7 +304,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void cancel_button_clicked_cb ()
   {
-    show_view ("collections");
+    show_view ("collection-selector");
   }
 
   private void page_button_clicked_cb (Gtk.Button button)
@@ -413,7 +413,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     source.save (collection as Core.BaseObject);
 
     /* Return to the Collection view */
-    show_view ("collections");
+    show_view ("collection-selector");
   }
 
   private void clear_pages ()

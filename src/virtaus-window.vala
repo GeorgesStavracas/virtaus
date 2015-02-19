@@ -193,13 +193,13 @@ public class Window : Gtk.ApplicationWindow
     Virtaus.View.AbstractView view;
 
     /* collection view */
-    view = new Virtaus.View.CollectionView (app);
+    view = new Virtaus.View.CollectionSelectorView (app);
     view.register_widget.connect (register_widget);
     view.remove_widget.connect (remove_widget);
     view.show_view.connect (show_stack_child);
 
-    views.set ("collections", view);
-    views_stack.add_named (view as Gtk.Widget, "collections");
+    views.set ("collection-selector", view);
+    views_stack.add_named (view as Gtk.Widget, "collection-selector");
     views_stack.visible_child = view as Gtk.Widget;
 
     // Collection view is always the first active view

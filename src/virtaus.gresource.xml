@@ -3,7 +3,7 @@
   <gresource prefix="/apps/virtaus/">
     <file compressed="true">resources/style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/category.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks">resources/collections.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">resources/collection-selector.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/collection_buttons.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/collection-creator.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/collection_child.ui</file>

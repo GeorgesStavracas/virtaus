@@ -22,8 +22,8 @@ using Gee;
 namespace Virtaus.View
 {
 
-[GtkTemplate (ui = "/apps/virtaus/resources/collections.ui")]
-public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
+[GtkTemplate (ui = "/apps/virtaus/resources/collection-selector.ui")]
+public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
@@ -94,7 +94,7 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   public string? subtitle {get {return _("Select a project or create a new one");}}
   public Gtk.Widget? titlebar_widget {get {return null;}}
 
-  public CollectionView (Virtaus.Application app)
+  public CollectionSelectorView (Virtaus.Application app)
   {
     this.app = app;
 
