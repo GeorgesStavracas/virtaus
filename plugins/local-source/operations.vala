@@ -24,7 +24,10 @@ namespace Virtaus.Plugin
 internal class CollectionOperation
 {
   public static bool create (Sqlite.Database db, Virtaus.Core.Collection collection)
+    requires (collection.id == -1)
   {
+    StringBuilder info_query;
+    MapIterator<string, string> iter;
     string query, error;
     int rc;
 
@@ -36,8 +39,6 @@ internal class CollectionOperation
     rc = 0;
     rc = db.exec (query, null, out error);
 
-    // TODO: save collection info
-
     if (rc != Sqlite.OK)
     {
       critical ("Error: %s", error);
@@ -45,6 +46,35 @@ internal class CollectionOperation
     }
 
     collection.id = (int) db.last_insert_rowid ();
+
+    /**
+     * Build and insert the collection optional
+     * data after the collection itself because
+     * it's only after it we have the collection
+     * ID, needed by CollectionInfo table.
+     */
+    info_query = new StringBuilder ("INSERT INTO 'CollectionInfo' (collection, field, value) VALUES ");
+
+    /* format info query */
+    iter = collection.info.map_iterator ();
+
+    while (iter.next ())
+    {
+      info_query.append_printf ("(%d, '%s', '%s')", collection.id, iter.get_key (), iter.get_value ());
+
+      if (iter.has_next ())
+        info_query.append (",\n");
+    }
+
+    /* Insert */
+    rc = 0;
+    rc = db.exec (info_query.str, null, out error);
+
+    if (rc != Sqlite.OK)
+    {
+      critical ("Error: %s", error);
+      return false;
+    }
 
     return true;
   }
