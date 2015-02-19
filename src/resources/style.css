@@ -14,3 +14,19 @@ VirtausSelectableIconView
 {
   background-color: lighter(@theme_bg_color);
 }
+
+VirtausCollectionRenderer
+{
+  background-color: @theme_bg_color;
+  border-radius: 8px;
+}
+
+VirtausCollectionRenderer.bottom-stripe
+{
+  background-color: alpha(#000000, 0.5);
+  border-radius: 0px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-size: 12px;
+}
+

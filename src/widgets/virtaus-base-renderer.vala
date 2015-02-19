@@ -22,42 +22,68 @@ namespace Virtaus
 protected const int DEFAULT_SIZE = 256;
 protected const int MAX_BLUR_ITERATIONS = 3;
 
-void _blur_surface (Cairo.Surface surface, Cairo.Context cr)
+public Gdk.Pixbuf? get_pixbuf_from_icon_name (string name, int size)
 {
-  Cairo.Pattern pattern;
+  Gtk.IconTheme theme;
+  Gdk.Pixbuf pixbuf;
 
-  pattern = new Cairo.Pattern.for_surface (surface);
-  pattern.set_filter (Cairo.Filter.GOOD);
+  theme = new Gtk.IconTheme ();
 
-  cr.set_source (pattern);
+  try
+  {
+    pixbuf = theme.load_icon (name, size, Gtk.IconLookupFlags.FORCE_SIZE);
+  }
+  catch (GLib.Error error)
+  {
+    pixbuf = null;
+  }
+
+  return pixbuf;
 }
 
 public class CollectionRenderer : Gtk.Widget
 {
-  public static Gdk.Pixbuf? render (CollectionIconItem? item)
+  Gdk.Pixbuf? icon = null;
+
+  public Gdk.Pixbuf? render (CollectionIconItem? item)
   {
+    const int ICON_SIZE = 96;
+
     Gtk.StyleContext context;
     Cairo.ImageSurface surface;
     Cairo.Context cr;
+    Pango.Layout layout;
     Gdk.Pixbuf pixbuf;
+    double stripe_height;
+    int font_width, font_height;
 
     if (item == null || item.collection == null)
       return null;
 
-    //context = this.get_style_context ();
+    context = this.get_style_context ();
     surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, DEFAULT_SIZE, DEFAULT_SIZE);
     cr = new Cairo.Context (surface);
 
-    cr.set_source_rgba (0.5, 0.5, 1.0, 1.0);
+    if (icon == null)
+      icon = Virtaus.get_pixbuf_from_icon_name ("image-x-generic-symbolic", ICON_SIZE);
 
-    cr.rectangle (0.0, 0.0, (double) DEFAULT_SIZE, (double) DEFAULT_SIZE);
+    context.render_background (cr, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
+    context.render_icon (cr, icon, (DEFAULT_SIZE - ICON_SIZE) / 2, (DEFAULT_SIZE - ICON_SIZE) / 2);
 
     // Bottom rectangle
+    context.save ();
+    context.add_class ("bottom-stripe");
 
+    stripe_height = DEFAULT_SIZE / 6;
 
-    cr.fill ();
+    layout = this.create_pango_layout (item.collection.name);
+    layout.set_alignment (Pango.Alignment.CENTER);
+    layout.get_pixel_size (out font_width, out font_height);
 
-    _blur_surface (surface, cr);
+    context.render_background (cr, 0, DEFAULT_SIZE - stripe_height, DEFAULT_SIZE, stripe_height);
+    context.render_layout (cr, (DEFAULT_SIZE - font_width) / 2, DEFAULT_SIZE - stripe_height + (stripe_height - font_height) / 2, layout);
+
+    context.restore ();
 
     pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, DEFAULT_SIZE, DEFAULT_SIZE);
 
