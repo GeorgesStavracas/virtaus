@@ -254,9 +254,7 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
                                Gdk.Rectangle cell_area, Gtk.CellRendererState flags)
   {
     Gtk.StyleContext context;
-    Pango.Layout layout;
-    int w, text_w, text_h, xpad, ypad;
-    double x, y;
+    int xpad, ypad;
 
     context = widget.get_style_context ();
     context.add_class ("selectable-item-renderer");
