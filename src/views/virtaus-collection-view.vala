@@ -95,7 +95,9 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
 
     // Iconview
     iconview = new Virtaus.SelectableIconView ();
+    iconview.set_item_width (256);
     iconview.bind_property ("mode", this, "mode", BindingFlags.BIDIRECTIONAL);
+    iconview.item_activated.connect (item_activated_cb);
 
     viewport.add (iconview);
 
@@ -125,7 +127,6 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
       }
     }
 
-
     register_widget (Virtaus.WindowLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
   }
 
@@ -137,6 +138,20 @@ public class CollectionView : Gtk.Frame, Virtaus.View.AbstractView
   private void create_collection_clicked_cb ()
   {
     show_view ("collection-creator");
+  }
+
+  private void item_activated_cb (Gtk.TreePath? path)
+  {
+    Core.Collection collection;
+    Virtaus.CollectionIconItem item;
+    Gtk.TreeIter? iter;
+
+    iconview.model.get_iter (out iter, path);
+    iconview.model.get (iter, 1, out item);
+
+    collection = item.collection;
+
+    //show_view ("category");
   }
 }
 }

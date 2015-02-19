@@ -230,7 +230,7 @@ public class SelectableIconView : Gtk.IconView
 public interface SelectableItem : GLib.Object
 {
   public abstract string? name {get;}
-  public abstract Gdk.Pixbuf? pixbuf {get; default = null;}
+  public abstract Gdk.Pixbuf? pixbuf {owned get; default = null;}
 }
 
 /**
@@ -240,7 +240,7 @@ public interface SelectableItem : GLib.Object
  */
 private class SelectableCellRenderer : Gtk.CellRendererPixbuf
 {
-  public const int TILE_SIZE = 196;
+  public const int TILE_SIZE = 256;
   public const int CHECK_ICON_SIZE = 32;
   public const int TILE_MARGIN = CHECK_ICON_SIZE / 4;
 
@@ -279,19 +279,6 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
       base.render (cr, widget, area, area, flags);
     }
 
-    // draw text at bottom
-    w = cell_area.width - 2 * xpad;
-
-    layout = widget.create_pango_layout (text ?? "");
-    layout.set_width (w * Pango.SCALE);
-    layout.set_alignment (Pango.Alignment.CENTER);
-    layout.get_pixel_size (out text_w, out text_h);
-
-    x = xpad;
-    y = cell_area.height - text_h - TILE_MARGIN;
-
-    context.render_layout (cr, x, y, layout);
-
     // draw the overlayed checkbox
     if (toggle_visible)
     {
@@ -300,19 +287,18 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
       if (widget.get_direction () == Gtk.TextDirection.RTL)
         x_offset = xpad;
       else
-        x_offset = cell_area.width - CHECK_ICON_SIZE - xpad;
+        x_offset = cell_area.width - 2 * CHECK_ICON_SIZE - xpad;
 
       check_x = x_offset;
-      check_y = cell_area.height - CHECK_ICON_SIZE - ypad - text_h;
+      check_y = cell_area.height - 2 * CHECK_ICON_SIZE - ypad;
 
-      context.save ();
       context.add_class (Gtk.STYLE_CLASS_CHECK);
 
       if (checked)
         context.set_state (Gtk.StateFlags.CHECKED);
 
       context.render_check (cr, check_x, check_y, CHECK_ICON_SIZE, CHECK_ICON_SIZE);
-      context.restore ();
+      context.remove_class (Gtk.STYLE_CLASS_CHECK);
     }
   }
 }
@@ -327,12 +313,7 @@ public class CollectionIconItem : GLib.Object, Virtaus.SelectableItem
   public string? name {get {return collection.name;}}
   public Gdk.Pixbuf? pixbuf
   {
-    get
-      {
-        Gtk.Image image = new Gtk.Image.from_icon_name ("image-x-generic-symbolic", Gtk.IconSize.DIALOG);
-        image.show ();
-        return image.get_pixbuf ();
-      }
+    owned get {return CollectionRenderer.render (this);}
   }
 
   public CollectionIconItem (Virtaus.Core.Collection collection)

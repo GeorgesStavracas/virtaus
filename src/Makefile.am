@@ -29,6 +29,7 @@ VALA_SOURCES = \
     views/virtaus-collection-creator-view.vala \
     views/virtaus-collection-view.vala \
     \
+    widgets/virtaus-base-renderer.vala \
     widgets/virtaus-collection-item.vala \
     widgets/virtaus-selectable-icon-view.vala \
     \
