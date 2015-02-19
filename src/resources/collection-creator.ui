@@ -5,7 +5,7 @@
   <!-- interface-css-provider-path style.css -->
   <object class="GtkTextBuffer" id="audience_requirements_buffer"/>
   <object class="GtkTextBuffer" id="consumption_power_buffer"/>
-  <object class="GtkTextBuffer" id="craft_procces_buffer"/>
+  <object class="GtkTextBuffer" id="craft_proccess_buffer"/>
   <object class="GtkTextBuffer" id="daily_activities_buffer"/>
   <object class="GtkTextBuffer" id="features_buffer"/>
   <object class="GtkTextBuffer" id="finishing_buffer"/>
@@ -560,7 +560,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="wrap_mode">word-char</property>
-                                        <property name="buffer">craft_procces_buffer</property>
+                                        <property name="buffer">craft_proccess_buffer</property>
                                       </object>
                                     </child>
                                     <child type="label_item">
@@ -1680,7 +1680,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
                                 <property name="hexpand">True</property>
                                 <property name="ellipsize">end</property>
                                 <property name="xalign">0</property>
-                                <property name="label" bind-source="craft_procces_buffer" bind-property="text" bind-flags="default" />
+                                <property name="label" bind-source="craft_proccess_buffer" bind-property="text" bind-flags="default" />
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
