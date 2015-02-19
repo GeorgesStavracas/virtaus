@@ -80,6 +80,8 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkChild]
   private Gtk.Entry author_entry;
   [GtkChild]
+  private Gtk.Entry email_entry;
+  [GtkChild]
   private Gtk.Entry collection_name_entry;
   [GtkChild]
   private Gtk.Box location_box;
@@ -180,6 +182,10 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   public new void activate ()
   {
+    /* wipe out previous data */
+    clear_pages ();
+
+    /* return to the first page */
     active_page = 0;
     update_page ();
 
@@ -357,8 +363,9 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* Build up collection */
     collection = new Core.Collection (source);
     collection.name = collection_name_entry.text;
-    collection.info["path"] = source.location_selector.location;
     collection.info["author"] = author_entry.text;
+    collection.info["email"] = email_entry.text;
+    collection.info["path"] = source.location_selector.location;
 
     collection.info["audience-age"] = age_entry.text;
     collection.info["audience-consumption-power"] = consumption_power_buffer.text;
@@ -395,8 +402,32 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void clear_pages ()
   {
-    collection_name_entry.text = "";
     author_entry.text = "";
+    age_entry.text = "";
+    audience_requirements_buffer.text = "";
+    collection_name_entry.text = "";
+    consumption_power_buffer.text = "";
+    craft_proccess_buffer.text = "";
+    daily_activities_buffer.text = "";
+    email_entry.text = "";
+    features_buffer.text = "";
+    finishing_buffer.text = "";
+    frequented_places_buffer.text = "";
+    functional_configuration_buffer.text = "";
+    genre_entry.text = "";
+    lifestyle_buffer.text = "";
+    materials_buffer.text = "";
+    needs_desires_buffer.text = "";
+    physical_features_buffer.text = "";
+    products_buffer.text = "";
+    providers_buffer.text = "";
+    qualities_buffer.text = "";
+    requirements_buffer.text = "";
+    structure_buffer.text = "";
+    style_elements_buffer.text = "";
+    use_cases_buffer.text = "";
+    viability_analisys_buffer.text = "";
+    virtues_buffer.text = "";
   }
 }
 }
