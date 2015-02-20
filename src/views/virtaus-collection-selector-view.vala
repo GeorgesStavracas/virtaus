@@ -126,6 +126,19 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
 
   public new void activate ()
   {
+    /* populate the grid */
+    populate_grid ();
+
+    register_widget (Virtaus.WindowLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
+  }
+
+  public void deactivate ()
+  {
+    /* TODO: something to implement here? */
+  }
+
+  private void populate_grid ()
+  {
     /* Clear all items */
     (iconview.model as Gtk.ListStore).clear ();
 
@@ -142,12 +155,7 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
       }
     }
 
-    register_widget (Virtaus.WindowLocation.HEADERBAR, this.create_button, Gtk.Align.START, Gtk.Align.START);
-  }
-
-  public void deactivate ()
-  {
-    /* TODO: something to implement here? */
+    iconview.queue_draw ();
   }
 
   private void create_collection_clicked_cb ()
@@ -157,7 +165,55 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void remove_collection_clicked_cb ()
   {
-    message ("Removing collections");
+    Gtk.MessageDialog dialog;
+    Gtk.Button cancel_button, delete_button;
+    int response;
+
+    // Buttons
+    cancel_button = new Gtk.Button.with_label (_("Cancel"));
+
+    delete_button = new Gtk.Button.with_label (_("Remove"));
+    delete_button.get_style_context ().add_class ("destructive-action");
+
+    cancel_button.show ();
+    delete_button.show ();
+
+    // Dialog
+    dialog = new Gtk.MessageDialog (this.get_toplevel () as Gtk.Window, Gtk.DialogFlags.MODAL |
+                                    Gtk.DialogFlags.USE_HEADER_BAR, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+                                    _("Remove the selected collections?"));
+    dialog.secondary_text = _("The files will be preserved.");
+
+    dialog.add_action_widget (cancel_button, Gtk.ResponseType.CANCEL);
+    dialog.add_action_widget (delete_button, Gtk.ResponseType.ACCEPT);
+
+    response = dialog.run ();
+
+    if (response == Gtk.ResponseType.ACCEPT)
+    {
+      GLib.List<Gtk.TreePath> selected_items;
+
+      selected_items = iconview.get_selected_items ();
+
+      selected_items.foreach ((path)=>{
+        Virtaus.CollectionIconItem item;
+        Core.DataSource source;
+        Gtk.TreeIter? iter;
+
+        iconview.model.get_iter (out iter, path);
+        iconview.model.get (iter, 1, out item);
+
+        source = item.collection.source;
+        source.remove (item.collection);
+      });
+
+      /* repopulate the grid */
+      populate_grid ();
+
+      mode = Mode.DEFAULT;
+    }
+
+    dialog.destroy ();
   }
 
   private void item_activated_cb (Gtk.TreePath? path)
