@@ -69,13 +69,9 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
         create_button.visible = (_mode == Mode.DEFAULT);
 
         if (_mode == Mode.DEFAULT)
-        {
           remove_widget (remove_collection_button);
-        }
         else
-        {
           register_widget (Virtaus.WindowLocation.ACTIONBAR, remove_collection_button, Gtk.Align.END, Gtk.Align.CENTER);
-        }
 
         this.notify_property ("mode");
       }
@@ -106,6 +102,7 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     /* remove collection button */
     this.remove_collection_button = new Gtk.Button.with_label (_("Delete"));
     this.remove_collection_button.get_style_context ().add_class ("destructive-action");
+    this.remove_collection_button.sensitive = false;
     this.remove_collection_button.clicked.connect (remove_collection_clicked_cb);
 
     // Iconview
