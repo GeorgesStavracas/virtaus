@@ -285,6 +285,9 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
     if (object is Virtaus.Core.Collection)
     {
       result = CollectionOperation.remove (database, object as Virtaus.Core.Collection);
+
+      if (result && collections_ != null)
+        collections_.remove (object as Virtaus.Core.Collection);
     }
 
     /**
