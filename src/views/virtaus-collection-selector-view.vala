@@ -113,6 +113,7 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     iconview.set_item_width (256);
     iconview.bind_property ("mode", this, "mode", BindingFlags.BIDIRECTIONAL);
     iconview.item_activated.connect (item_activated_cb);
+    iconview.selection_changed.connect (iconview_selection_changed_cb);
 
     viewport.add (iconview);
 
@@ -214,6 +215,17 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     }
 
     dialog.destroy ();
+  }
+
+  private void iconview_selection_changed_cb ()
+  {
+    GLib.List<Gtk.TreePath> selected_items;
+    uint length;
+
+    selected_items = iconview.get_selected_items ();
+    length = selected_items.length ();
+
+    remove_collection_button.sensitive = (length > 0);
   }
 
   private void item_activated_cb (Gtk.TreePath? path)
