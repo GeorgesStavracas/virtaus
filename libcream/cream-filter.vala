@@ -17,12 +17,12 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-public class Virtaus.Core.Filter : GLib.Object
+public class Cream.Filter : GLib.Object
 {
 	public Filter () {}
 }
 
-public interface Virtaus.Core.FilterInterface : GLib.Object
+public interface Cream.FilterInterface : GLib.Object
 {
   public signal void register_filter (GLib.Type filter);
 }

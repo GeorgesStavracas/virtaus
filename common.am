@@ -8,8 +8,9 @@ libcream_dir = $(top_srcdir)/libcream
 VIRTAUS_COMMON_LIBCREAM_CORE_VALAFLAGS = \
     --enable-experimental \
     @VIRTAUS_PACKAGES@ \
-	--vapidir=$(libcream_core_dir) \
-	--pkg virtaus-core-1.0 
+	--vapidir=$(libcream_dir) \
+	--pkg cream \
+	--pkg gee-0.8
 
 VIRTAUS_COMMON_LIBCREAM_CORE_CFLAGS = \
     -include config.h \

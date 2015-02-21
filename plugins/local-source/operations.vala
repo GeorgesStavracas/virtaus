@@ -23,7 +23,7 @@ namespace Virtaus.Plugin
 
 internal class CollectionOperation
 {
-  public static bool create (Sqlite.Database db, Virtaus.Core.Collection collection)
+  public static bool create (Sqlite.Database db, Cream.Collection collection)
     requires (collection.id == -1)
   {
     StringBuilder info_query;
@@ -79,14 +79,14 @@ internal class CollectionOperation
     return true;
   }
 
-  public static bool update (Sqlite.Database db, Virtaus.Core.Collection collection)
+  public static bool update (Sqlite.Database db, Cream.Collection collection)
     requires (collection.id != -1)
   {
     message ("update collection");
     return false;
   }
 
-  public static bool remove (Sqlite.Database db, Virtaus.Core.Collection collection)
+  public static bool remove (Sqlite.Database db, Cream.Collection collection)
     requires (collection.id != -1)
   {
     string query, error;
@@ -118,14 +118,14 @@ internal class CollectionOperation
     return true;
   }
 
-  public static LinkedList<Virtaus.Core.Collection> load_all (SqliteSource instance, Sqlite.Database db)
+  public static LinkedList<Cream.Collection> load_all (SqliteSource instance, Sqlite.Database db)
   {
-    LinkedList<Virtaus.Core.Collection> list;
+    LinkedList<Cream.Collection> list;
     Sqlite.Statement stmt;
     string query;
     int rc;
 
-    list = new LinkedList<Virtaus.Core.Collection> ();
+    list = new LinkedList<Cream.Collection> ();
     query = "SELECT * FROM 'Collection'";
 
     /* Perform the selection */
@@ -140,9 +140,9 @@ internal class CollectionOperation
     /* Load each collection from the statement */
     while (stmt.step () == Sqlite.ROW)
     {
-      Virtaus.Core.Collection collection;
+      Cream.Collection collection;
 
-      collection = new Virtaus.Core.Collection (instance);
+      collection = new Cream.Collection (instance);
       collection.id = stmt.column_int (0);
       collection.name = stmt.column_text (1);
       collection.info["path"] = stmt.column_text (2);

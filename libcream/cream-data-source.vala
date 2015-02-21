@@ -1,6 +1,6 @@
 /* -*- Mode: Vala; indent-tabs-mode: t; c-basic-offset: 2; tab-width: 2 -*-  */
 /*
- * virtaus-core-data-source.c
+ * cream-data-source.c
  * Copyright (C) 2014 Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
  * 
  * Virtaus is free software: you can redistribute it and/or modify it
@@ -17,7 +17,7 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-namespace Virtaus.Core
+namespace Cream
 {
 
 /**
@@ -26,9 +26,9 @@ namespace Virtaus.Core
 public interface DataSource : GLib.Object
 {
 	public signal void register_source (GLib.Type source);
-	public signal void sync (Virtaus.Core.SyncStatus status);
-	public signal void saved (Virtaus.Core.BaseObject object);
-	public signal void removed (Virtaus.Core.BaseObject object);
+	public signal void sync (Cream.SyncStatus status);
+	public signal void saved (Cream.BaseObject object);
+	public signal void removed (Cream.BaseObject object);
 
   /**
    * Every data source must provide a way

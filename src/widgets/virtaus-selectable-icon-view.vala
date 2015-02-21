@@ -308,14 +308,14 @@ public class CollectionIconItem : GLib.Object, Virtaus.SelectableItem
 {
   private CollectionRenderer renderer;
 
-  public Core.Collection collection {get; construct set;}
+  public Cream.Collection collection {get; construct set;}
   public string? name {get {return collection.name;}}
   public Gdk.Pixbuf? pixbuf
   {
     owned get {return renderer.render (this);}
   }
 
-  public CollectionIconItem (Virtaus.Core.Collection collection)
+  public CollectionIconItem (Cream.Collection collection)
   {
     this.collection = collection;
     this.renderer = new CollectionRenderer ();

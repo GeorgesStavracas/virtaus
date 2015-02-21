@@ -22,7 +22,7 @@ using Gee;
 namespace Virtaus.Plugin
 {
 
-internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.Core.DataSource, Peas.Activatable
+internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource, Peas.Activatable
 {
 	public GLib.Object object { owned get; construct; }
 	/**
@@ -71,8 +71,8 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	 * file chooser button that implements the
 	 * LocationSelector interface.
 	 */
-	private Virtaus.Core.LocationSelector location_selector_ = new DirectoryLocationSelector ();
-  public Virtaus.Core.LocationSelector location_selector
+	private Cream.LocationSelector location_selector_ = new DirectoryLocationSelector ();
+  public Cream.LocationSelector location_selector
   {
     get {return location_selector_;}
   }
@@ -115,12 +115,12 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	  }
   }
 
-	public void hook (Virtaus.Core.PluginManager manager)
+	public void hook (Cream.PluginManager manager)
 	{
-    Virtaus.Core.ExtensionInfo info;
+    Cream.ExtensionInfo info;
 
 	  /* Information about the plugin */
-	  info = new Virtaus.Core.ExtensionInfo ();
+	  info = new Cream.ExtensionInfo ();
 	  info.name = "Local source";
 	  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
 	  info.description = "Local data source using a SQLite database";
@@ -129,7 +129,7 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	  manager.register_data_source (uid, info);
 	}
 
-  public void unhook (Virtaus.Core.PluginManager manager)
+  public void unhook (Cream.PluginManager manager)
   {
     manager.unregister_data_source (uid);
   }
@@ -227,8 +227,8 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
 	}
 
 	/* TODO: implement the methods above */
-  private LinkedList<Virtaus.Core.Collection>? collections_ = null;
-  public Gee.LinkedList<Virtaus.Core.Collection>? collections
+  private LinkedList<Cream.Collection>? collections_ = null;
+  public Gee.LinkedList<Cream.Collection>? collections
   {
     get
     {
@@ -245,26 +245,26 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
   /**
    * Delegates the operation to the Operation class.
    */
-  public bool save (Virtaus.Core.BaseObject object)
+  public bool save (Cream.BaseObject object)
   {
     bool result = false;
 
     /* Collection */
-    if (object is Virtaus.Core.Collection)
+    if (object is Cream.Collection)
     {
       if (object.id == -1) // Create the collection
       {
-        result = CollectionOperation.create (database, object as Virtaus.Core.Collection);
+        result = CollectionOperation.create (database, object as Cream.Collection);
 
         /**
          * If the collection was successfully created,
          * add it to the collections list.
          */
         if (result && collections_ != null)
-          collections_.add (object as Virtaus.Core.Collection);
+          collections_.add (object as Cream.Collection);
       }
       else // Update the collection
-        result = CollectionOperation.update (database, object as Virtaus.Core.Collection);
+        result = CollectionOperation.update (database, object as Cream.Collection);
     }
 
     /**
@@ -277,17 +277,17 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
     return result;
   }
 
-  public bool remove (Virtaus.Core.BaseObject object)
+  public bool remove (Cream.BaseObject object)
   {
     bool result = false;
 
     /* Collection */
-    if (object is Virtaus.Core.Collection)
+    if (object is Cream.Collection)
     {
-      result = CollectionOperation.remove (database, object as Virtaus.Core.Collection);
+      result = CollectionOperation.remove (database, object as Cream.Collection);
 
       if (result && collections_ != null)
-        collections_.remove (object as Virtaus.Core.Collection);
+        collections_.remove (object as Cream.Collection);
     }
 
     /**
@@ -301,7 +301,7 @@ internal class SqliteSource : Peas.ExtensionBase, Virtaus.Core.Plugin, Virtaus.C
   }
 }
 
-private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.LocationSelector
+private class DirectoryLocationSelector : Gtk.FileChooserButton, Cream.LocationSelector
 {
   public string? location
   {
@@ -336,5 +336,5 @@ private class DirectoryLocationSelector : Gtk.FileChooserButton, Virtaus.Core.Lo
 public void peas_register_types (GLib.TypeModule module) {
     var obj = module as Peas.ObjectModule;
     obj.register_extension_type (typeof (Peas.Activatable), typeof (Virtaus.Plugin.SqliteSource));
-    obj.register_extension_type (typeof (Virtaus.Core.DataSource), typeof (Virtaus.Plugin.SqliteSource));
+    obj.register_extension_type (typeof (Cream.DataSource), typeof (Virtaus.Plugin.SqliteSource));
 }

@@ -1,6 +1,6 @@
 /* -*- Mode: Vala; indent-tabs-mode: s; c-basic-offset: 2; tab-width: 2 -*-  */
 /*
- * Virtaus-core-plugin-manager.c
+ * cream-plugin-manager.c
  * Copyright (C) 2014 Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
  * 
  * Virtaus is free software: you can redistribute it and/or modify it
@@ -17,16 +17,16 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class Virtaus.Core.PluginManager : GLib.Object
+public class Cream.PluginManager : GLib.Object
 {
 	/* Signals */
-	public signal void data_source_registered (Virtaus.Core.ExtensionInfo source, string uid);
+	public signal void data_source_registered (Cream.ExtensionInfo source, string uid);
 	public signal void data_source_unregistered (string uid);
 
-	public signal void filter_registered (Virtaus.Core.ExtensionInfo filter, string uid);
+	public signal void filter_registered (Cream.ExtensionInfo filter, string uid);
 	public signal void filter_unregistered (string uid);
 
-	public signal void plugin_registered (Virtaus.Core.ExtensionInfo plugin, string uid);
+	public signal void plugin_registered (Cream.ExtensionInfo plugin, string uid);
 	public signal void plugin_unregistered (string uid);
 
 	/* Peas */
@@ -34,9 +34,9 @@ public class Virtaus.Core.PluginManager : GLib.Object
   public Peas.ExtensionSet extension_set {private set; public get;}
 
 	/* Registered extensions */
-  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> data_sources {public get; private set;}
-  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> filters {public get; private set;}
-  public Gee.HashMap <string, Virtaus.Core.ExtensionInfo> plugins {public get; private set;}
+  public Gee.HashMap <string, Cream.ExtensionInfo> data_sources {public get; private set;}
+  public Gee.HashMap <string, Cream.ExtensionInfo> filters {public get; private set;}
+  public Gee.HashMap <string, Cream.ExtensionInfo> plugins {public get; private set;}
 
 	/* Settings */
 	private GLib.Settings settings {public get; private set;}
@@ -56,9 +56,9 @@ public class Virtaus.Core.PluginManager : GLib.Object
 		settings.bind ("active-plugins", engine, "loaded-plugins", GLib.SettingsBindFlags.DEFAULT);
 
 		/* Instantiate lists */
-		data_sources = new Gee.HashMap <string, Virtaus.Core.ExtensionInfo> ();
-		filters = new Gee.HashMap <string, Virtaus.Core.ExtensionInfo> ();
-		plugins = new Gee.HashMap <string, Virtaus.Core.ExtensionInfo> ();
+		data_sources = new Gee.HashMap <string, Cream.ExtensionInfo> ();
+		filters = new Gee.HashMap <string, Cream.ExtensionInfo> ();
+		plugins = new Gee.HashMap <string, Cream.ExtensionInfo> ();
 
 		/* Setup extension set */
 		extension_set = new Peas.ExtensionSet (engine, typeof (Peas.Activatable), null);
@@ -95,24 +95,24 @@ public class Virtaus.Core.PluginManager : GLib.Object
   void on_extension_added (Peas.PluginInfo info, GLib.Object extension)
 	{
     (extension as Peas.Activatable).activate ();
-    (extension as Virtaus.Core.Plugin).hook (this);
+    (extension as Cream.Plugin).hook (this);
 	}
 
 	/* Deactivate plugin on signal */
 	void on_extension_removed (Peas.PluginInfo info, GLib.Object extension)
 	{
     (extension as Peas.Activatable).deactivate ();
-    (extension as Virtaus.Core.Plugin).unhook (this);
+    (extension as Cream.Plugin).unhook (this);
 	}
 
 	/* Register & unregister DataSources */
-	public void register_data_source (string uid, Virtaus.Core.ExtensionInfo info)
+	public void register_data_source (string uid, Cream.ExtensionInfo info)
 	{
 		if (data_sources.has_key (uid))
 			return;
 
 		/* Trying to add a non datasource type */
-		if (! info.instance.get_type ().is_a (typeof (Virtaus.Core.DataSource)))
+		if (! info.instance.get_type ().is_a (typeof (Cream.DataSource)))
 		{
 			warning (_("Cannot register a non DataSource type into DataSource map"));
 			return;
@@ -136,13 +136,13 @@ public class Virtaus.Core.PluginManager : GLib.Object
 	}
 
 	/* Register & unregister Plugins */
-	public void register_plugin (string uid, Virtaus.Core.ExtensionInfo info)
+	public void register_plugin (string uid, Cream.ExtensionInfo info)
 	{
 		if (plugins.has_key (uid))
 			return;
 
 		/* Trying to add a non-plugin type */
-		if (! info.instance.get_type ().is_a (typeof (Virtaus.Core.Plugin)))
+		if (! info.instance.get_type ().is_a (typeof (Cream.Plugin)))
 		{
 			warning (_("Cannot register a non-plugin type into Plugins map"));
 			return;
@@ -166,13 +166,13 @@ public class Virtaus.Core.PluginManager : GLib.Object
 	}
 
 	/* Register & unregister Filters */
-	public void register_filter (string uid, Virtaus.Core.ExtensionInfo info)
+	public void register_filter (string uid, Cream.ExtensionInfo info)
 	{
 		if (filters.has_key (uid))
 			return;
 
 		/* Trying to add a non-filter type */
-		if (! info.instance.get_type ().is_a (typeof (Virtaus.Core.Filter)))
+		if (! info.instance.get_type ().is_a (typeof (Cream.Filter)))
 		{
 			warning (_("Cannot register a non-filter type into Filter map"));
 			return;

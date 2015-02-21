@@ -1,6 +1,6 @@
 /* -*- Mode: Vala; indent-tabs-mode: t; c-basic-offset: 2; tab-width: 2 -*-  */
 /*
- * virtaus-core-exporter.c
+ * cream-exporter.c
  * Copyright (C) 2013 Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
  * 
  * Virtaus is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  */
  
 
-public interface Virtaus.Core.Exporter : GLib.Object
+public interface Cream.Exporter : GLib.Object
 {
 	public abstract void set_path (string path);
 	public abstract void export ();

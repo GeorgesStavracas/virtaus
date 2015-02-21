@@ -22,7 +22,7 @@ public class Virtaus.Application : Gtk.Application
 
 	private Virtaus.Window window;
 	
-	public Virtaus.Core.PluginManager manager {get; private set;}
+	public Cream.PluginManager manager {get; private set;}
 
 	public Application () {
 	    Object (application_id: "apps.virtaus",
@@ -83,7 +83,7 @@ public class Virtaus.Application : Gtk.Application
 	
 	private void load_plugins()
 	{
-		manager = new Virtaus.Core.PluginManager ();
+		manager = new Cream.PluginManager ();
 		manager.add_plugin_search_path (Config.PLUGINDIR, null);
 	}
 }

@@ -19,24 +19,24 @@
 namespace Virtaus.Plugin
 {
 
-internal class Example : Peas.ExtensionBase, Virtaus.Core.Plugin, Peas.Activatable
+internal class Example : Peas.ExtensionBase, Cream.Plugin, Peas.Activatable
 {
 	public GLib.Object object { owned get; construct; }
 
 
-	public void hook (Virtaus.Core.PluginManager manager)
+	public void hook (Cream.PluginManager manager)
 	{
-    Virtaus.Core.ExtensionInfo info;
+    Cream.ExtensionInfo info;
 
 	  /* Information about the plugin */
-	  info = new Virtaus.Core.ExtensionInfo ();
+	  info = new Cream.ExtensionInfo ();
 	  info.name = "Example plugin";
 	  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
 	  info.description = "An example plugin";
 	  info.instance = this;
 	}
 
-  public void unhook (Virtaus.Core.PluginManager manager)
+  public void unhook (Cream.PluginManager manager)
   {
   }
 
@@ -62,5 +62,5 @@ internal class Example : Peas.ExtensionBase, Virtaus.Core.Plugin, Peas.Activatab
 public void peas_register_types (GLib.TypeModule module) {
     var obj = module as Peas.ObjectModule;
     obj.register_extension_type (typeof (Peas.Activatable), typeof (Virtaus.Plugin.Example));
-    obj.register_extension_type (typeof (Virtaus.Core.Plugin), typeof (Virtaus.Plugin.Example));
+    obj.register_extension_type (typeof (Cream.Plugin), typeof (Virtaus.Plugin.Example));
 }

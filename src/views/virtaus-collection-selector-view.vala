@@ -141,11 +141,11 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     (iconview.model as Gtk.ListStore).clear ();
 
     /* Repopulate the grid */
-    foreach (Core.ExtensionInfo info in app.manager.data_sources.values)
+    foreach (Cream.ExtensionInfo info in app.manager.data_sources.values)
     {
-      Core.DataSource source = info.instance as Core.DataSource;
+      Cream.DataSource source = info.instance as Cream.DataSource;
 
-      foreach (Core.Collection collection in source.collections)
+      foreach (Cream.Collection collection in source.collections)
       {
         Virtaus.CollectionIconItem item = new Virtaus.CollectionIconItem (collection);
 
@@ -195,7 +195,7 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
 
       selected_items.foreach ((path)=>{
         Virtaus.CollectionIconItem item;
-        Core.DataSource source;
+        Cream.DataSource source;
         Gtk.TreeIter? iter;
 
         iconview.model.get_iter (out iter, path);

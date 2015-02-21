@@ -2,7 +2,7 @@ libvirtausincdir = $(includedir)/libcream
 
 libvirtausinc_HEADERS = cream.h
 
-lib_LTLIBRARIES = libcream.la
+noinst_LTLIBRARIES = libcream.la
 
 libcream_la_SOURCES = \
     cream-data-source.vala \
@@ -20,7 +20,7 @@ libcream_la_VALAFLAGS = \
     --pkg libpeas-1.0 \
     --pkg gmodule-2.0 \
     --pkg gee-0.8 \
-    --library=cream-1.0 \
+    --library=cream \
     @VIRTAUS_PACKAGES@
 
 libcream_la_CFLAGS = \

@@ -29,8 +29,8 @@ public class CollectionItem : Gtk.FlowBoxChild
    * Delegate the collection setup to the
    * collection item class.
    */
-  private Core.Collection collection_;
-  public Core.Collection collection
+  private Cream.Collection collection_;
+  public Cream.Collection collection
   {
     get {return collection_;}
     construct set
@@ -45,7 +45,7 @@ public class CollectionItem : Gtk.FlowBoxChild
    */
   public string? item_name {get {return name_label.label;}}
 
-  public CollectionItem (Core.Collection collection)
+  public CollectionItem (Cream.Collection collection)
   {
     this.collection = collection;
   }

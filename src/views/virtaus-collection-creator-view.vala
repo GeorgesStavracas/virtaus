@@ -126,10 +126,10 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   /**
    * A map of row -> data source and uid -> data source
    */
-  private HashMap<Gtk.ListBoxRow, Virtaus.Core.DataSource> row_to_source =
-                                                               new HashMap<Gtk.ListBoxRow, Virtaus.Core.DataSource> ();
+  private HashMap<Gtk.ListBoxRow, Cream.DataSource> row_to_source =
+                                                               new HashMap<Gtk.ListBoxRow, Cream.DataSource> ();
 
-  private HashMap<string, Virtaus.Core.DataSource> uid_to_source = new HashMap<string, Virtaus.Core.DataSource> ();
+  private HashMap<string, Cream.DataSource> uid_to_source = new HashMap<string, Cream.DataSource> ();
 
   /**
    * {@link Virtaus.View.Mode} implementation.
@@ -203,13 +203,13 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* TODO: something to implement here? */
   }
 
-  private void add_source (Virtaus.Core.ExtensionInfo source, string uid)
+  private void add_source (Cream.ExtensionInfo source, string uid)
   {
-    Virtaus.Core.DataSource data_source;
+    Cream.DataSource data_source;
     Gtk.ListBoxRow row;
 
     /* FIXME: it should support source images */
-    data_source = app.manager.data_sources[uid].instance as Virtaus.Core.DataSource;
+    data_source = app.manager.data_sources[uid].instance as Cream.DataSource;
     row = new Gtk.ListBoxRow ();
     row.height_request = 40;
 
@@ -224,9 +224,9 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void remove_source (string uid)
   {
-    Virtaus.Core.DataSource data_source;
+    Cream.DataSource data_source;
     Gtk.ListBoxRow? row;
-    data_source = uid_to_source[uid] as Virtaus.Core.DataSource;
+    data_source = uid_to_source[uid] as Cream.DataSource;
 
     /* Search for the correct row */
     row = null;
@@ -256,7 +256,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkCallback]
   private void row_selected_cb (Gtk.ListBoxRow? row)
   {
-    Virtaus.Core.DataSource source;
+    Cream.DataSource source;
     GLib.List<weak Gtk.Widget> children;
     Gtk.Widget old_selector;
 
@@ -370,14 +370,14 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void create_collection ()
   {
-    Core.Collection collection;
-    Core.DataSource source;
+    Cream.Collection collection;
+    Cream.DataSource source;
 
     /* Selected source */
     source = row_to_source[sources_listbox.get_selected_row ()];
 
     /* Build up collection */
-    collection = new Core.Collection (source);
+    collection = new Cream.Collection (source);
     collection.name = collection_name_entry.text;
     collection.info["author"] = author_entry.text;
     collection.info["email"] = email_entry.text;
@@ -410,7 +410,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     collection.info["product-viability-analisys"] = viability_analisys_buffer.text;
 
     /* Save the collection */
-    source.save (collection as Core.BaseObject);
+    source.save (collection as Cream.BaseObject);
 
     /* Return to the Collection view */
     show_view ("collection-selector");
