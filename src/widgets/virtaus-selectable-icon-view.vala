@@ -280,15 +280,14 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
     // draw the overlayed checkbox
     if (toggle_visible)
     {
-      int x_offset, check_x, check_y;
+      int check_x, check_y;
 
       if (widget.get_direction () == Gtk.TextDirection.RTL)
-        x_offset = xpad;
+        check_x = xpad;
       else
-        x_offset = cell_area.width - 2 * CHECK_ICON_SIZE - xpad;
+        check_x = (int) (cell_area.width - 1.667 * CHECK_ICON_SIZE - xpad);
 
-      check_x = x_offset;
-      check_y = cell_area.height - 2 * CHECK_ICON_SIZE - ypad;
+      check_y = (int) (cell_area.height - 1.667 * CHECK_ICON_SIZE - ypad);
 
       context.add_class (Gtk.STYLE_CLASS_CHECK);
 
