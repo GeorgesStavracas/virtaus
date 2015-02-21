@@ -1,8 +1,8 @@
 include $(top_srcdir)/common.am
 
 AM_CPPFLAGS = \
-  -I$(top_builddir)/libvirtaus \
-	-I$(top_srcdir)/libvirtaus \
+  -I$(top_builddir)/libcream \
+	-I$(top_srcdir)/libcream \
 	-I$(srcdir) \
 	-DGNOME_DESKTOP_USE_UNSTABLE_API \
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\" \
@@ -44,15 +44,15 @@ virtaus_SOURCES = \
 # compile-time dependencies
 virtaus_VALAFLAGS =  \
     @VIRTAUS_PACKAGES@ \
-    --vapidir=$(top_srcdir)/libvirtaus \
-    --pkg virtaus-core-1.0 \
+    --vapidir=$(top_srcdir)/libcream \
+    --pkg cream \
     --target-glib=2.38 \
     --gresources=virtaus.gresource.xml
 
 virtaus_LDFLAGS = \
 	-export-dynamic
 
-virtaus_LDADD = $(VIRTAUS_LIBS) $(VIRTAUS_COMMON_LIBVIRTAUS_CORE_LIBS) -lm
+virtaus_LDADD = $(VIRTAUS_LIBS) $(VIRTAUS_COMMON_LIBCREAM_CORE_LIBS) -lm
 
 # generate binary-bundle resources
 resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(srcdir) $(srcdir)/virtaus.gresource.xml)

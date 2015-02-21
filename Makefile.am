@@ -1,10 +1,10 @@
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 NULL =
 
-pkgconfig_DATA = virtaus-core-1.0.pc
+pkgconfig_DATA = libcream.pc
 pkgconfigdir = $(libdir)/pkgconfig
 
-SUBDIRS = po libvirtaus src data plugins
+SUBDIRS = po libcream src data plugins
 
 virtausdocdir = ${prefix}/doc/virtaus
 virtausdoc_DATA = \
@@ -21,7 +21,7 @@ virtausdoc_DATA = \
 EXTRA_DIST = \
     config.rpath m4/ChangeLog \
     $(virtausdoc_DATA) \
-    virtaus-core-1.0.pc.in
+    libcream.pc.in
 
 CLEANFILES = \
 	$(applications_DATA)

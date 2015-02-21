@@ -12,17 +12,17 @@ liblocal_source_la_SOURCES = \
     $(BUILT_SOURCES)
 
 liblocal_source_la_VALAFLAGS = \
-	$(VIRTAUS_COMMON_LIBVIRTAUS_CORE_VALAFLAGS) \
+	$(VIRTAUS_COMMON_LIBCREAM_CORE_VALAFLAGS) \
 	--target-glib=2.38 \
     --gresources=local-source.gresource.xml
 
 liblocal_source_la_CFLAGS = \
-	$(VIRTAUS_COMMON_LIBVIRTAUS_CORE_CFLAGS) \
+	$(VIRTAUS_COMMON_LIBCREAM_CORE_CFLAGS) \
 	-I$(srcdir) \
     -DG_LOG_DOMAIN='"Local Source"'
 
 liblocal_source_la_LIBADD = \
-    $(VIRTAUS_COMMON_LIBVIRTAUS_CORE_LIBS)
+    $(VIRTAUS_COMMON_LIBCREAM_CORE_LIBS)
 
 liblocal_source_la_LDFLAGS = \
     $(VIRTAUS_PLUGIN_LINKER_FLAGS) \

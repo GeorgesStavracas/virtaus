@@ -80,24 +80,24 @@ VIRTAUS_ADD_PLUGIN([example],[Example],[yes])
 VIRTAUS_ADD_PLUGIN([local-source],[Local Source],[yes])
 
 dnl Setup vala stamps
-VIRTAUS_ADD_STAMP([libvirtaus/libvirtaus_core_1_0_vala.stamp])
+VIRTAUS_ADD_STAMP([libcream/libcream_vala.stamp])
 VIRTAUS_ADD_STAMP([src/virtaus_vala.stamp])
 
 # Setup plugin dependencies
 PKG_CHECK_MODULES([VIRTAUS_PLUGIN_DEPS], [$package_modules])
 
 # Defining some constant paths
-AC_SUBST([VIRTAUS_PLUGIN_DIR], [${libdir}/virtaus-1.0/plugins])
+AC_SUBST([VIRTAUS_PLUGIN_DIR], [${libdir}/libcream/plugins])
 AC_SUBST([VIRTAUS_PLUGIN_LINKER_FLAGS], ["-module -avoid-version -Wl,-z,defs"])
 
 AC_CONFIG_FILES([
     Makefile
-    virtaus-core-1.0.pc
+    libcream.pc
     data/Makefile
     data/icons/Makefile
     data/apps.virtaus.gschema.xml.in
     src/Makefile
-    libvirtaus/Makefile
+    libcream/Makefile
     po/Makefile.in
     plugins/Makefile
 ])
