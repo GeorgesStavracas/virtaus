@@ -2190,7 +2190,7 @@ Below, you'll find optional data fields that can complement you project setup. Y
             <property name="can_focus">False</property>
             <property name="label_xalign">0</property>
             <child>
-              <object class="GtkSidebar" id="sidebar">
+              <object class="GtkStackSidebar" id="sidebar">
                 <property name="width_request">180</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
