@@ -141,7 +141,7 @@ public class ProjectSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     (iconview.model as Gtk.ListStore).clear ();
 
     /* Repopulate the grid */
-    foreach (Cream.ExtensionInfo info in app.manager.data_sources.values)
+    foreach (Cream.ExtensionInfo info in app.context.plugin_manager.data_sources.values)
     {
       Cream.DataSource source = info.instance as Cream.DataSource;
 

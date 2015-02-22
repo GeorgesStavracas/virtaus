@@ -171,11 +171,11 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     this.button_box.show_all ();
 
     /* load data sources */
-    app.manager.data_source_registered.connect (add_source);
-    app.manager.data_source_unregistered.connect (remove_source);
+    app.context.plugin_manager.data_source_registered.connect (add_source);
+    app.context.plugin_manager.data_source_unregistered.connect (remove_source);
 
-    foreach (string key in app.manager.data_sources.keys)
-      add_source (app.manager.data_sources.get (key), key);
+    foreach (string key in app.context.plugin_manager.data_sources.keys)
+      add_source (app.context.plugin_manager.data_sources.get (key), key);
 
     this.show_all ();
   }
@@ -209,7 +209,7 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     Gtk.ListBoxRow row;
 
     /* FIXME: it should support source images */
-    data_source = app.manager.data_sources[uid].instance as Cream.DataSource;
+    data_source = app.context.plugin_manager.data_sources[uid].instance as Cream.DataSource;
     row = new Gtk.ListBoxRow ();
     row.height_request = 40;
 

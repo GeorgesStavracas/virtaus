@@ -22,11 +22,14 @@ public class Virtaus.Application : Gtk.Application
 
 	private Virtaus.Window window;
 	
-	public Cream.PluginManager manager {get; private set;}
+	public Cream.Context context {get; construct;}
 
 	public Application () {
-	    Object (application_id: "apps.virtaus",
-              flags: GLib.ApplicationFlags.FLAGS_NONE);
+    Object (application_id: "apps.virtaus",
+            flags: GLib.ApplicationFlags.FLAGS_NONE,
+            context: new Cream.Context ());
+
+	  context.plugin_manager.add_plugin_search_path (Config.PLUGINDIR, null);
 	}
 	
 	protected override void activate ()
@@ -69,9 +72,6 @@ public class Virtaus.Application : Gtk.Application
 		    stderr.printf ("loading css: %s\n", e.message);
 		}
 
-		// Load plugins from disk
-		load_plugins();
-
 		var quit_action = new SimpleAction ("quit", null);
 		this.add_action (quit_action);
 
@@ -79,12 +79,6 @@ public class Virtaus.Application : Gtk.Application
 		{
 		  this.window.destroy ();
 	  });
-	}
-	
-	private void load_plugins()
-	{
-		manager = new Cream.PluginManager ();
-		manager.add_plugin_search_path (Config.PLUGINDIR, null);
 	}
 }
 
