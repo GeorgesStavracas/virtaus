@@ -14,6 +14,7 @@ libcream_la_SOURCES = \
     cream-plugin.vala \
     cream-plugin-manager.vala \
     cream-project.vala \
+    cream-renderer.vala \
     cream-settings.vala \
     cream-types.vala
     
