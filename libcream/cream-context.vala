@@ -23,17 +23,23 @@ public class Cream.Context : GLib.Object
   /**
    * The {@link Cream.Settings} of this instance.
    */
-  public Cream.Settings settings {public get; construct set;}
+  public Cream.Settings settings {public get; construct;}
 
   /**
    * The {@link Cream.PluginManager} of this instance.
    */
-  public Cream.PluginManager plugin_manager {public get; construct set;}
+  public Cream.PluginManager plugin_manager {public get; construct;}
+
+  /**
+   * the {@link Cream.ResourceManager} of this instance.
+   */
+  public Cream.ResourceManager resource_manager {get; construct;}
 
   public Context ()
   {
-    settings = new Cream.Settings (this, DEFAULT_SCHEMA);
-    plugin_manager = new Cream.PluginManager ();
+    Object (settings: new Cream.Settings (this, DEFAULT_SCHEMA),
+            plugin_manager: new Cream.PluginManager (),
+            resource_manager: new Cream.ResourceManager (this));
   }
 
 }
