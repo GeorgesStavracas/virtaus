@@ -227,18 +227,18 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
 	}
 
 	/* TODO: implement the methods above */
-  private LinkedList<Cream.Collection>? collections_ = null;
-  public Gee.LinkedList<Cream.Collection>? collections
+  private GLib.List<Cream.Project>? projects_ = null;
+  public GLib.List<Cream.Project>? projects
   {
     get
     {
-      /* Load collections */
-      if (collections_ == null)
+      /* Load projects */
+      if (projects_ == null)
       {
-        collections_ = CollectionOperation.load_all (this, database);
+        projects_ = ProjectOperation.load_all (this, database);
       }
 
-      return collections_;
+      return projects_;
     }
   }
 
@@ -249,22 +249,22 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
   {
     bool result = false;
 
-    /* Collection */
-    if (object is Cream.Collection)
+    /* Project */
+    if (object is Cream.Project)
     {
-      if (object.id == -1) // Create the collection
+      if (object.id == -1) // Create the project
       {
-        result = CollectionOperation.create (database, object as Cream.Collection);
+        result = ProjectOperation.create (database, object as Cream.Project);
 
         /**
-         * If the collection was successfully created,
-         * add it to the collections list.
+         * If the project was successfully created,
+         * add it to the projects list.
          */
-        if (result && collections_ != null)
-          collections_.add (object as Cream.Collection);
+        if (result && projects_ != null)
+          projects_.append (object as Cream.Project);
       }
-      else // Update the collection
-        result = CollectionOperation.update (database, object as Cream.Collection);
+      else // Update the project
+        result = ProjectOperation.update (database, object as Cream.Project);
     }
 
     /**
@@ -281,13 +281,13 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
   {
     bool result = false;
 
-    /* Collection */
-    if (object is Cream.Collection)
+    /* Project */
+    if (object is Cream.Project)
     {
-      result = CollectionOperation.remove (database, object as Cream.Collection);
+      result = ProjectOperation.remove (database, object as Cream.Project);
 
-      if (result && collections_ != null)
-        collections_.remove (object as Cream.Collection);
+      if (result && projects_ != null)
+        projects_.remove (object as Cream.Project);
     }
 
     /**

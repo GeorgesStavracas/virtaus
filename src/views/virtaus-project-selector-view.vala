@@ -1,6 +1,6 @@
 /* -*- Mode: Vala; indent-tabs-mode: c; c-basic-offset: 2; tab-width: 2 -*-  */
 /*
- * virtaus-collection-view.c
+ * virtaus-project-view.c
  * Copyright (C) 2014 Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
  *
  * Virtaus is free software: you can redistribute it and/or modify it
@@ -22,13 +22,13 @@ using Gee;
 namespace Virtaus.View
 {
 
-[GtkTemplate (ui = "/apps/virtaus/resources/collection-selector.ui")]
-public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
+[GtkTemplate (ui = "/apps/virtaus/resources/project-selector.ui")]
+public class ProjectSelectorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
   private Gtk.Button create_button;
-  private Gtk.Button remove_collection_button;
+  private Gtk.Button remove_project_button;
 
   [GtkChild]
   private Gtk.SearchBar searchbar;
@@ -69,9 +69,9 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
         create_button.visible = (_mode == Mode.DEFAULT);
 
         if (_mode == Mode.DEFAULT)
-          remove_widget (remove_collection_button);
+          remove_widget (remove_project_button);
         else
-          register_widget (Virtaus.WindowLocation.ACTIONBAR, remove_collection_button, Gtk.Align.END, Gtk.Align.CENTER);
+          register_widget (Virtaus.WindowLocation.ACTIONBAR, remove_project_button, Gtk.Align.END, Gtk.Align.CENTER);
 
         this.notify_property ("mode");
       }
@@ -90,20 +90,20 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
   public string? subtitle {get {return _("Select a project or create a new one");}}
   public Gtk.Widget? titlebar_widget {get {return null;}}
 
-  public CollectionSelectorView (Virtaus.Application app)
+  public ProjectSelectorView (Virtaus.Application app)
   {
     this.app = app;
 
-    /* create collection button */
-    this.create_button = new Gtk.Button.with_label ("New collection");
+    /* create project button */
+    this.create_button = new Gtk.Button.with_label ("New project");
     this.create_button.get_style_context ().add_class ("suggested-action");
-    this.create_button.clicked.connect (create_collection_clicked_cb);
+    this.create_button.clicked.connect (create_project_clicked_cb);
 
-    /* remove collection button */
-    this.remove_collection_button = new Gtk.Button.with_label (_("Delete"));
-    this.remove_collection_button.get_style_context ().add_class ("destructive-action");
-    this.remove_collection_button.sensitive = false;
-    this.remove_collection_button.clicked.connect (remove_collection_clicked_cb);
+    /* remove project button */
+    this.remove_project_button = new Gtk.Button.with_label (_("Delete"));
+    this.remove_project_button.get_style_context ().add_class ("destructive-action");
+    this.remove_project_button.sensitive = false;
+    this.remove_project_button.clicked.connect (remove_project_clicked_cb);
 
     // Iconview
     iconview = new Virtaus.SelectableIconView ();
@@ -145,9 +145,9 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     {
       Cream.DataSource source = info.instance as Cream.DataSource;
 
-      foreach (Cream.Collection collection in source.collections)
+      foreach (Cream.Project project in source.projects)
       {
-        Virtaus.CollectionIconItem item = new Virtaus.CollectionIconItem (collection);
+        Virtaus.ProjectIconItem item = new Virtaus.ProjectIconItem (project);
 
         iconview.add_item (item);
       }
@@ -156,12 +156,12 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     iconview.queue_draw ();
   }
 
-  private void create_collection_clicked_cb ()
+  private void create_project_clicked_cb ()
   {
-    show_view ("collection-creator");
+    show_view ("project-creator");
   }
 
-  private void remove_collection_clicked_cb ()
+  private void remove_project_clicked_cb ()
   {
     Gtk.MessageDialog dialog;
     Gtk.Button cancel_button, delete_button;
@@ -179,7 +179,7 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     // Dialog
     dialog = new Gtk.MessageDialog (this.get_toplevel () as Gtk.Window, Gtk.DialogFlags.MODAL |
                                     Gtk.DialogFlags.USE_HEADER_BAR, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
-                                    _("Remove the selected collections?"));
+                                    _("Remove the selected projects?"));
     dialog.secondary_text = _("The files will be preserved.");
 
     dialog.add_action_widget (cancel_button, Gtk.ResponseType.CANCEL);
@@ -194,15 +194,15 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
       selected_items = iconview.get_selected_items ();
 
       selected_items.foreach ((path)=>{
-        Virtaus.CollectionIconItem item;
+        Virtaus.ProjectIconItem item;
         Cream.DataSource source;
         Gtk.TreeIter? iter;
 
         iconview.model.get_iter (out iter, path);
         iconview.model.get (iter, 1, out item);
 
-        source = item.collection.source;
-        source.remove (item.collection);
+        source = item.project.source;
+        source.remove (item.project);
       });
 
       /* repopulate the grid */
@@ -222,12 +222,12 @@ public class CollectionSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     selected_items = iconview.get_selected_items ();
     length = selected_items.length ();
 
-    remove_collection_button.sensitive = (length > 0);
+    remove_project_button.sensitive = (length > 0);
   }
 
   private void item_activated_cb (Gtk.TreePath? path)
   {
-    Virtaus.CollectionIconItem item;
+    Virtaus.ProjectIconItem item;
     Gtk.TreeIter? iter;
 
     iconview.model.get_iter (out iter, path);

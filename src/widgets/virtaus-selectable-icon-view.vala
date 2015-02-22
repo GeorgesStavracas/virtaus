@@ -302,23 +302,23 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
 
 
 /**
- * Default implementation for Collections.
+ * Default implementation for {@link Cream.Project}.
  */
-public class CollectionIconItem : GLib.Object, Virtaus.SelectableItem
+public class ProjectIconItem : GLib.Object, Virtaus.SelectableItem
 {
-  private CollectionRenderer renderer;
+  private ProjectRenderer renderer;
 
-  public Cream.Collection collection {get; construct set;}
-  public string? name {get {return collection.name;}}
+  public Cream.Project project {get; construct set;}
+  public string? name {get {return project.name;}}
   public Gdk.Pixbuf? pixbuf
   {
     owned get {return renderer.render (this);}
   }
 
-  public CollectionIconItem (Cream.Collection collection)
+  public ProjectIconItem (Cream.Project project)
   {
-    this.collection = collection;
-    this.renderer = new CollectionRenderer ();
+    this.project = project;
+    this.renderer = new ProjectRenderer ();
   }
 }
 }

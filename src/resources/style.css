@@ -15,13 +15,13 @@ VirtausSelectableIconView
   background-color: lighter(@theme_bg_color);
 }
 
-VirtausCollectionRenderer
+VirtausProjectRenderer
 {
   background-color: @theme_bg_color;
   border-radius: 8px;
 }
 
-VirtausCollectionRenderer.bottom-stripe
+VirtausProjectRenderer.bottom-stripe
 {
   background-color: alpha(#000000, 0.5);
   border-radius: 0px;

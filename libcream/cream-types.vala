@@ -44,30 +44,15 @@ public class Attribute : BaseObject
 public class Category : BaseObject
 {
 	public Gdk.Rectangle rect {public get; public set;}
-	public Collection parent {public get; construct set;}
+	public Cream.Project parent {public get; construct set;}
 	public Gee.HashMap <string, Attribute> attributes {public get; construct set;}
 	public Gee.HashMap <string, Product> products {public get; construct set;}
 
-	public Category (Collection parent)
+	public Category (Cream.Project parent)
   {
 		this.parent = parent;
 		this.attributes = new Gee.HashMap <string, Attribute> ();
 		this.products = new Gee.HashMap <string, Product> ();
-  }
-}
-
-public class Collection : BaseObject
-{
-	public Gee.HashMap <string, string> info {public get; construct set;}
-	public Gee.HashMap <string, Category> categories {public get; construct set;}
-	public Gee.HashMap <string, Set> sets {public get; construct set;}
-
-	public Collection (DataSource source)
-  {
-		this.sets = new Gee.HashMap <string, Set> ();
-		this.info = new Gee.HashMap <string, string> ();
-		this.categories = new Gee.HashMap <string, Category> ();
-		this.source = source;
   }
 }
 
@@ -100,9 +85,9 @@ public class Product : BaseObject
 public class Set : BaseObject
 {
 	public Gee.HashMap <string, Product> products {public get; construct set;}
-	public Collection parent {public get; construct set;}
+	public Cream.Project parent {public get; construct set;}
 
-	public Set (Collection parent)
+	public Set (Cream.Project parent)
   {
 		this.parent = parent;
 		this.products =  new Gee.HashMap <string, Product> ();

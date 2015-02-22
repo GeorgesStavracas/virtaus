@@ -1,6 +1,6 @@
 /* -*- Mode: Vala; indent-tabs-mode: c; c-basic-offset: 2; tab-width: 2 -*-  */
 /*
- * virtaus-collection-view.c
+ * virtaus-project-creator-view.c
  * Copyright (C) 2014 Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
  *
  * Virtaus is free software: you can redistribute it and/or modify it
@@ -22,8 +22,8 @@
 namespace Virtaus.View
 {
 
-[GtkTemplate (ui = "/apps/virtaus/resources/collection-creator.ui")]
-public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
+[GtkTemplate (ui = "/apps/virtaus/resources/project-creator.ui")]
+public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 {
   private Virtaus.Application app;
 
@@ -82,7 +82,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   [GtkChild]
   private Gtk.Entry email_entry;
   [GtkChild]
-  private Gtk.Entry collection_name_entry;
+  private Gtk.Entry project_name_entry;
   [GtkChild]
   private Gtk.Box location_box;
   [GtkChild]
@@ -119,7 +119,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   /**
    * Title and subtitle.
    */
-  public string? title {get {return _("New Collection");}}
+  public string? title {get {return _("New Project");}}
   public string? subtitle {get {return null;}}
   public Gtk.Widget? titlebar_widget {get {return null;}}
 
@@ -148,7 +148,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Gtk.Button continue_button;
   private Gtk.Box button_box;
 
-  public CollectionCreatorView (Virtaus.Application app)
+  public ProjectCreatorView (Virtaus.Application app)
   {
     this.app = app;
 
@@ -304,7 +304,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void cancel_button_clicked_cb ()
   {
-    show_view ("collection-selector");
+    show_view ("project-selector");
   }
 
   private void page_button_clicked_cb (Gtk.Button button)
@@ -329,7 +329,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     }
     else
     {
-      create_collection ();
+      create_project ();
       active_page--;
     }
 
@@ -351,7 +351,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
         break;
 
       case 1:
-        valid = (collection_name_entry.text != "" && author_entry.text != "");
+        valid = (project_name_entry.text != "" && author_entry.text != "");
         break;
 
       /* The last two pages has no required fields */
@@ -368,52 +368,52 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     continue_button.sensitive = valid;
   }
 
-  private void create_collection ()
+  private void create_project ()
   {
-    Cream.Collection collection;
+    Cream.Project project;
     Cream.DataSource source;
 
     /* Selected source */
     source = row_to_source[sources_listbox.get_selected_row ()];
 
-    /* Build up collection */
-    collection = new Cream.Collection (source);
-    collection.name = collection_name_entry.text;
-    collection.info["author"] = author_entry.text;
-    collection.info["email"] = email_entry.text;
-    collection.info["path"] = source.location_selector.location;
+    /* Build up project */
+    project = new Cream.Project (source);
+    project.name = project_name_entry.text;
+    project["author"] = author_entry.text;
+    project["email"] = email_entry.text;
+    project["path"] = source.location_selector.location;
 
-    collection.info["audience-age"] = age_entry.text;
-    collection.info["audience-consumption-power"] = consumption_power_buffer.text;
-    collection.info["audience-daily-activities"] = daily_activities_buffer.text;
-    collection.info["audience-frequented-places"] = frequented_places_buffer.text;
-    collection.info["audience-genre"] = genre_entry.text;
-    collection.info["audience-lifestyle"] = lifestyle_buffer.text;
-    collection.info["audience-needs-desires"] = needs_desires_buffer.text;
-    collection.info["audience-physical-features"] = physical_features_buffer.text;
-    collection.info["audience-requirements"] = audience_requirements_buffer.text;
-    collection.info["audience-virtues"] = virtues_buffer.text;
+    project["audience-age"] = age_entry.text;
+    project["audience-consumption-power"] = consumption_power_buffer.text;
+    project["audience-daily-activities"] = daily_activities_buffer.text;
+    project["audience-frequented-places"] = frequented_places_buffer.text;
+    project["audience-genre"] = genre_entry.text;
+    project["audience-lifestyle"] = lifestyle_buffer.text;
+    project["audience-needs-desires"] = needs_desires_buffer.text;
+    project["audience-physical-features"] = physical_features_buffer.text;
+    project["audience-requirements"] = audience_requirements_buffer.text;
+    project["audience-virtues"] = virtues_buffer.text;
 
-    collection.info["competitors-products"] = products_buffer.text;
-    collection.info["competitors-qualities"] = qualities_buffer.text;
-    collection.info["competitors-structure"] = structure_buffer.text;
+    project["competitors-products"] = products_buffer.text;
+    project["competitors-qualities"] = qualities_buffer.text;
+    project["competitors-structure"] = structure_buffer.text;
 
-    collection.info["product-craft-proccess"] = craft_proccess_buffer.text;
-    collection.info["product-features"] = features_buffer.text;
-    collection.info["product-finishing"] = finishing_buffer.text;
-    collection.info["product-functional-configuration"] = functional_configuration_buffer.text;
-    collection.info["product-materials"] = materials_buffer.text;
-    collection.info["product-providers"] = providers_buffer.text;
-    collection.info["product-requirements"] = requirements_buffer.text;
-    collection.info["product-style-elements"] = style_elements_buffer.text;
-    collection.info["product-use-cases"] = use_cases_buffer.text;
-    collection.info["product-viability-analisys"] = viability_analisys_buffer.text;
+    project["product-craft-proccess"] = craft_proccess_buffer.text;
+    project["product-features"] = features_buffer.text;
+    project["product-finishing"] = finishing_buffer.text;
+    project["product-functional-configuration"] = functional_configuration_buffer.text;
+    project["product-materials"] = materials_buffer.text;
+    project["product-providers"] = providers_buffer.text;
+    project["product-requirements"] = requirements_buffer.text;
+    project["product-style-elements"] = style_elements_buffer.text;
+    project["product-use-cases"] = use_cases_buffer.text;
+    project["product-viability-analisys"] = viability_analisys_buffer.text;
 
-    /* Save the collection */
-    source.save (collection as Cream.BaseObject);
+    /* Save the project */
+    source.save (project as Cream.BaseObject);
 
-    /* Return to the Collection view */
-    show_view ("collection-selector");
+    /* Return to the Project view */
+    show_view ("project-selector");
   }
 
   private void clear_pages ()
@@ -421,7 +421,7 @@ public class CollectionCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     author_entry.text = "";
     age_entry.text = "";
     audience_requirements_buffer.text = "";
-    collection_name_entry.text = "";
+    project_name_entry.text = "";
     consumption_power_buffer.text = "";
     craft_proccess_buffer.text = "";
     daily_activities_buffer.text = "";

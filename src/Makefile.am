@@ -26,11 +26,10 @@ VALA_SOURCES = \
     \
     views/virtaus-view.vala \
     views/virtaus-category-view.vala \
-    views/virtaus-collection-creator-view.vala \
-    views/virtaus-collection-selector-view.vala \
+    views/virtaus-project-creator-view.vala \
+    views/virtaus-project-selector-view.vala \
     \
     widgets/virtaus-base-renderer.vala \
-    widgets/virtaus-collection-item.vala \
     widgets/virtaus-selectable-icon-view.vala \
     \
     virtaus-window.vala \

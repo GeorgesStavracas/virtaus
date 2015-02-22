@@ -159,4 +159,14 @@ public class Cream.Project : Cream.BaseObject
   {
     info.insert (key, value);
   }
+
+  public List<string> get_keys ()
+  {
+    return info.get_keys ();
+  }
+
+  public List<string> get_values ()
+  {
+    return info.get_values ();
+  }
 }

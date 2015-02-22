@@ -41,11 +41,11 @@ public Gdk.Pixbuf? get_pixbuf_from_icon_name (string name, int size)
   return pixbuf;
 }
 
-public class CollectionRenderer : Gtk.Widget
+public class ProjectRenderer : Gtk.Widget
 {
   Gdk.Pixbuf? icon = null;
 
-  public Gdk.Pixbuf? render (CollectionIconItem? item)
+  public Gdk.Pixbuf? render (ProjectIconItem? item)
   {
     const int ICON_SIZE = 96;
 
@@ -57,7 +57,7 @@ public class CollectionRenderer : Gtk.Widget
     double stripe_height;
     int font_width, font_height;
 
-    if (item == null || item.collection == null)
+    if (item == null || item.project == null)
       return null;
 
     context = this.get_style_context ();
@@ -76,7 +76,7 @@ public class CollectionRenderer : Gtk.Widget
 
     stripe_height = DEFAULT_SIZE / 6;
 
-    layout = this.create_pango_layout (item.collection.name);
+    layout = this.create_pango_layout (item.project.name);
     layout.set_alignment (Pango.Alignment.CENTER);
     layout.get_pixel_size (out font_width, out font_height);
 

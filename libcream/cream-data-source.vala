@@ -33,7 +33,7 @@ public interface DataSource : GLib.Object
   /**
    * Every data source must provide a way
    * to select the location in which the
-   * collection will be created.
+   * projects will be created.
    */
   public abstract LocationSelector location_selector {get;}
 
@@ -55,12 +55,12 @@ public interface DataSource : GLib.Object
   public abstract string uid {get;}
 
   /**
-   * The read-only list of collections.
+   * The read-only list of projects.
    *
    * It is completely up to the implementor class
    * to define how this will be retrieved.
    */
-  public abstract Gee.LinkedList<Collection>? collections {get;}
+  public abstract GLib.List<Cream.Project>? projects {get;}
 
   public abstract bool save (BaseObject object);
   public abstract bool remove (BaseObject object);

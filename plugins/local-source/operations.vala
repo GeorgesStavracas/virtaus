@@ -16,24 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Gee;
-
 namespace Virtaus.Plugin
 {
 
-internal class CollectionOperation
+internal class ProjectOperation
 {
-  public static bool create (Sqlite.Database db, Cream.Collection collection)
-    requires (collection.id == -1)
+  public static bool create (Sqlite.Database db, Cream.Project project)
+    requires (project.id == -1)
   {
     StringBuilder info_query;
-    MapIterator<string, string> iter;
+    List<string> keys;
     string query, error;
-    int rc;
+    int rc, counter, length;
 
-    /* Collection query */
+    /* Project query */
     query = "INSERT INTO 'Collection' (name, directory) VALUES ('%s', '%s')";
-    query = query.printf (collection.name, collection.info["path"] ?? "");
+    query = query.printf (project.name, project["path"] ?? "");
 
     /* Insert */
     rc = 0;
@@ -45,26 +43,31 @@ internal class CollectionOperation
       return false;
     }
 
-    collection.id = (int) db.last_insert_rowid ();
+    project.id = (int) db.last_insert_rowid ();
 
     /**
-     * Build and insert the collection optional
-     * data after the collection itself because
-     * it's only after it we have the collection
+     * Build and insert the project optional
+     * data after the project itself because
+     * it's only after it we have the project
      * ID, needed by CollectionInfo table.
      */
     info_query = new StringBuilder ("INSERT INTO 'CollectionInfo' (collection, field, value) VALUES ");
 
     /* format info query */
-    iter = collection.info.map_iterator ();
+    keys = project.get_keys ();
 
-    while (iter.next ())
+    counter = 0;
+    length = (int) keys.length ();
+
+    keys.foreach ((val)=>
     {
-      info_query.append_printf ("(%d, '%s', '%s')", collection.id, iter.get_key (), iter.get_value ());
+      info_query.append_printf ("(%d, '%s', '%s')", project.id, val, project[val]);
 
-      if (iter.has_next ())
+      if (counter < length - 1)
         info_query.append (",\n");
-    }
+
+      counter++;
+    });
 
     /* Insert */
     rc = 0;
@@ -79,21 +82,21 @@ internal class CollectionOperation
     return true;
   }
 
-  public static bool update (Sqlite.Database db, Cream.Collection collection)
-    requires (collection.id != -1)
+  public static bool update (Sqlite.Database db, Cream.Project project)
+    requires (project.id != -1)
   {
     message ("update collection");
     return false;
   }
 
-  public static bool remove (Sqlite.Database db, Cream.Collection collection)
-    requires (collection.id != -1)
+  public static bool remove (Sqlite.Database db, Cream.Project project)
+    requires (project.id != -1)
   {
     string query, error;
     int rc;
 
-    /* Remove from Collection */
-    query = "DELETE FROM 'Collection' WHERE id=%d".printf (collection.id);
+    /* Remove from Project */
+    query = "DELETE FROM 'Collection' WHERE id=%d".printf (project.id);
 
     rc = 0;
     rc = db.exec (query, null, out error);
@@ -105,7 +108,7 @@ internal class CollectionOperation
     }
 
     /* Remove from CollectionInfo */
-    query = "DELETE FROM 'CollectionInfo' WHERE collection=%d".printf (collection.id);
+    query = "DELETE FROM 'CollectionInfo' WHERE collection=%d".printf (project.id);
 
     rc = db.exec (query, null, out error);
 
@@ -118,14 +121,14 @@ internal class CollectionOperation
     return true;
   }
 
-  public static LinkedList<Cream.Collection> load_all (SqliteSource instance, Sqlite.Database db)
+  public static GLib.List<Cream.Project> load_all (SqliteSource instance, Sqlite.Database db)
   {
-    LinkedList<Cream.Collection> list;
+    GLib.List<Cream.Project> list;
     Sqlite.Statement stmt;
     string query;
     int rc;
 
-    list = new LinkedList<Cream.Collection> ();
+    list = new GLib.List<Cream.Project> ();
     query = "SELECT * FROM 'Collection'";
 
     /* Perform the selection */
@@ -140,14 +143,14 @@ internal class CollectionOperation
     /* Load each collection from the statement */
     while (stmt.step () == Sqlite.ROW)
     {
-      Cream.Collection collection;
+      Cream.Project project;
 
-      collection = new Cream.Collection (instance);
-      collection.id = stmt.column_int (0);
-      collection.name = stmt.column_text (1);
-      collection.info["path"] = stmt.column_text (2);
+      project = new Cream.Project (instance);
+      project.id = stmt.column_int (0);
+      project.name = stmt.column_text (1);
+      project["path"] = stmt.column_text (2);
 
-      list.add (collection);
+      list.append (project);
     }
 
     return list;
