@@ -46,6 +46,7 @@ virtaus_VALAFLAGS =  \
     @VIRTAUS_PACKAGES@ \
     --vapidir=$(top_srcdir)/libcream \
     --pkg cream \
+    --pkg gee-0.8 \
     --target-glib=2.38 \
     --gresources=virtaus.gresource.xml
 
