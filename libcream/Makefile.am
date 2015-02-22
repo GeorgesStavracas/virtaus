@@ -13,6 +13,7 @@ libcream_la_SOURCES = \
     cream-filter.vala \
     cream-plugin.vala \
     cream-plugin-manager.vala \
+    cream-project.vala \
     cream-settings.vala \
     cream-types.vala
     
