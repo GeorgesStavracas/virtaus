@@ -31,6 +31,18 @@ public class Cream.Project : Cream.BaseObject
   }
 
   /**
+   * A list of child {@link Cream.Set} of this project.
+   */
+  private GLib.List<Cream.Category> categories_ = new GLib.List<Cream.Category> ();
+  public GLib.List<Cream.Category> categories
+  {
+    owned get
+    {
+      return sets_ == null ? null : categories_.copy ();
+    }
+  }
+
+  /**
    * Needed to enable the use of foreach operator.
    */
   public int size
@@ -63,6 +75,15 @@ public class Cream.Project : Cream.BaseObject
   }
 
   /**
+   * Remove the given {@link Cream.Set} from {@link this}.
+   */
+  public void remove_set (Cream.Set @set)
+  {
+    if (this.has_set (set))
+      sets_.remove (set);
+  }
+
+  /**
    * Check whether {@link this} project contains
    * the given {@link Cream.Set}.
    */
@@ -82,6 +103,44 @@ public class Cream.Project : Cream.BaseObject
     return contains;
   }
 
+
+  /**
+   * Add a {@link Cream.Category} to {@link this}.
+   */
+  public void add_category (Cream.Category category)
+  {
+    if (!this.has_category (category))
+      categories_.append (category);
+  }
+
+  /**
+   * Remove the given {@link Cream.Category} from {@link this}.
+   */
+  public void remove_category (Cream.Category category)
+  {
+    if (this.has_category (category))
+      categories_.remove (category);
+  }
+
+  /**
+   * Check whether {@link this} project contains
+   * the given {@link Cream.Category}.
+   */
+  public bool has_category (Cream.Category category)
+  {
+    bool contains = false;
+
+    categories_.foreach ((current)=>
+    {
+      if (current == category)
+      {
+        contains = true;
+        return;
+      }
+    });
+
+    return contains;
+  }
 
   /**
    * Needed to make this class accessable with Vala sugar operator.
