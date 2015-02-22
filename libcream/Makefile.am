@@ -5,6 +5,7 @@ libvirtausinc_HEADERS = cream.h
 noinst_LTLIBRARIES = libcream.la
 
 libcream_la_SOURCES = \
+    cream-context.vala \
     cream-data-source.vala \
     cream-enums.vala \
     cream-exporter.vala \
@@ -12,6 +13,7 @@ libcream_la_SOURCES = \
     cream-filter.vala \
     cream-plugin.vala \
     cream-plugin-manager.vala \
+    cream-settings.vala \
     cream-types.vala
     
 libcream_la_VALAFLAGS = \
