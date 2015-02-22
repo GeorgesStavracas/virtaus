@@ -18,7 +18,7 @@
 
 public class Cream.Settings : GLib.Object
 {
-  public unowned Cream.Context context {get; construct set;}
+  public unowned Cream.Context context {get; construct;}
 
   /**
    * The fallback schema when no schema is given.
