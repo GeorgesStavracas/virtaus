@@ -11,6 +11,7 @@ libcream_la_SOURCES = \
     cream-exporter.vala \
     cream-extension-info.vala \
     cream-filter.vala \
+    cream-model.vala \
     cream-plugin.vala \
     cream-plugin-manager.vala \
     cream-project.vala \
