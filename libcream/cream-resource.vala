@@ -42,6 +42,14 @@ public abstract class Cream.Resource : GLib.Object
   public bool open {get; set; default = false;}
 
   /**
+   * The type if this resource.
+   *
+   * Can be a mimetype, a (list of) file extensions, or anything
+   * that might identify this resource's type.
+   */
+  public abstract string resource_type {get;}
+
+  /**
    * Whether the resource is valid or not.
    *
    * Only the corresponding {@link Cream.ResourceHandler} should ever
