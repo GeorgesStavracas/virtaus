@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public abstract class Cream.Model : GLib.Object
+public interface Cream.Model : GLib.Object
 {
   /**
    * Name of the model.
