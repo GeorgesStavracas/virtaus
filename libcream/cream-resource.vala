@@ -62,3 +62,13 @@ public abstract class Cream.Resource : GLib.Object
     Object (uri: uri);
   }
 }
+
+/**
+ * List of possible resource-specific errors.
+ */
+public errordomain ResourceError
+{
+  NULL,
+  INVALID,
+  NOT_OPEN
+}
