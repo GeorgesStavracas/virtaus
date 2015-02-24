@@ -40,9 +40,17 @@ public interface Cream.ResourceHandler : GLib.Object
   public abstract void open (Cream.Resource resource) throws GLib.Error;
 
   /**
+   * Retrieves the data of the given resource.
+   *
+   * It is up to the {@link Cream.ResourceHandler} implementation to know
+   * what data should be read and how the data should be treated.
+   */
+  public abstract void* get_data (Cream.Resource resource) throws GLib.Error;
+
+  /**
    * Saves the given resource.
    */
-  public abstract void save (Cream.Resource resource) throws GLib.Error;
+  public abstract void save (Cream.Resource resource, void* data) throws GLib.Error;
 
   /**
    * Closes the given resource.
