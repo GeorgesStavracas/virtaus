@@ -54,6 +54,11 @@ public class Cream.Project : Cream.BaseObject
   }
 
   /**
+   * The {@link Cream.Model} of this project.
+   */
+  public unowned Cream.Model? model {get; construct;}
+
+  /**
    * The internal hash of info.
    */
   private GLib.HashTable<string, string> info;
