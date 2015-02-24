@@ -31,6 +31,7 @@ libcream_la_VALAFLAGS = \
     --pkg gmodule-2.0 \
     --pkg gee-0.8 \
     --library=cream \
+    --gresources=cream.gresource.xml \
     @VIRTAUS_PACKAGES@
 
 libcream_la_CFLAGS = \
@@ -50,6 +51,7 @@ libcream_la_LDFLAGS = \
 
 BUILT_SOURCES = \
     libcream.vapi \
+    cream-resources.c \
     cream.h
 
 VAPI_FILES = cream.vapi
@@ -58,6 +60,11 @@ DEPS_FILE = libcream.deps
 vapidir = $(VAPIDIR)
 vapi_DATA = $(VAPI_FILES) $(DEPS_FILES)
 libcream.vapi cream.h: libcream_la_vala.stamp
+
+resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(top_srcdir)/libcream $(top_srcdir)/libcream/cream.gresource.xml)
+
+cream-resources.c: cream.gresource.xml $(resource_files)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(top_srcdir)/libcream --generate-source $<
 
 clean-local:
 	rm -rf $(libcream_la_SOURCES:.vala=.c) *.stamp $(BUILT_SOURCES)
