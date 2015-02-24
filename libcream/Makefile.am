@@ -5,6 +5,8 @@ libvirtausinc_HEADERS = cream.h
 noinst_LTLIBRARIES = libcream.la
 
 libcream_la_SOURCES = \
+    resources/cream-image-resource.vala \
+    resources/cream-image-resource-handler.vala \
     cream-context.vala \
     cream-data-source.vala \
     cream-enums.vala \
