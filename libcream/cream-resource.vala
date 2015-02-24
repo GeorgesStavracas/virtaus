@@ -31,7 +31,7 @@ public abstract class Cream.Resource : GLib.Object
    *
    * This field cannot be modified after the construction of the resource.
    */
-  public abstract string uri {get; construct;}
+  public string uri {get; construct;}
 
   /**
    * Whether the resource is opened or not.
