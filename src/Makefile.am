@@ -60,6 +60,11 @@ resource_files = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sou
 virtaus-resources.c: virtaus.gresource.xml $(resource_files)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
 
+CLEANFILES=\
+    $(VALA_SOURCES:.vala=.c) \
+    *.stamp \
+    $(BUILT_SOURCES)
+
 EXTRA_DIST= \
     $(resource_files) \
     virtaus.gresource.xml

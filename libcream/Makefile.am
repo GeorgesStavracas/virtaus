@@ -57,6 +57,9 @@ vapidir = $(VAPIDIR)
 vapi_DATA = $(VAPI_FILES) $(DEPS_FILES)
 libcream.vapi cream.h: libcream_la_vala.stamp
 
+clean-local:
+	rm -rf $(libcream_la_SOURCES:.vala=.c) *.stamp $(BUILT_SOURCES)
+
 MAINTAINERCLEANFILES = $(BUILT_SOURCES)
 
 EXTRA_DIST = \
