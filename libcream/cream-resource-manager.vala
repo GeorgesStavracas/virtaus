@@ -48,29 +48,31 @@ public class Cream.ResourceManager : GLib.Object
    * Register a new resource type.
    */
   public void register_resource (GLib.Type type, string extension_name)
-    requires (type == typeof (Cream.Resource))
   {
     GLib.IOExtensionPoint.implement (RESOURCE_EXTENSION_POINT, type, extension_name, 0);
+
+    debug ("registering resource '%s'", extension_name);
   }
 
   /**
    * Register a new resource handler.
    */
-  public void register_handler (GLib.Type type, string extension_name, int priority)
-    requires (type == typeof (Cream.ResourceHandler))
+  public void register_handler (GLib.Type type, string extension_name)
   {
     Cream.ResourceHandler handler;
 
-    GLib.IOExtensionPoint.implement (RESOURCE_HANDLER_EXTENSION_POINT, type, extension_name, priority);
-
     /* register the types */
     handler = GLib.Object.new (type, null) as Cream.ResourceHandler;
+
+    GLib.IOExtensionPoint.implement (RESOURCE_HANDLER_EXTENSION_POINT, type, extension_name, handler.priority);
 
     handler.types.foreach ((t)=>
     {
       /* FIXME: should respect the priority field */
       handler_for_type.insert (t, type);
     });
+
+    debug ("registering handler '%s'", extension_name);
   }
 
   /**

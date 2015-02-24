@@ -35,6 +35,15 @@ public class Cream.Context : GLib.Object
    */
   public Cream.ResourceManager resource_manager {get; private set;}
 
+  /**
+   * List of models.
+   */
+  public GLib.List<Cream.Model> _models = new GLib.List<Cream.Model> ();
+  public GLib.List<Cream.Model> models
+  {
+    owned get {return _models.copy ();}
+  }
+
   public Context ()
   {
     settings = new Cream.Settings (this, DEFAULT_SCHEMA);
@@ -42,4 +51,19 @@ public class Cream.Context : GLib.Object
     resource_manager = new Cream.ResourceManager (this);
   }
 
+  /**
+   * Add a new model to the list.
+   */
+  public void add_model (Cream.Model model)
+  {
+    _models.append (model);
+  }
+
+  /**
+   * Remove the given model from the list.
+   */
+  public void remove_model (Cream.Model model)
+  {
+    _models.remove_all (model);
+  }
 }
