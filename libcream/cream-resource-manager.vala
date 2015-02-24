@@ -42,6 +42,10 @@ public class Cream.ResourceManager : GLib.Object
     handlers_point.set_required_type (typeof (Cream.ResourceHandler));
 
     handler_for_type = new GLib.HashTable<string, GLib.Type> (GLib.str_hash, GLib.str_equal);
+
+    /* Built-in resources */
+    register_resource (typeof (Cream.ImageResource), "cream-image-resource");
+    register_handler (typeof (Cream.ImageResourceHandler), "cream-image-handler");
   }
 
   /**
