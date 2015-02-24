@@ -24,6 +24,11 @@ public abstract class Cream.Model : GLib.Object
   public abstract string name {get;}
 
   /**
+   * Author of this model.
+   */
+  public abstract string author {get;}
+
+  /**
    * Icon of the project.
    */
   public abstract Gdk.Pixbuf? icon {get;}
