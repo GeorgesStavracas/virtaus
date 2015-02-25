@@ -49,6 +49,9 @@ public class Cream.Context : GLib.Object
     settings = new Cream.Settings (this, DEFAULT_SCHEMA);
     plugin_manager = new Cream.PluginManager ();
     resource_manager = new Cream.ResourceManager (this);
+
+    /* Default built-in models */
+    add_model (new Cream.ImageModel ());
   }
 
   /**
@@ -56,6 +59,8 @@ public class Cream.Context : GLib.Object
    */
   public void add_model (Cream.Model model)
   {
+    debug ("registering model '%s'", model.name);
+
     _models.append (model);
   }
 
@@ -64,6 +69,8 @@ public class Cream.Context : GLib.Object
    */
   public void remove_model (Cream.Model model)
   {
+    debug ("registering model '%s'", model.name);
+
     _models.remove_all (model);
   }
 }
