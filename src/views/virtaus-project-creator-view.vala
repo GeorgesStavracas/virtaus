@@ -124,11 +124,8 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   public Gtk.Widget? titlebar_widget {get {return null;}}
 
   /**
-   * A map of row -> data source and uid -> data source
+   * A map of uid -> data source
    */
-  private HashMap<Gtk.ListBoxRow, Cream.DataSource> row_to_source =
-                                                               new HashMap<Gtk.ListBoxRow, Cream.DataSource> ();
-
   private HashMap<string, Cream.DataSource> uid_to_source = new HashMap<string, Cream.DataSource> ();
 
   /**
@@ -214,9 +211,9 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     row.height_request = 40;
 
     row.add (new Gtk.Label (data_source.name));
+    row.set_data ("source", source.instance);
 
     uid_to_source[uid] = data_source;
-    row_to_source[row] = data_source;
 
     row.show_all ();
     sources_listbox.add (row);
@@ -224,28 +221,30 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
   private void remove_source (string uid)
   {
+    GLib.List<Gtk.Widget> children;
     Cream.DataSource data_source;
     Gtk.ListBoxRow? row;
+
     data_source = uid_to_source[uid] as Cream.DataSource;
+    children = sources_listbox.get_children ();
 
     /* Search for the correct row */
     row = null;
 
-    foreach (var tmp in row_to_source.keys)
+    children.foreach ((entry)=>
     {
-      if (row_to_source[tmp] == data_source)
+      if (entry.get_data<Cream.DataSource> ("source") == data_source)
       {
-        row = tmp;
-        break;
+        row = entry as Gtk.ListBoxRow;
+        return;
       }
-    }
+    });
 
     if (row == null)
       return;
 
     /* Remove things */
     row.destroy ();
-    row_to_source.unset (row);
     uid_to_source.unset (uid);
   }
 
@@ -280,7 +279,7 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
       return;
 
     /* Retrieve the data source */
-    source = row_to_source[row];
+    source = row.get_data ("source");
 
     /* Add the selector */
     location_box.add (source.location_selector);
@@ -374,7 +373,7 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     Cream.DataSource source;
 
     /* Selected source */
-    source = row_to_source[sources_listbox.get_selected_row ()];
+    source = sources_listbox.get_selected_row ().get_data ("source");
 
     /* Build up project */
     project = new Cream.Project (source);
