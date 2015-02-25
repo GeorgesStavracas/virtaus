@@ -20,13 +20,6 @@
 namespace Cream
 {
 
-public class BaseObject : GLib.Object
-{
-	public int id {get; set; default = -1;}
-	public string name {public get; public set; default = "";}
-	public DataSource source {public get; construct set;}
-}
-
 public class Attribute : BaseObject
 {
 	public Gee.HashMap <string, Item> item_map {public get; construct set;}

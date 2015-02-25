@@ -255,7 +255,7 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
     /* Project */
     if (object is Cream.Project)
     {
-      if (object.id == -1) // Create the project
+      if (object.uid == "(null)") // Create the project
       {
         result = ProjectOperation.create (database, object as Cream.Project);
 

@@ -9,6 +9,7 @@ libcream_la_SOURCES = \
     models/image/cream-image-renderer.vala \
     resources/cream-image-resource.vala \
     resources/cream-image-resource-handler.vala \
+    cream-base-object.vala \
     cream-context.vala \
     cream-data-source.vala \
     cream-enums.vala \

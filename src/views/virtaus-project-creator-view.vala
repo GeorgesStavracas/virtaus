@@ -484,7 +484,6 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     project["model"] = models_listbox.get_selected_row ().get_data<Cream.Model> ("model").uid;
 
     /* Save the project */
-    message ("project id: %d", project.id);
     source.save (project as Cream.BaseObject);
 
     /* Return to the Project view */

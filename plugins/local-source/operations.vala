@@ -22,7 +22,7 @@ namespace Virtaus.Plugin
 internal class ProjectOperation
 {
   public static bool create (Sqlite.Database db, Cream.Project project)
-    requires (project.id == -1)
+    requires (project.uid == "(null)")
   {
     StringBuilder info_query;
     List<string> keys;
@@ -43,7 +43,7 @@ internal class ProjectOperation
       return false;
     }
 
-    project.id = (int) db.last_insert_rowid ();
+    project.uid = "%d".printf ((int) db.last_insert_rowid ());
 
     /**
      * Build and insert the project optional
@@ -61,7 +61,7 @@ internal class ProjectOperation
 
     keys.foreach ((val)=>
     {
-      info_query.append_printf ("(%d, '%s', '%s')", project.id, val, project[val]);
+      info_query.append_printf ("(%s, '%s', '%s')", project.uid, val, project[val]);
 
       if (counter < length - 1)
         info_query.append (",\n");
@@ -83,20 +83,20 @@ internal class ProjectOperation
   }
 
   public static bool update (Sqlite.Database db, Cream.Project project)
-    requires (project.id != -1)
+    requires (project.uid != "(null)")
   {
     message ("update collection");
     return false;
   }
 
   public static bool remove (Sqlite.Database db, Cream.Project project)
-    requires (project.id != -1)
+    requires (project.uid != "(null)")
   {
     string query, error;
     int rc;
 
     /* Remove from Project */
-    query = "DELETE FROM 'Collection' WHERE id=%d".printf (project.id);
+    query = "DELETE FROM 'Collection' WHERE id=%s".printf (project.uid);
 
     rc = 0;
     rc = db.exec (query, null, out error);
@@ -108,7 +108,7 @@ internal class ProjectOperation
     }
 
     /* Remove from CollectionInfo */
-    query = "DELETE FROM 'CollectionInfo' WHERE collection=%d".printf (project.id);
+    query = "DELETE FROM 'CollectionInfo' WHERE collection=%s".printf (project.uid);
 
     rc = db.exec (query, null, out error);
 
@@ -146,7 +146,7 @@ internal class ProjectOperation
       Cream.Project project;
 
       project = new Cream.Project (instance);
-      project.id = stmt.column_int (0);
+      project.uid = "%d".printf (stmt.column_int (0));
       project.name = stmt.column_text (1);
       project["path"] = stmt.column_text (2);
 
