@@ -25,6 +25,7 @@ internal class ProjectOperation
     requires (project.uid == "(null)")
   {
     StringBuilder info_query;
+    unowned List<string> aux;
     List<string> keys;
     string query, error;
     int rc, counter, length;
@@ -59,15 +60,15 @@ internal class ProjectOperation
     counter = 0;
     length = (int) keys.length ();
 
-    keys.foreach ((val)=>
+    for (aux = keys; aux != null; aux = aux.next)
     {
-      info_query.append_printf ("(%s, '%s', '%s')", project.uid, val, project[val]);
+      info_query.append_printf ("(%s, '%s', '%s')", project.uid, aux.data, project[aux.data]);
 
       if (counter < length - 1)
         info_query.append (",\n");
 
       counter++;
-    });
+    }
 
     /* Insert */
     rc = 0;
