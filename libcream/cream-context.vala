@@ -20,6 +20,10 @@ public class Cream.Context : GLib.Object
 {
   public const string DEFAULT_SCHEMA = "apps.virtaus";
 
+  /* Signals */
+  public signal void model_added (Cream.Model model);
+  public signal void model_removed (Cream.Model model);
+
   /**
    * The {@link Cream.Settings} of this instance.
    */
@@ -62,6 +66,9 @@ public class Cream.Context : GLib.Object
     debug ("registering model '%s'", model.name);
 
     _models.append (model);
+
+    // send the signal
+    model_added (model);
   }
 
   /**
@@ -72,5 +79,8 @@ public class Cream.Context : GLib.Object
     debug ("registering model '%s'", model.name);
 
     _models.remove_all (model);
+
+    // send the signal
+    model_removed (model);
   }
 }
