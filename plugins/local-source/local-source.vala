@@ -199,7 +199,10 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
 		/* Create thread */
 		try
 		{
-			GLib.Thread.create<void*> (run, false);
+			GLib.Thread<void*> thread;
+
+			thread = new GLib.Thread<void*>.try ("loader-thread", run);
+			thread.join ();
 		}
 		catch (GLib.Error error)
 		{
