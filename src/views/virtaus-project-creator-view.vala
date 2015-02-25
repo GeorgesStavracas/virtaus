@@ -91,6 +91,10 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private Gtk.Label review_location_label;
   [GtkChild]
   private Gtk.ListBox sources_listbox;
+  [GtkChild]
+  private Gtk.ListBox models_listbox;
+  [GtkChild]
+  private Gtk.Image model_image;
 
   /* Binding between location selector & location label */
   GLib.Binding location_bind = null;
@@ -173,6 +177,15 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 
     foreach (string key in app.context.plugin_manager.data_sources.keys)
       add_source (app.context.plugin_manager.data_sources.get (key), key);
+
+    /* load models */
+    app.context.model_added.connect (add_model_cb);
+    app.context.model_removed.connect (remove_model_cb);
+
+    app.context.models.foreach ((model)=>
+    {
+      add_model_cb (model);
+    });
 
     this.show_all ();
   }
@@ -292,6 +305,23 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   }
 
   /**
+   * Updates the current selected model
+   */
+  [GtkCallback]
+  private void model_listbox_row_selected_cb (Gtk.ListBoxRow? row)
+  {
+    Cream.Model model;
+
+    if (row == null)
+      return;
+
+    model = row.get_data ("model");
+    model_image.pixbuf = model.icon;
+
+    validate_page (active_page);
+  }
+
+  /**
    * Revalidate the page every time
    * the name or author changes.
    */
@@ -304,6 +334,48 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
   private void cancel_button_clicked_cb ()
   {
     show_view ("project-selector");
+  }
+
+  private void add_model_cb (Cream.Model model)
+  {
+    Gtk.ListBoxRow row;
+    Gtk.Label name, author;
+    Gtk.Box box;
+
+    name = new Gtk.Label (model.name);
+    name.xalign = 0;
+
+    author = new Gtk.Label (null);
+    author.set_markup ("<span size='small'>%s</span>".printf (model.author));
+    author.get_style_context ().add_class ("dim-label");
+    author.xalign = 0;
+
+    row = new Gtk.ListBoxRow ();
+
+    box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+    box.border_width = 12;
+
+    box.add (name);
+    box.add (author);
+    row.add (box);
+
+    row.show_all ();
+    row.set_data ("model", model);
+
+    models_listbox.add (row);
+  }
+
+  private void remove_model_cb (Cream.Model model)
+  {
+    GLib.List<weak Gtk.Widget> children;
+
+    children = models_listbox.get_children ();
+
+    children.foreach ((child)=>
+    {
+      if (child.get_data<Cream.Model> ("model") == model)
+        models_listbox.remove (child);
+    });
   }
 
   private void page_button_clicked_cb (Gtk.Button button)
@@ -350,7 +422,8 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
         break;
 
       case 1:
-        valid = (project_name_entry.text != "" && author_entry.text != "");
+        valid = (project_name_entry.text != "" && author_entry.text != "" &&
+                 models_listbox.get_selected_row () != null);
         break;
 
       /* The last two pages has no required fields */
@@ -408,7 +481,10 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     project["product-use-cases"] = use_cases_buffer.text;
     project["product-viability-analisys"] = viability_analisys_buffer.text;
 
+    project["model"] = models_listbox.get_selected_row ().get_data<Cream.Model> ("model").uid;
+
     /* Save the project */
+    message ("project id: %d", project.id);
     source.save (project as Cream.BaseObject);
 
     /* Return to the Project view */
