@@ -24,7 +24,8 @@ libcream_la_SOURCES = \
     cream-resource-handler.vala \
     cream-resource-manager.vala \
     cream-settings.vala \
-    cream-types.vala
+    cream-types.vala \
+    cream-resources.c
     
 libcream_la_VALAFLAGS = \
     --vapidir=$(srcdir) \
