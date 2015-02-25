@@ -18,6 +18,7 @@
 
 public class Cream.ImageModel : GLib.Object, Cream.Model
 {
+  public string uid {get {return "image-project@virtaus.built-in";}}
   public string name {get {return _("Image project");}}
   public string author {get {return _("The Virtaus team");}}
 

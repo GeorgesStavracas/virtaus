@@ -19,6 +19,11 @@
 public interface Cream.Model : GLib.Object
 {
   /**
+   * Unique identifier of the model.
+   */
+  public abstract string uid {get;}
+
+  /**
    * Name of the model.
    */
   public abstract string name {get;}
