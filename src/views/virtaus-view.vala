@@ -29,6 +29,8 @@ public enum Mode
 
 public interface AbstractView : GLib.Object
 {
+  public signal void send_object (string view, Cream.BaseObject? data);
+
   /**
    * Whether the view implements {@link Virtaus.View.Mode.SEARCH} mode.
    *
@@ -106,6 +108,11 @@ public interface AbstractView : GLib.Object
    * Called when the view is not the active view anymore.
    */
   public abstract new void deactivate ();
+
+  /**
+   * Setup any {@link Cream.BaseObject} needed.
+   */
+  public abstract void set_object (Cream.BaseObject? object);
 }
 
 }

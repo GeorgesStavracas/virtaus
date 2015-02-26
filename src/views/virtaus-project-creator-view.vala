@@ -490,6 +490,11 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     show_view ("project-selector");
   }
 
+  public void set_object (Cream.BaseObject? object)
+  {
+    /* STUB */
+  }
+
   private void clear_pages ()
   {
     author_entry.text = "";

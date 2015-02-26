@@ -122,6 +122,11 @@ public class ProjectSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     /* TODO: implement search */
   }
 
+  public void set_object (Cream.BaseObject? object)
+  {
+    /* stub */
+  }
+
   public new void activate ()
   {
     /* populate the grid */
