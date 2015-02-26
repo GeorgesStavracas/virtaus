@@ -306,19 +306,16 @@ private class SelectableCellRenderer : Gtk.CellRendererPixbuf
  */
 public class ProjectIconItem : GLib.Object, Virtaus.SelectableItem
 {
-  private ProjectRenderer renderer;
-
   public Cream.Project project {get; construct set;}
   public string? name {get {return project.name;}}
   public Gdk.Pixbuf? pixbuf
   {
-    owned get {return renderer.render (this);}
+    owned get {return project.model.create_renderer ().render (project, 256, 256);}
   }
 
   public ProjectIconItem (Cream.Project project)
   {
     this.project = project;
-    this.renderer = new ProjectRenderer ();
   }
 }
 }

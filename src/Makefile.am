@@ -29,7 +29,6 @@ VALA_SOURCES = \
     views/virtaus-project-creator-view.vala \
     views/virtaus-project-selector-view.vala \
     \
-    widgets/virtaus-base-renderer.vala \
     widgets/virtaus-selectable-icon-view.vala \
     \
     virtaus-window.vala \
