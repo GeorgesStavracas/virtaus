@@ -24,7 +24,7 @@ internal class Example : Peas.ExtensionBase, Cream.Plugin, Peas.Activatable
 	public GLib.Object object { owned get; construct; }
 
 
-	public void hook (Cream.PluginManager manager)
+	public void hook (Cream.Context context)
 	{
     Cream.ExtensionInfo info;
 
@@ -36,7 +36,7 @@ internal class Example : Peas.ExtensionBase, Cream.Plugin, Peas.Activatable
 	  info.instance = this;
 	}
 
-  public void unhook (Cream.PluginManager manager)
+  public void unhook (Cream.Context context)
   {
   }
 

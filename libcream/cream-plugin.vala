@@ -20,7 +20,6 @@
 
 public interface Cream.Plugin : GLib.Object
 {
-  public abstract void hook (PluginManager manager);
-  public abstract void unhook (PluginManager manager);
-
+  public abstract void hook (Cream.Context context);
+  public abstract void unhook (Cream.Context context);
 }

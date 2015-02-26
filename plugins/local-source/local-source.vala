@@ -115,7 +115,7 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
 	  }
   }
 
-	public void hook (Cream.PluginManager manager)
+	public void hook (Cream.Context context)
 	{
     Cream.ExtensionInfo info;
 
@@ -126,12 +126,12 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
 	  info.description = "Local data source using a SQLite database";
 	  info.instance = this;
 
-	  manager.register_data_source (uid, info);
+	  context.plugin_manager.register_data_source (uid, info);
 	}
 
-  public void unhook (Cream.PluginManager manager)
+  public void unhook (Cream.Context context)
   {
-    manager.unregister_data_source (uid);
+    context.plugin_manager.unregister_data_source (uid);
   }
 
 	public void activate ()

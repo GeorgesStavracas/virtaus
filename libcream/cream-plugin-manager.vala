@@ -29,6 +29,8 @@ public class Cream.PluginManager : GLib.Object
 	public signal void plugin_registered (Cream.ExtensionInfo plugin, string uid);
 	public signal void plugin_unregistered (string uid);
 
+	public weak Cream.Context context {get; construct;}
+
 	/* Peas */
   public Peas.Engine engine {private set; public get;}
   public Peas.ExtensionSet extension_set {private set; public get;}
@@ -41,8 +43,10 @@ public class Cream.PluginManager : GLib.Object
 	/* Settings */
 	private GLib.Settings settings {public get; private set;}
 
-	public PluginManager ()
+	public PluginManager (Cream.Context context)
 	{
+	  Object (context: context);
+
 		/* Setup plugin engine */
 		engine = Peas.Engine.get_default ();
 		engine.enable_loader ("python3");
@@ -63,10 +67,13 @@ public class Cream.PluginManager : GLib.Object
 		/* Setup extension set */
 		extension_set = new Peas.ExtensionSet (engine, typeof (Peas.Activatable), null);
 
-    /* Chain (de)activation signal */
+		/* Chain (de)activation signal */
     extension_set.extension_added.connect (on_extension_added);
 		extension_set.extension_removed.connect (on_extension_removed);
+	}
 
+  public void load_plugins ()
+  {
     /**
      * When the signals are connected, we may already
      * have some extensions loaded and active. For these
@@ -78,7 +85,7 @@ public class Cream.PluginManager : GLib.Object
     {
       on_extension_added (info, extension);
     });
-	}
+  }
 
 	public void reload_plugins ()
 	{
@@ -95,14 +102,14 @@ public class Cream.PluginManager : GLib.Object
   void on_extension_added (Peas.PluginInfo info, GLib.Object extension)
 	{
     (extension as Peas.Activatable).activate ();
-    (extension as Cream.Plugin).hook (this);
+    (extension as Cream.Plugin).hook (context);
 	}
 
 	/* Deactivate plugin on signal */
 	void on_extension_removed (Peas.PluginInfo info, GLib.Object extension)
 	{
     (extension as Peas.Activatable).deactivate ();
-    (extension as Cream.Plugin).unhook (this);
+    (extension as Cream.Plugin).unhook (context);
 	}
 
 	/* Register & unregister DataSources */

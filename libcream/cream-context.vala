@@ -51,8 +51,11 @@ public class Cream.Context : GLib.Object
   public Context ()
   {
     settings = new Cream.Settings (this, DEFAULT_SCHEMA);
-    plugin_manager = new Cream.PluginManager ();
+    plugin_manager = new Cream.PluginManager (this);
     resource_manager = new Cream.ResourceManager (this);
+
+    /* Lazy load the plugins */
+    plugin_manager.load_plugins ();
 
     /* Default built-in models */
     add_model (new Cream.ImageModel ());
