@@ -165,8 +165,6 @@ internal class ProjectOperation
 
         project[key] = val;
 
-        debug ("loaded project info ('%d,'%d') '%s':'%s'", stmt.column_int (0), stmt.column_int (3), key, val);
-
         valid = (stmt.step () == Sqlite.ROW);
 
         if (!valid)
