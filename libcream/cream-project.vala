@@ -56,7 +56,7 @@ public class Cream.Project : Cream.BaseObject
   /**
    * The {@link Cream.Model} of this project.
    */
-  public unowned Cream.Model? model {get; construct;}
+  public unowned Cream.Model? model {get; set;}
 
   /**
    * The internal hash of info.
