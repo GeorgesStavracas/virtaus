@@ -86,4 +86,20 @@ public class Cream.Context : GLib.Object
     // send the signal
     model_removed (model);
   }
+
+  public Cream.Model? get_model_for_uid (string uid)
+  {
+    weak GLib.List<Cream.Model> aux;
+
+    for (aux = _models; aux != null; aux = aux.next)
+    {
+      if (aux.data.uid == uid)
+      {
+        message ("found model for uid '%s'", uid);
+        return aux.data;
+      }
+    }
+
+    return null;
+  }
 }
