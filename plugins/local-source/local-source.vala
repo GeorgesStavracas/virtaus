@@ -25,6 +25,8 @@ namespace Virtaus.Plugin
 internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource, Peas.Activatable
 {
 	public GLib.Object object { owned get; construct; }
+	public weak Cream.Context context {get; set;}
+
 	/**
 	 * The database file path. By default, Environment.user_config_dir ().
 	 *
@@ -125,6 +127,8 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
 	  info.author = "Georges Basile Stavracas Neto <georges.stavracas@gmail.com>";
 	  info.description = "Local data source using a SQLite database";
 	  info.instance = this;
+
+    this.context = context;
 
 	  context.plugin_manager.register_data_source (uid, info);
 	}
@@ -238,7 +242,7 @@ internal class SqliteSource : Peas.ExtensionBase, Cream.Plugin, Cream.DataSource
       /* Load projects */
       if (projects_ == null)
       {
-        projects_ = ProjectOperation.load_all (this, database);
+        projects_ = ProjectOperation.load_all (this, database, context);
       }
 
       return projects_;

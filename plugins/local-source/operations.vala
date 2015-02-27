@@ -122,15 +122,16 @@ internal class ProjectOperation
     return true;
   }
 
-  public static GLib.List<Cream.Project> load_all (SqliteSource instance, Sqlite.Database db)
+  public static GLib.List<Cream.Project> load_all (SqliteSource instance, Sqlite.Database db, Cream.Context context)
   {
     GLib.List<Cream.Project> list;
     Sqlite.Statement stmt;
     string query;
+    bool valid;
     int rc;
 
     list = new GLib.List<Cream.Project> ();
-    query = "SELECT * FROM 'Collection'";
+    query = "SELECT * FROM Collection c, CollectionInfo ci WHERE c.id = ci.collection";
 
     /* Perform the selection */
     rc = db.prepare_v2 (query, -1, out stmt);
@@ -142,7 +143,9 @@ internal class ProjectOperation
     }
 
     /* Load each collection from the statement */
-    while (stmt.step () == Sqlite.ROW)
+    valid = (stmt.step () == Sqlite.ROW);
+
+    while (valid)
     {
       Cream.Project project;
 
@@ -150,6 +153,32 @@ internal class ProjectOperation
       project.uid = "%d".printf (stmt.column_int (0));
       project.name = stmt.column_text (1);
       project["path"] = stmt.column_text (2);
+
+      debug ("loaded project uid:'%s', name:'%s'", project.uid, project.name);
+
+      while (stmt.column_int (0) == project.uid.to_int ())
+      {
+        string key, val;
+
+        key = stmt.column_text (4);
+        val = stmt.column_text (5);
+
+        project[key] = val;
+
+        debug ("loaded project info ('%d,'%d') '%s':'%s'", stmt.column_int (0), stmt.column_int (3), key, val);
+
+        valid = (stmt.step () == Sqlite.ROW);
+
+        if (!valid)
+          break;
+      }
+
+      /**
+       * If the project has a model (which is required),
+       * load it.
+       */
+      if (project["model"] != null)
+        project.model = context.get_model_for_uid (project["model"]);
 
       list.append (project);
     }
