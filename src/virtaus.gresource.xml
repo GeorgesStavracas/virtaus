@@ -5,6 +5,7 @@
     <file compressed="true" preprocess="xml-stripblanks">resources/category.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/project-selector.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/project-creator.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">resources/project-view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/menu.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/preferences.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">resources/window.ui</file>

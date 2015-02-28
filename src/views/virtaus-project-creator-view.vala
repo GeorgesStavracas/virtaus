@@ -25,7 +25,7 @@ namespace Virtaus.View
 [GtkTemplate (ui = "/apps/virtaus/resources/project-creator.ui")]
 public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
 {
-  private Virtaus.Application app;
+  private weak Virtaus.Application app;
 
   /**
    * Text buffers and entries.

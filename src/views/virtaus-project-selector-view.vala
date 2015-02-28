@@ -238,7 +238,7 @@ public class ProjectSelectorView : Gtk.Frame, Virtaus.View.AbstractView
     iconview.model.get_iter (out iter, path);
     iconview.model.get (iter, 1, out item);
 
-    //show_view ("category");
+    show_view ("project-view");
   }
 }
 }

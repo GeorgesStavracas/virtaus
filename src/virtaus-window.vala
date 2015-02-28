@@ -194,25 +194,27 @@ public class Window : Gtk.ApplicationWindow
 
     /* project view */
     view = new Virtaus.View.ProjectSelectorView (app);
-    view.register_widget.connect (register_widget);
-    view.remove_widget.connect (remove_widget);
-    view.show_view.connect (show_stack_child);
-
-    views.set ("project-selector", view);
-    views_stack.add_named (view as Gtk.Widget, "project-selector");
-    views_stack.visible_child = view as Gtk.Widget;
-
-    // Project selector view is always the first active view
-    active_view = view;
+    add_view (view, "project-selector");
 
     /* project wizard view */
-    view = new Virtaus.View.ProjectCreatorView (app);
+    add_view (new Virtaus.View.ProjectCreatorView (app), "project-creator");
+
+    /* project wizard view */
+    add_view (new Virtaus.View.Project (app), "project-view");
+
+    // Project selector view is always the first active view
+    views_stack.visible_child = view as Gtk.Widget;
+    active_view = view;
+  }
+
+  private void add_view (Virtaus.View.AbstractView view, string name)
+  {
     view.register_widget.connect (register_widget);
     view.remove_widget.connect (remove_widget);
     view.show_view.connect (show_stack_child);
 
-    views.set ("project-creator", view);
-    views_stack.add_named (view as Gtk.Widget, "project-creator");
+    views.set (name, view);
+    views_stack.add_named (view as Gtk.Widget, name);
   }
 
   private void register_widget (WindowLocation location, Gtk.Widget widget, Gtk.Align halign, Gtk.Align valign)
