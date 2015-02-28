@@ -451,6 +451,7 @@ public class ProjectCreatorView : Gtk.Frame, Virtaus.View.AbstractView
     /* Build up project */
     project = new Cream.Project (source);
     project.name = project_name_entry.text;
+    project.model = models_listbox.get_selected_row ().get_data<Cream.Model> ("model");
     project["author"] = author_entry.text;
     project["email"] = email_entry.text;
     project["path"] = source.location_selector.location;
